@@ -445,7 +445,7 @@ p {
 
 .btn-primary {
     background: var(--accent);
-    color: var(--dark);
+    color: var(--white);
 }
 
 .btn-primary:hover {
