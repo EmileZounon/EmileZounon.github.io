@@ -176,10 +176,22 @@ p {
 
 .nav-logo:hover {
     color: var(--accent);
-    text-shadow:
-        0 0 8px rgba(3, 126, 243, 0.8),
-        0 0 20px rgba(3, 126, 243, 0.5),
-        0 0 40px rgba(3, 126, 243, 0.3);
+    animation: egzPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes egzPulse {
+    0%, 100% {
+        text-shadow:
+            0 0 6px rgba(3, 126, 243, 0.7),
+            0 0 16px rgba(3, 126, 243, 0.4),
+            0 0 32px rgba(3, 126, 243, 0.2);
+    }
+    50% {
+        text-shadow:
+            0 0 12px rgba(3, 126, 243, 1),
+            0 0 28px rgba(3, 126, 243, 0.7),
+            0 0 55px rgba(3, 126, 243, 0.4);
+    }
 }
 
 .navbar.scrolled .nav-logo {
