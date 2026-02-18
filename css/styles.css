@@ -1411,13 +1411,30 @@ body.loaded {
     font-size: clamp(11rem, 19vw, 17rem);
     font-weight: 700;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(3, 126, 243, 0.07);
+    -webkit-text-stroke: 1px rgba(3, 126, 243, 0.12);
     letter-spacing: -6px;
     line-height: 1;
     pointer-events: none;
     user-select: none;
     z-index: 0;
     white-space: nowrap;
+    animation: watermarkPulse 4s ease-in-out infinite;
+}
+
+@keyframes watermarkPulse {
+    0%, 100% {
+        -webkit-text-stroke: 1px rgba(3, 126, 243, 0.08);
+        text-shadow:
+            0 0 40px rgba(3, 126, 243, 0.06),
+            0 0 80px rgba(3, 126, 243, 0.03);
+    }
+    50% {
+        -webkit-text-stroke: 1px rgba(3, 126, 243, 0.22);
+        text-shadow:
+            0 0 40px rgba(3, 126, 243, 0.18),
+            0 0 100px rgba(3, 126, 243, 0.10),
+            0 0 160px rgba(3, 126, 243, 0.05);
+    }
 }
 
 /* Apply grain to page headers too */
