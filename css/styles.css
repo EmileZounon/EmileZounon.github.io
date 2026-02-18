@@ -113,6 +113,18 @@ p {
     margin-bottom: 0.4rem;
     font-size: 2.5rem;
     font-weight: 600;
+    position: relative;
+    padding-top: 1.25rem;
+}
+
+.section-title h2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 28px;
+    height: 2px;
+    background: var(--accent);
 }
 
 .section-title p {
@@ -137,10 +149,10 @@ p {
 }
 
 .navbar.scrolled {
-    background-color: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 1px 0 var(--border);
+    background-color: rgba(12, 11, 20, 0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 1px 0 rgba(201, 164, 96, 0.15);
     padding: 0.85rem 0;
 }
 
@@ -163,7 +175,7 @@ p {
 }
 
 .navbar.scrolled .nav-logo {
-    color: var(--primary);
+    color: var(--white);
 }
 
 .nav-menu {
@@ -185,7 +197,7 @@ p {
 }
 
 .navbar.scrolled .nav-link {
-    color: var(--text-light);
+    color: rgba(250, 250, 248, 0.55);
 }
 
 .nav-link::after {
@@ -211,7 +223,7 @@ p {
 
 .navbar.scrolled .nav-link:hover,
 .navbar.scrolled .nav-link.active {
-    color: var(--text);
+    color: var(--white);
 }
 
 /* Hamburger */
@@ -235,7 +247,7 @@ p {
 .navbar.scrolled .hamburger,
 .navbar.scrolled .hamburger::before,
 .navbar.scrolled .hamburger::after {
-    background: var(--text);
+    background: var(--white);
 }
 
 .hamburger::before,
@@ -452,8 +464,8 @@ p {
 }
 
 .card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(201, 164, 96, 0.10), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .card-type {
@@ -573,15 +585,27 @@ p {
 }
 
 .column {
-    text-align: center;
+    text-align: left;
     padding: 2rem 1.5rem;
+    border-top: 1px solid var(--border);
+    transition: border-color var(--transition);
+}
+
+.column:hover {
+    border-color: var(--accent);
 }
 
 .column-icon {
-    font-size: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    font-size: 1.2rem;
     color: var(--accent);
-    margin-bottom: 1.25rem;
-    display: block;
+    border: 1px solid rgba(201, 164, 96, 0.3);
+    margin-bottom: 1.5rem;
+    margin-left: 0;
 }
 
 .column h3 {
@@ -607,8 +631,29 @@ p {
 }
 
 .blog-item {
-    padding: 2.25rem 0;
+    padding: 2.25rem 0 2.25rem 0;
     border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: padding-left var(--transition);
+}
+
+.blog-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.blog-item:hover {
+    padding-left: 1.25rem;
+}
+
+.blog-item:hover::before {
+    width: 2px;
 }
 
 .blog-item:last-child {
@@ -1022,6 +1067,7 @@ p {
     text-align: center;
     padding: 1.5rem 1rem;
     border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
     border-radius: var(--radius);
 }
 
@@ -1029,7 +1075,7 @@ p {
     font-family: var(--font-display);
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--accent);
     line-height: 1;
     margin-bottom: 0.4rem;
 }
@@ -1317,4 +1363,51 @@ body.loaded {
     .container {
         padding: 0 1.25rem;
     }
+}
+
+/* ==========================================
+   Visual Enhancements — Grain & Watermark
+   ========================================== */
+
+/* Hero grain texture (SVG turbulence noise, tiled) */
+.hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22200%22%20height%3D%22200%22%3E%3Cfilter%20id%3D%22noise%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%224%22%20stitchTiles%3D%22stitch%22%2F%3E%3CfeColorMatrix%20type%3D%22saturate%22%20values%3D%220%22%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%22200%22%20height%3D%22200%22%20filter%3D%22url(%23noise)%22%2F%3E%3C%2Fsvg%3E");
+    background-size: 200px 200px;
+    opacity: 0.028;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Hero ghost watermark — giant barely-visible brand text */
+.hero-watermark {
+    position: absolute;
+    right: -0.02em;
+    top: 50%;
+    transform: translateY(-52%);
+    font-family: var(--font-display);
+    font-size: clamp(11rem, 19vw, 17rem);
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(201, 164, 96, 0.07);
+    letter-spacing: -6px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    white-space: nowrap;
+}
+
+/* Apply grain to page headers too */
+.page-header {
+    isolation: isolate;
+}
+
+.page-header::before {
+    z-index: 0;
+}
+
+.page-header .container {
+    z-index: 1;
 }
