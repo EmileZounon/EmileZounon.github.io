@@ -10,8 +10,8 @@
 
 :root {
     --primary: #1B2A4A;
-    --accent: #C9A460;
-    --accent-hover: #A8863F;
+    --accent: #037EF3;
+    --accent-hover: #025EC0;
     --dark: #0C0B14;
     --dark-surface: #14131F;
     --light: #F5F2EC;
@@ -152,7 +152,7 @@ p {
     background-color: rgba(12, 11, 20, 0.92);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
-    box-shadow: 0 1px 0 rgba(201, 164, 96, 0.15);
+    box-shadow: 0 1px 0 rgba(3, 126, 243, 0.15);
     padding: 0.85rem 0;
 }
 
@@ -295,7 +295,7 @@ p {
     inset: 0;
     background:
         radial-gradient(ellipse at 15% 60%, rgba(27, 42, 74, 0.9) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 15%, rgba(201, 164, 96, 0.08) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 15%, rgba(3, 126, 243, 0.08) 0%, transparent 45%),
         radial-gradient(ellipse at 50% 100%, rgba(12, 11, 20, 0.6) 0%, transparent 50%);
     pointer-events: none;
 }
@@ -307,7 +307,7 @@ p {
     right: 0;
     width: 40%;
     height: 100%;
-    background: linear-gradient(135deg, transparent 0%, rgba(201, 164, 96, 0.04) 100%);
+    background: linear-gradient(135deg, transparent 0%, rgba(3, 126, 243, 0.04) 100%);
     pointer-events: none;
 }
 
@@ -430,7 +430,7 @@ p {
 .btn-primary:hover {
     background: var(--accent-hover);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(201, 164, 96, 0.3);
+    box-shadow: 0 6px 20px rgba(3, 126, 243, 0.3);
 }
 
 .btn-outline {
@@ -465,7 +465,7 @@ p {
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(201, 164, 96, 0.10), 0 4px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 40px rgba(3, 126, 243, 0.10), 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .card-type {
@@ -603,7 +603,7 @@ p {
     height: 46px;
     font-size: 1.2rem;
     color: var(--accent);
-    border: 1px solid rgba(201, 164, 96, 0.3);
+    border: 1px solid rgba(3, 126, 243, 0.3);
     margin-bottom: 1.5rem;
     margin-left: 0;
 }
@@ -1202,7 +1202,7 @@ p {
     color: rgba(250, 250, 248, 0.5);
     padding: 3rem 0;
     text-align: center;
-    border-top: 1px solid rgba(201, 164, 96, 0.15);
+    border-top: 1px solid rgba(3, 126, 243, 0.15);
 }
 
 .footer-name {
@@ -1390,7 +1390,7 @@ body.loaded {
     font-size: clamp(11rem, 19vw, 17rem);
     font-weight: 700;
     color: transparent;
-    -webkit-text-stroke: 1px rgba(201, 164, 96, 0.07);
+    -webkit-text-stroke: 1px rgba(3, 126, 243, 0.07);
     letter-spacing: -6px;
     line-height: 1;
     pointer-events: none;
