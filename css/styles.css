@@ -1263,8 +1263,8 @@ p {
 
 .footer-copy {
     font-family: var(--font-body);
-    font-size: 0.75rem;
-    color: rgba(250, 250, 248, 0.3);
+    font-size: 0.875rem;
+    color: var(--white);
 }
 
 /* ==========================================
