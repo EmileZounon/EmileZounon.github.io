@@ -8,7 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="alternate" hreflang="en" href="https://emilezounon.com/blog/bridging-digital-gap.html">
+    <link rel="alternate" hreflang="fr" href="https://emilezounon.com/fr/blog/bridging-digital-gap.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://emilezounon.com/zh/blog/bridging-digital-gap.html">
+    <link rel="alternate" hreflang="ja" href="https://emilezounon.com/ja/blog/bridging-digital-gap.html">
 </head>
 <body>
     <nav class="navbar" id="navbar">
@@ -24,6 +28,19 @@
                 <li><a href="../gallery.html" class="nav-link">Gallery</a></li>
                 <li><a href="../about.html" class="nav-link">About</a></li>
                 <li><a href="../contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-lang">
+                    <button class="lang-toggle" id="lang-toggle" aria-label="Select language">
+                        <i class="fas fa-globe"></i>
+                        <span class="lang-current">EN</span>
+                        <i class="fas fa-chevron-down lang-chevron"></i>
+                    </button>
+                    <ul class="lang-dropdown">
+                        <li><a href="#" class="lang-option" data-lang="en">🇺🇸 English</a></li>
+                        <li><a href="#" class="lang-option" data-lang="fr">🇫🇷 Français</a></li>
+                        <li><a href="#" class="lang-option" data-lang="zh">🇨🇳 中文</a></li>
+                        <li><a href="#" class="lang-option" data-lang="ja">🇯🇵 日本語</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>
@@ -120,6 +137,6 @@
         </div>
     </footer>
 
-    <script src="../js/main.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

@@ -207,3 +207,47 @@ if (contactForm) {
 window.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('loaded');
 });
+
+// ==========================================
+// Language Switcher
+// ==========================================
+
+(function () {
+    const langNav = document.querySelector('.nav-lang');
+    const langToggle = document.getElementById('lang-toggle');
+    if (!langNav || !langToggle) return;
+
+    // Detect locale from URL path
+    const path = window.location.pathname;
+    const localeMatch = path.match(/^\/(fr|zh|ja)(\/|$)/);
+    const currentLocale = localeMatch ? localeMatch[1] : 'en';
+
+    // Strip locale prefix to get the base page path
+    let pagePath = path.replace(/^\/(fr|zh|ja)/, '') || '/index.html';
+    if (pagePath === '' || pagePath === '/') pagePath = '/index.html';
+
+    // Build equivalent URLs for each locale
+    const prefixes = { en: '', fr: '/fr', zh: '/zh', ja: '/ja' };
+    const labels   = { en: 'EN', fr: 'FR', zh: '中文', ja: '日本語' };
+
+    document.querySelectorAll('.lang-option').forEach(link => {
+        const lang = link.dataset.lang;
+        if (!lang) return;
+        link.href = prefixes[lang] + pagePath;
+        if (lang === currentLocale) link.classList.add('lang-active');
+    });
+
+    // Show current locale label in the toggle button
+    const langCurrent = document.querySelector('.lang-current');
+    if (langCurrent) langCurrent.textContent = labels[currentLocale] || 'EN';
+
+    // Toggle dropdown open/close
+    langToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langNav.classList.toggle('open');
+    });
+
+    // Close when clicking anywhere else
+    document.addEventListener('click', () => langNav.classList.remove('open'));
+    langNav.querySelector('.lang-dropdown').addEventListener('click', (e) => e.stopPropagation());
+})();

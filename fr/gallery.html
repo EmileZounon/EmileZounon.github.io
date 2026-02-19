@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery | EGZ</title>
-    <meta name="description" content="Photo gallery of EGZ. Events, projects, and moments.">
+    <title>Galerie | EGZ</title>
+    <meta name="description" content="Galerie photos d'EGZ. Événements, projets et moments.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,21 +18,21 @@
 <body>
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="nav-logo">EGZ</a>
-            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+            <a href="/fr/index.html" class="nav-logo">EGZ</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu">
                 <span class="hamburger"></span>
             </button>
             <ul class="nav-menu" id="nav-menu">
-                <li><a href="index.html" class="nav-link">Home</a></li>
-                <li><a href="work.html" class="nav-link">Work</a></li>
-                <li><a href="blog.html" class="nav-link">Blog</a></li>
-                <li><a href="gallery.html" class="nav-link active">Gallery</a></li>
-                <li><a href="about.html" class="nav-link">About</a></li>
-                <li><a href="contact.html" class="nav-link">Contact</a></li>
+                <li><a href="/fr/index.html" class="nav-link">Accueil</a></li>
+                <li><a href="/fr/work.html" class="nav-link">Projets</a></li>
+                <li><a href="/fr/blog.html" class="nav-link">Blog</a></li>
+                <li><a href="/fr/gallery.html" class="nav-link active">Galerie</a></li>
+                <li><a href="/fr/about.html" class="nav-link">À Propos</a></li>
+                <li><a href="/fr/contact.html" class="nav-link">Contact</a></li>
                 <li class="nav-lang">
-                    <button class="lang-toggle" id="lang-toggle" aria-label="Select language">
+                    <button class="lang-toggle" id="lang-toggle" aria-label="Sélectionner la langue">
                         <i class="fas fa-globe"></i>
-                        <span class="lang-current">EN</span>
+                        <span class="lang-current">FR</span>
                         <i class="fas fa-chevron-down lang-chevron"></i>
                     </button>
                     <ul class="lang-dropdown">
@@ -48,8 +48,8 @@
 
     <header class="page-header">
         <div class="container">
-            <h1>Gallery</h1>
-            <p>Moments from events, projects, and the journey</p>
+            <h1>Galerie</h1>
+            <p>Moments d'événements, projets et du parcours</p>
         </div>
     </header>
 
@@ -60,63 +60,61 @@
                     <div class="gallery-placeholder fade-in">
                         <div>
                             <i class="fas fa-image" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
-                            <p>Add your photos to the <code>images/</code> folder</p>
+                            <p>Ajoutez vos photos au dossier <code>images/</code></p>
                         </div>
                     </div>
                     <div class="gallery-placeholder fade-in">
                         <div>
                             <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
-                            <p>Events & conferences</p>
+                            <p>Événements &amp; conférences</p>
                         </div>
                     </div>
                     <div class="gallery-placeholder fade-in">
                         <div>
                             <i class="fas fa-chalkboard-teacher" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
-                            <p>Teaching & workshops</p>
+                            <p>Enseignement &amp; ateliers</p>
                         </div>
                     </div>
                     <div class="gallery-placeholder fade-in">
                         <div>
                             <i class="fas fa-users" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
-                            <p>Team & collaborations</p>
+                            <p>Équipe &amp; collaborations</p>
                         </div>
                     </div>
                     <div class="gallery-placeholder fade-in">
                         <div>
                             <i class="fas fa-globe-africa" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
-                            <p>DevelopGio & Benin</p>
+                            <p>DevelopGio &amp; Bénin</p>
                         </div>
                     </div>
                     <div class="gallery-placeholder fade-in">
                         <div>
                             <i class="fas fa-trophy" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
-                            <p>Karate & competitions</p>
+                            <p>Karaté &amp; compétitions</p>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
 
-    <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" aria-label="Close lightbox">&times;</button>
-        <button class="lightbox-nav lightbox-prev" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+        <button class="lightbox-close" aria-label="Fermer">&times;</button>
+        <button class="lightbox-nav lightbox-prev" aria-label="Image précédente"><i class="fas fa-chevron-left"></i></button>
         <img src="" alt="">
-        <button class="lightbox-nav lightbox-next" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+        <button class="lightbox-nav lightbox-next" aria-label="Image suivante"><i class="fas fa-chevron-right"></i></button>
     </div>
 
     <footer class="footer">
         <div class="container">
             <p class="footer-name">Emile Giovannie ZOUNON</p>
-            <p class="footer-tagline">EdTech & AI Strategist</p>
+            <p class="footer-tagline">Stratège EdTech &amp; IA</p>
             <div class="footer-links">
                 <a href="https://www.linkedin.com/in/emile-giovannie-zounon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </div>
-            <p class="footer-copy">&copy; 2026 Emile Giovannie ZOUNON. All rights reserved.</p>
+            <p class="footer-copy">&copy; 2026 Emile Giovannie ZOUNON. Tous droits réservés.</p>
         </div>
     </footer>
 

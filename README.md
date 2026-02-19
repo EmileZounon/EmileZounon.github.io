@@ -9,17 +9,18 @@ Live at → **[emilezounon.com](https://emilezounon.com)**
 
 1. [Stack & Hosting](#stack--hosting)
 2. [File Structure](#file-structure)
-3. [Design System](#design-system)
-4. [Typography](#typography)
-5. [Color Palette](#color-palette)
-6. [Spacing & Layout](#spacing--layout)
-7. [Components](#components)
-8. [Animations & Interactions](#animations--interactions)
-9. [Mobile Responsiveness](#mobile-responsiveness)
-10. [Contact Form (Formspree)](#contact-form-formspree)
-11. [Third-Party Dependencies](#third-party-dependencies)
-12. [Deployment](#deployment)
-13. [Reusing This for Another Site](#reusing-this-for-another-site)
+3. [Internationalization (i18n)](#internationalization-i18n)
+4. [Design System](#design-system)
+5. [Typography](#typography)
+6. [Color Palette](#color-palette)
+7. [Spacing & Layout](#spacing--layout)
+8. [Components](#components)
+9. [Animations & Interactions](#animations--interactions)
+10. [Mobile Responsiveness](#mobile-responsiveness)
+11. [Contact Form (Formspree)](#contact-form-formspree)
+12. [Third-Party Dependencies](#third-party-dependencies)
+13. [Deployment](#deployment)
+14. [Reusing This for Another Site](#reusing-this-for-another-site)
 
 ---
 
@@ -75,9 +76,95 @@ No build step, no bundler, no dependencies to install. Edit files and push.
 │   ├── developgio.html
 │   └── prompt-library.html
 │
+├── fr/                         # French locale (Francophone / DevelopGio angle)
+│   ├── index.html
+│   ├── work.html
+│   ├── about.html
+│   ├── blog.html
+│   ├── gallery.html
+│   ├── contact.html
+│   └── blog/
+│       ├── bridging-digital-gap.html
+│       ├── remote-work-tips.html
+│       └── scaling-online-programs.html
+│
+├── zh/                         # Simplified Chinese locale (scale / IBM metrics angle)
+│   ├── index.html
+│   ├── work.html
+│   ├── about.html
+│   ├── blog.html
+│   ├── gallery.html
+│   ├── contact.html
+│   └── blog/
+│       ├── bridging-digital-gap.html
+│       ├── remote-work-tips.html
+│       └── scaling-online-programs.html
+│
+├── ja/                         # Japanese locale (karate / craft / mastery angle)
+│   ├── index.html
+│   ├── work.html
+│   ├── about.html
+│   ├── blog.html
+│   ├── gallery.html
+│   ├── contact.html
+│   └── blog/
+│       ├── bridging-digital-gap.html
+│       ├── remote-work-tips.html
+│       └── scaling-online-programs.html
+│
 ├── favicon.svg                 # SVG favicon — "EGZ" text on dark navy square
 └── README.md
 ```
+
+---
+
+## Internationalization (i18n)
+
+The site supports four languages. Each locale is a full copy of every page in its own subdirectory, sharing the same CSS and JS assets.
+
+### Locale Structure
+
+| Locale | Directory | Audience / Cultural angle |
+|---|---|---|
+| English (default) | `/` | US/global professional framing |
+| French | `/fr/` | Francophone / DevelopGio & Benin angle first |
+| Simplified Chinese | `/zh/` | Scale metrics & institutional partnerships lead |
+| Japanese | `/ja/` | Karate / craft / mastery metaphor first |
+
+Each locale contains all 9 pages: `index.html`, `work.html`, `about.html`, `blog.html`, `gallery.html`, `contact.html`, and `blog/bridging-digital-gap.html`, `blog/remote-work-tips.html`, `blog/scaling-online-programs.html`.
+
+### Language Switcher
+
+A globe-icon dropdown in the navbar appears on both desktop and mobile. It reads the current page's URL path to detect the active locale and navigates to the equivalent page in the selected language.
+
+```
+// js/main.js — locale detection & routing
+const pathParts = window.location.pathname.split('/');
+const currentLang = ['fr','zh','ja'].includes(pathParts[1]) ? pathParts[1] : 'en';
+```
+
+Clicking a language option maps the current path to the target locale (e.g., `/ja/about.html` → `/fr/about.html`). The switcher is rendered once in the navbar HTML and works on every page with no per-page JS.
+
+### SEO
+
+Every page includes four `<link rel="alternate" hreflang="...">` tags for all locales, allowing search engines to serve the correct language version per visitor.
+
+### CJK Fonts
+
+Chinese and Japanese pages fall back to system CJK fonts via CSS `:lang()` selectors in `styles.css`:
+
+```css
+:lang(zh), :lang(zh-CN) { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+:lang(ja)               { font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif; }
+```
+
+### Adding a New Language
+
+1. Create a new subdirectory (e.g., `/pt/`)
+2. Copy and translate all 9 HTML files
+3. Add the locale to the language dropdown in each page's navbar
+4. Add the `hreflang` alternate tag for the new locale to all pages
+5. Update `js/main.js` locale detection array (`['fr','zh','ja','pt']`)
 
 ---
 
