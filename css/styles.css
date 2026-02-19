@@ -1109,34 +1109,47 @@ p {
 .contact-form {
     text-align: left;
     margin: 2.5rem 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    position: relative;
 }
 
 .form-group label {
     display: block;
     font-family: var(--font-body);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--text-light);
-    margin-bottom: 0.5rem;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 0.85rem 1rem;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+    padding: 0.75rem 0;
+    border: none;
+    border-bottom: 1.5px solid var(--border);
+    border-radius: 0;
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--text);
-    background: var(--surface);
-    transition: border-color var(--transition), box-shadow var(--transition);
+    background: transparent;
+    transition: border-color var(--transition);
     outline: none;
     -webkit-appearance: none;
     appearance: none;
@@ -1144,27 +1157,36 @@ p {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(3, 126, 243, 0.1);
+    border-bottom-color: var(--accent);
 }
 
 .form-group textarea {
-    resize: vertical;
-    min-height: 140px;
-    line-height: 1.65;
+    resize: none;
+    min-height: 120px;
+    line-height: 1.7;
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
     color: var(--text-light);
-    opacity: 0.55;
+    opacity: 0.5;
+    font-size: 0.9rem;
+}
+
+.form-submit {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    justify-content: center;
+    margin-top: 0.5rem;
 }
 
 .form-status {
-    margin-top: 1rem;
+    margin-top: 1.25rem;
     font-family: var(--font-body);
-    font-size: 0.9rem;
-    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    padding: 0.85rem 1.1rem;
     border-radius: var(--radius);
     display: none;
 }
@@ -1181,6 +1203,16 @@ p {
     background: #FEF2F2;
     color: #991B1B;
     border: 1px solid #FECACA;
+}
+
+@media (max-width: 560px) {
+    .contact-form {
+        padding: 1.75rem 1.25rem;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
 }
 
 .contact-stats {
