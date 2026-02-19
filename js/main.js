@@ -177,7 +177,7 @@ if (contactForm) {
         status.textContent = '';
 
         try {
-            const response = await fetch('https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID', {
+            const response = await fetch('https://formspree.io/f/mjgeojrj', {
                 method: 'POST',
                 body: new FormData(contactForm),
                 headers: { 'Accept': 'application/json' }
