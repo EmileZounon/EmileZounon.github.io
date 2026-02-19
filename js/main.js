@@ -9,6 +9,7 @@ if (navToggle) {
     navToggle.addEventListener('click', () => {
         navToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
     });
 
     // Close menu when clicking a link
@@ -16,6 +17,7 @@ if (navToggle) {
         link.addEventListener('click', () => {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
         });
     });
 
@@ -24,6 +26,7 @@ if (navToggle) {
         if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
             navToggle.classList.remove('active');
             navMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
         }
     });
 }
