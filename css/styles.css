@@ -1205,7 +1205,7 @@ p {
     border: 1px solid #FECACA;
 }
 
-@media (max-width: 560px) {
+@media (max-width: 768px) {
     .contact-form {
         padding: 1.75rem 1.25rem;
     }
