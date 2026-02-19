@@ -4,27 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>联系 | EGZ</title>
-    <meta name="description" content="联系EGZ。教育科技 & 人工智能战略专家。">
+    <meta name="description" content="联系EGZ。教育科技 &amp; 人工智能战略专家。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="alternate" hreflang="en" href="https://emilezounon.com/contact.html">
     <link rel="alternate" hreflang="fr" href="https://emilezounon.com/fr/contact.html">
     <link rel="alternate" hreflang="zh-CN" href="https://emilezounon.com/zh/contact.html">
     <link rel="alternate" hreflang="ja" href="https://emilezounon.com/ja/contact.html">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-    <header class="header">
-        <nav class="nav container">
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
             <a href="/zh/index.html" class="nav-logo">EGZ</a>
-            <ul class="nav-menu">
-                <li><a href="/zh/index.html">首页</a></li>
-                <li><a href="/zh/work.html">项目</a></li>
-                <li><a href="/zh/blog.html">博客</a></li>
-                <li><a href="/zh/gallery.html">图库</a></li>
-                <li><a href="/zh/about.html">关于</a></li>
-                <li class="active"><a href="/zh/contact.html">联系</a></li>
+            <button class="nav-toggle" id="nav-toggle" aria-label="切换菜单">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/zh/index.html" class="nav-link">首页</a></li>
+                <li><a href="/zh/work.html" class="nav-link">项目</a></li>
+                <li><a href="/zh/blog.html" class="nav-link">博客</a></li>
+                <li><a href="/zh/gallery.html" class="nav-link">图库</a></li>
+                <li><a href="/zh/about.html" class="nav-link">关于</a></li>
+                <li><a href="/zh/contact.html" class="nav-link active">联系</a></li>
                 <li class="nav-lang">
                     <button class="lang-toggle" id="lang-toggle" aria-label="选择语言">
                         <i class="fas fa-globe"></i>
@@ -39,83 +43,82 @@
                     </ul>
                 </li>
             </ul>
-            <button class="nav-toggle" id="nav-toggle" aria-label="切换菜单">
-                <i class="fas fa-bars"></i>
-            </button>
-        </nav>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>建立联系</h1>
+            <p>欢迎就教育、AI及社会影响力话题与我交流</p>
+        </div>
     </header>
 
     <main>
-        <section class="page-header section">
+        <section class="section">
             <div class="container">
-                <h1 class="page-title">建立联系</h1>
-                <p class="page-subtitle">欢迎就教育、AI及社会影响力话题与我交流</p>
-            </div>
-        </section>
+                <div class="contact-content">
+                    <div class="contact-stats fade-in">
+                        <div class="stat">
+                            <div class="stat-number">1,000+</div>
+                            <div class="stat-label">服务学生</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">2M+</div>
+                            <div class="stat-label">学习者 (IBM)</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">专业认证</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">国家</div>
+                        </div>
+                    </div>
 
-        <section class="contact-stats section">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-number">1,000+</span>
-                        <span class="stat-label">服务学生</span>
+                    <form id="contact-form" class="contact-form fade-in" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">姓名</label>
+                                <input type="text" id="name" name="name" required placeholder="您的姓名">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">邮箱</label>
+                                <input type="email" id="email" name="email" required placeholder="您的邮箱地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">留言</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="我希望就...进行交流"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-submit">
+                            发送消息 <i class="fas fa-paper-plane"></i>
+                        </button>
+                        <div id="form-status" class="form-status"></div>
+                    </form>
+
+                    <div class="fade-in" style="margin: 0 0 3rem;">
+                        <p style="font-size:0.85rem; color:var(--text-light); margin-bottom:1rem;">或直接在LinkedIn上联系</p>
+                        <a href="https://www.linkedin.com/in/emile-giovannie-zounon" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </a>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">2M+</span>
-                        <span class="stat-label">学习者 (IBM)</span>
+
+                    <div class="fade-in">
+                        <h2 style="margin-bottom: 1.5rem;">欢迎在以下领域与我合作</h2>
+                        <ul class="connect-list">
+                            <li><i class="fas fa-brain"></i> 教育中的AI应用</li>
+                            <li><i class="fas fa-briefcase"></i> 人才发展项目</li>
+                            <li><i class="fas fa-landmark"></i> 数字政策</li>
+                            <li><i class="fas fa-shield-alt"></i> 负责任的AI</li>
+                            <li><i class="fas fa-chart-line"></i> 技能提升路径</li>
+                        </ul>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">10+</span>
-                        <span class="stat-label">专业认证</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">3</span>
-                        <span class="stat-label">国家</span>
+
+                    <div class="quote-block fade-in">
+                        <p style="margin-bottom: 0;">我的人生目标是帮助个人和团队在科技面前从容自如。</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="contact-form-section section">
-            <div class="container">
-                <form class="contact-form" action="#" method="POST">
-                    <div class="form-group">
-                        <label for="name" class="form-label">姓名</label>
-                        <input type="text" id="name" name="name" class="form-input" required placeholder="您的姓名">
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="form-label">邮箱</label>
-                        <input type="email" id="email" name="email" class="form-input" required placeholder="您的邮箱地址">
-                    </div>
-                    <div class="form-group">
-                        <label for="message" class="form-label">留言</label>
-                        <textarea id="message" name="message" class="form-textarea" rows="6" required placeholder="我希望就...进行交流"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">发送消息 <i class="fas fa-paper-plane"></i></button>
-                </form>
-
-                <div class="contact-linkedin">
-                    <p>或直接在LinkedIn上联系</p>
-                    <a href="https://www.linkedin.com/in/emile-giovannie-zounon" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-                        <i class="fab fa-linkedin"></i> LinkedIn
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="contact-topics section">
-            <div class="container">
-                <h2 class="section-title">欢迎在以下领域与我合作</h2>
-                <ul class="topics-list">
-                    <li>教育中的AI应用</li>
-                    <li>人才发展项目</li>
-                    <li>数字政策</li>
-                    <li>负责任的AI</li>
-                    <li>技能提升路径</li>
-                </ul>
-                <blockquote class="contact-quote">
-                    "我的人生目标是帮助个人和团队在科技面前从容自如。"
-                </blockquote>
             </div>
         </section>
     </main>
@@ -132,7 +135,7 @@
             <p class="footer-copy">&copy; 2026 Emile Giovannie ZOUNON. 保留所有权利。</p>
         </div>
     </footer>
-    <script src="/js/main.js"></script>
 
+    <script src="/js/main.js"></script>
 </body>
 </html>

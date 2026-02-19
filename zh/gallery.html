@@ -5,26 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>图库 | EGZ</title>
     <meta name="description" content="EGZ的照片图库。活动、项目与精彩时刻。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="alternate" hreflang="en" href="https://emilezounon.com/gallery.html">
     <link rel="alternate" hreflang="fr" href="https://emilezounon.com/fr/gallery.html">
     <link rel="alternate" hreflang="zh-CN" href="https://emilezounon.com/zh/gallery.html">
     <link rel="alternate" hreflang="ja" href="https://emilezounon.com/ja/gallery.html">
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-    <header class="header">
-        <nav class="nav container">
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
             <a href="/zh/index.html" class="nav-logo">EGZ</a>
-            <ul class="nav-menu">
-                <li><a href="/zh/index.html">首页</a></li>
-                <li><a href="/zh/work.html">项目</a></li>
-                <li><a href="/zh/blog.html">博客</a></li>
-                <li class="active"><a href="/zh/gallery.html">图库</a></li>
-                <li><a href="/zh/about.html">关于</a></li>
-                <li><a href="/zh/contact.html">联系</a></li>
+            <button class="nav-toggle" id="nav-toggle" aria-label="切换菜单">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/zh/index.html" class="nav-link">首页</a></li>
+                <li><a href="/zh/work.html" class="nav-link">项目</a></li>
+                <li><a href="/zh/blog.html" class="nav-link">博客</a></li>
+                <li><a href="/zh/gallery.html" class="nav-link active">图库</a></li>
+                <li><a href="/zh/about.html" class="nav-link">关于</a></li>
+                <li><a href="/zh/contact.html" class="nav-link">联系</a></li>
                 <li class="nav-lang">
                     <button class="lang-toggle" id="lang-toggle" aria-label="选择语言">
                         <i class="fas fa-globe"></i>
@@ -39,53 +43,67 @@
                     </ul>
                 </li>
             </ul>
-            <button class="nav-toggle" id="nav-toggle" aria-label="切换菜单">
-                <i class="fas fa-bars"></i>
-            </button>
-        </nav>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>图库</h1>
+            <p>活动、项目与旅程中的珍贵时刻</p>
+        </div>
     </header>
 
     <main>
-        <section class="page-header section">
-            <div class="container">
-                <h1 class="page-title">图库</h1>
-                <p class="page-subtitle">活动、项目与旅程中的珍贵时刻</p>
-            </div>
-        </section>
-
-        <section class="gallery section">
+        <section class="section">
             <div class="container">
                 <div class="gallery-grid">
-
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-image"></i>
-                        <p>将照片添加到 images/ 文件夹</p>
+                    <div class="gallery-placeholder fade-in">
+                        <div>
+                            <i class="fas fa-image" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
+                            <p>将照片添加到 <code>images/</code> 文件夹</p>
+                        </div>
                     </div>
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-calendar-alt"></i>
-                        <p>活动与会议</p>
+                    <div class="gallery-placeholder fade-in">
+                        <div>
+                            <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
+                            <p>活动与会议</p>
+                        </div>
                     </div>
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                        <p>教学与工作坊</p>
+                    <div class="gallery-placeholder fade-in">
+                        <div>
+                            <i class="fas fa-chalkboard-teacher" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
+                            <p>教学与工作坊</p>
+                        </div>
                     </div>
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-users"></i>
-                        <p>团队与合作</p>
+                    <div class="gallery-placeholder fade-in">
+                        <div>
+                            <i class="fas fa-users" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
+                            <p>团队与合作</p>
+                        </div>
                     </div>
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-globe-africa"></i>
-                        <p>DevelopGio与贝宁</p>
+                    <div class="gallery-placeholder fade-in">
+                        <div>
+                            <i class="fas fa-globe-africa" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
+                            <p>DevelopGio与贝宁</p>
+                        </div>
                     </div>
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-fist-raised"></i>
-                        <p>空手道与竞技</p>
+                    <div class="gallery-placeholder fade-in">
+                        <div>
+                            <i class="fas fa-trophy" style="font-size: 2rem; margin-bottom: 0.75rem; display: block; color: #ccc;"></i>
+                            <p>空手道与竞技</p>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </section>
     </main>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" aria-label="关闭">&times;</button>
+        <button class="lightbox-nav lightbox-prev" aria-label="上一张"><i class="fas fa-chevron-left"></i></button>
+        <img src="" alt="">
+        <button class="lightbox-nav lightbox-next" aria-label="下一张"><i class="fas fa-chevron-right"></i></button>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -99,7 +117,7 @@
             <p class="footer-copy">&copy; 2026 Emile Giovannie ZOUNON. 保留所有权利。</p>
         </div>
     </footer>
-    <script src="/js/main.js"></script>
 
+    <script src="/js/main.js"></script>
 </body>
 </html>
