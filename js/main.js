@@ -160,6 +160,47 @@ function initLightbox() {
 initLightbox();
 
 // ==========================================
+// Contact Form (Formspree)
+// ==========================================
+
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const status = document.getElementById('form-status');
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const originalHTML = btn.innerHTML;
+
+        btn.disabled = true;
+        btn.innerHTML = 'Sending… <i class="fas fa-spinner fa-spin"></i>';
+        status.className = 'form-status';
+        status.textContent = '';
+
+        try {
+            const response = await fetch('https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID', {
+                method: 'POST',
+                body: new FormData(contactForm),
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                contactForm.reset();
+                status.className = 'form-status success';
+                status.textContent = "Message sent! I'll get back to you soon.";
+                btn.innerHTML = 'Sent <i class="fas fa-check"></i>';
+            } else {
+                throw new Error('failed');
+            }
+        } catch {
+            status.className = 'form-status error';
+            status.textContent = 'Something went wrong. Please try again or reach out on LinkedIn.';
+            btn.disabled = false;
+            btn.innerHTML = originalHTML;
+        }
+    });
+}
+
+// ==========================================
 // Page Load Animation
 // ==========================================
 
