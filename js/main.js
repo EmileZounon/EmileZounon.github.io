@@ -204,9 +204,14 @@ if (contactForm) {
 // Page Load Animation
 // ==========================================
 
-window.addEventListener('DOMContentLoaded', () => {
+// If DOMContentLoaded already fired (cached pages, mobile Safari), add immediately
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('loaded');
+    });
+} else {
     document.body.classList.add('loaded');
-});
+}
 
 // ==========================================
 // Language Switcher

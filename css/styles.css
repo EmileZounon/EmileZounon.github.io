@@ -1423,11 +1423,17 @@ p {
 /* Page load fade-in */
 body {
     opacity: 0;
+    animation: bodyReveal 0.4s ease 0.8s forwards; /* fallback if JS is slow/blocked */
     transition: opacity 0.4s ease;
 }
 
 body.loaded {
     opacity: 1;
+    animation: none;
+}
+
+@keyframes bodyReveal {
+    to { opacity: 1; }
 }
 
 /* ==========================================
