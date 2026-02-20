@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto de Tradução com IA | EGZ</title>
+    <meta name="description" content="Fluxo de trabalho de tradução com IA comparando ChatGPT, DeepL e IBM Watsonx para conteúdo de e-learning multilíngue.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="alternate" hreflang="en" href="https://emilezounon.com/projects/ai-translation.html">
+    <link rel="alternate" hreflang="fr" href="https://emilezounon.com/fr/projects/ai-translation.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://emilezounon.com/zh/projects/ai-translation.html">
+    <link rel="alternate" hreflang="ja" href="https://emilezounon.com/ja/projects/ai-translation.html">
+    <link rel="alternate" hreflang="es" href="https://emilezounon.com/es/projects/ai-translation.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://emilezounon.com/pt/projects/ai-translation.html">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/pt/index.html" class="nav-logo">EGZ</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu"><span class="hamburger"></span></button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/pt/index.html" class="nav-link">Início</a></li>
+                <li><a href="/pt/work.html" class="nav-link active">Projetos</a></li>
+                <li><a href="/pt/blog.html" class="nav-link">Blog</a></li>
+                <li><a href="/pt/gallery.html" class="nav-link">Galeria</a></li>
+                <li><a href="/pt/about.html" class="nav-link">Sobre Mim</a></li>
+                <li><a href="/pt/contact.html" class="nav-link">Contato</a></li>
+                <li class="nav-lang">
+                    <button class="lang-toggle" id="lang-toggle" aria-label="Selecionar idioma">
+                        <i class="fas fa-globe"></i><span class="lang-current">PT</span><i class="fas fa-chevron-down lang-chevron"></i>
+                    </button>
+                    <ul class="lang-dropdown">
+                        <li><a href="#" class="lang-option" data-lang="en">🇺🇸 English</a></li>
+                        <li><a href="#" class="lang-option" data-lang="fr">🇫🇷 Français</a></li>
+                        <li><a href="#" class="lang-option" data-lang="zh">🇨🇳 中文</a></li>
+                        <li><a href="#" class="lang-option" data-lang="ja">🇯🇵 日本語</a></li>
+                        <li><a href="#" class="lang-option" data-lang="es">🇪🇸 Español</a></li>
+                        <li><a href="#" class="lang-option" data-lang="pt">🇧🇷 Português</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <header class="page-header">
+        <div class="container">
+            <h1>Projeto de Tradução com IA</h1>
+            <p>Comparação de ChatGPT, DeepL e IBM Watsonx para e-learning multilíngue</p>
+        </div>
+    </header>
+    <main>
+        <section class="section">
+            <div class="container">
+                <article class="project-detail">
+
+                    <div class="fade-in">
+                        <h2>O Problema</h2>
+                        <p>Quando se precisa traduzir um curso de e-learning completo para vários idiomas, fica claro rapidamente o quanto o processo é manual e lento. Eu queria saber: as ferramentas de IA conseguem fazer isso de forma confiável? E se sim, qual funciona melhor para conteúdo pedagógico?</p>
+                        <p>Construí um fluxo de trabalho que traduziu em lote um curso completo para 9 idiomas em menos de 30 minutos usando scripts Python via API. Em seguida, montei um framework de avaliação com avaliadores voluntários para medir a qualidade real das traduções.</p>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>Ferramentas Comparadas</h2>
+                        <div class="card-grid">
+                            <div class="card">
+                                <h3 class="card-title"><i class="fas fa-robot" style="color: var(--accent); margin-right: 0.5rem;"></i>ChatGPT (GPT-4)</h3>
+                                <p class="card-description">O grande modelo de linguagem da OpenAI, acessível via API. Excelente para compreender contexto e lidar com conteúdo pedagógico com nuances. A engenharia de prompt permite dar instruções de tradução específicas para o domínio.</p>
+                                <div class="card-tags">
+                                    <span class="tag tag-ai">GPT-4 API</span>
+                                    <span class="tag tag-tech">Python</span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h3 class="card-title"><i class="fas fa-language" style="color: var(--accent); margin-right: 0.5rem;"></i>DeepL</h3>
+                                <p class="card-description">Um serviço dedicado de tradução automática neural. Reconhecido por produzir traduções refinadas, especialmente para idiomas europeus. A API suporta glossários para manter a terminologia consistente nos documentos.</p>
+                                <div class="card-tags">
+                                    <span class="tag tag-ai">API DeepL</span>
+                                    <span class="tag tag-tech">Suporte a Glossário</span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h3 class="card-title"><i class="fas fa-cloud" style="color: var(--accent); margin-right: 0.5rem;"></i>IBM Watsonx</h3>
+                                <p class="card-description">A plataforma de IA empresarial da IBM com capacidades de tradução linguística. Avaliada pela integração com a infraestrutura IBM existente e pela conformidade com os requisitos de segurança corporativa.</p>
+                                <div class="card-tags">
+                                    <span class="tag tag-ai">Watsonx</span>
+                                    <span class="tag tag-tech">Empresarial</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>Como Procedi</h2>
+                        <ol style="line-height: 1.8; color: var(--text);">
+                            <li><strong>Seleção de conteúdo:</strong> Escolhi um curso de e-learning representativo com diferentes tipos de conteúdo: texto instrucional, perguntas de quiz, rótulos de interface e descrições multimídia.</li>
+                            <li><strong>Scripts de API:</strong> Desenvolvi scripts Python para traduzir em lote o conteúdo via API de cada plataforma, gerenciando limites de taxa, recuperação de erros e formatação de saídas.</li>
+                            <li><strong>Tradução multilíngue:</strong> Traduzi o curso completo para 9 idiomas-alvo e medi velocidade, custo e completude para cada ferramenta.</li>
+                            <li><strong>Avaliação de qualidade:</strong> Elaborei uma rubrica de avaliação voluntária para medir fluência, precisão, consistência terminológica e adequação cultural.</li>
+                            <li><strong>Análise comparativa:</strong> Compilei tudo em uma matriz de recomendações classificando cada ferramenta por qualidade, velocidade, custo e integração.</li>
+                        </ol>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>O Que Descobri</h2>
+                        <div class="quote-block">
+                            <p><strong>GPT-4</strong> foi o melhor para compreender contexto e lidar com conteúdo pedagógico ambíguo. Porém, exigiu engenharia de prompt cuidadosa para manter a consistência em documentos longos.</p>
+                        </div>
+                        <div class="quote-block">
+                            <p><strong>DeepL</strong> produziu as traduções mais refinadas para idiomas europeus com o mínimo de correções necessárias. O recurso de glossário foi muito útil para manter a consistência terminológica.</p>
+                        </div>
+                        <div class="quote-block">
+                            <p><strong>IBM Watsonx</strong> oferecia o melhor percurso de integração empresarial e os recursos de conformidade mais robustos. Se você já está no ecossistema IBM, é a opção mais natural.</p>
+                        </div>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>Recomendações</h2>
+                        <table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0;">
+                            <thead>
+                                <tr style="background-color: var(--primary); color: white;">
+                                    <th style="padding: 0.75rem 1rem; text-align: left;">Critério</th>
+                                    <th style="padding: 0.75rem 1rem; text-align: left;">Melhor Ferramenta</th>
+                                    <th style="padding: 0.75rem 1rem; text-align: left;">Observações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #e0e0e0;">
+                                    <td style="padding: 0.75rem 1rem;">Qualidade de Tradução</td>
+                                    <td style="padding: 0.75rem 1rem;">DeepL</td>
+                                    <td style="padding: 0.75rem 1rem;">Particularmente forte para idiomas europeus</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e0e0e0; background-color: var(--light);">
+                                    <td style="padding: 0.75rem 1rem;">Compreensão de Contexto</td>
+                                    <td style="padding: 0.75rem 1rem;">GPT-4</td>
+                                    <td style="padding: 0.75rem 1rem;">Melhor para conteúdo instrucional com nuances</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e0e0e0;">
+                                    <td style="padding: 0.75rem 1rem;">Integração Empresarial</td>
+                                    <td style="padding: 0.75rem 1rem;">Watsonx</td>
+                                    <td style="padding: 0.75rem 1rem;">Integra-se naturalmente ao ecossistema IBM</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e0e0e0; background-color: var(--light);">
+                                    <td style="padding: 0.75rem 1rem;">Velocidade / Throughput</td>
+                                    <td style="padding: 0.75rem 1rem;">DeepL</td>
+                                    <td style="padding: 0.75rem 1rem;">Tempos de processamento em lote mais rápidos</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e0e0e0;">
+                                    <td style="padding: 0.75rem 1rem;">Custo-Benefício</td>
+                                    <td style="padding: 0.75rem 1rem;">DeepL</td>
+                                    <td style="padding: 0.75rem 1rem;">Melhor valor por caractere traduzido</td>
+                                </tr>
+                                <tr style="background-color: var(--light);">
+                                    <td style="padding: 0.75rem 1rem;">Personalização</td>
+                                    <td style="padding: 0.75rem 1rem;">GPT-4</td>
+                                    <td style="padding: 0.75rem 1rem;">Engenharia de prompt permite ajuste específico por domínio</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>Impacto</h2>
+                        <p>Esta pesquisa nos forneceu um framework claro e baseado em dados para escolher a ferramenta de tradução certa de acordo com o par de idiomas, o tipo de conteúdo e as necessidades organizacionais. Os scripts de tradução em lote transformaram o que seriam semanas de trabalho manual em um processo automatizado de 30 minutos.</p>
+                        <p style="margin-top: 1rem; padding: 1rem; background-color: var(--light); border-radius: 8px; color: var(--text);"><i class="fas fa-lock" style="color: var(--accent); margin-right: 0.5rem;"></i> O relatório completo foi produzido como entregável de pesquisa interna e não está disponível publicamente.</p>
+                    </div>
+
+                    <div class="fade-in" style="margin-top: 2rem;">
+                        <a href="/pt/work.html" class="btn btn-primary">← Voltar aos Projetos</a>
+                    </div>
+
+                </article>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-name">Emile Giovannie ZOUNON</p>
+            <p class="footer-tagline">Estrategista EdTech e IA</p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/emile-giovannie-zounon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Emile Giovannie ZOUNON. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <script src="/js/main.js"></script>
+</body>
+</html>

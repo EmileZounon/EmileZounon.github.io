@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca de Prompts GPT | EGZ</title>
+    <meta name="description" content="Prompts de sistema personalizados para resumos de reuniões, apresentações sobre força de trabalho e visualizações de dados.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="alternate" hreflang="en" href="https://emilezounon.com/projects/prompt-library.html">
+    <link rel="alternate" hreflang="fr" href="https://emilezounon.com/fr/projects/prompt-library.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://emilezounon.com/zh/projects/prompt-library.html">
+    <link rel="alternate" hreflang="ja" href="https://emilezounon.com/ja/projects/prompt-library.html">
+    <link rel="alternate" hreflang="es" href="https://emilezounon.com/es/projects/prompt-library.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://emilezounon.com/pt/projects/prompt-library.html">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/pt/index.html" class="nav-logo">EGZ</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu">
+                <span class="hamburger"></span>
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/pt/index.html" class="nav-link">Início</a></li>
+                <li><a href="/pt/work.html" class="nav-link">Projetos</a></li>
+                <li><a href="/pt/blog.html" class="nav-link">Blog</a></li>
+                <li><a href="/pt/gallery.html" class="nav-link">Galeria</a></li>
+                <li><a href="/pt/about.html" class="nav-link">Sobre Mim</a></li>
+                <li><a href="/pt/contact.html" class="nav-link">Contato</a></li>
+                <li class="nav-lang">
+                    <button class="lang-toggle" id="lang-toggle" aria-label="Selecionar idioma">
+                        <i class="fas fa-globe"></i>
+                        <span class="lang-current">PT</span>
+                        <i class="fas fa-chevron-down lang-chevron"></i>
+                    </button>
+                    <ul class="lang-dropdown">
+                        <li><a href="#" class="lang-option" data-lang="en">🇺🇸 English</a></li>
+                        <li><a href="#" class="lang-option" data-lang="fr">🇫🇷 Français</a></li>
+                        <li><a href="#" class="lang-option" data-lang="zh">🇨🇳 中文</a></li>
+                        <li><a href="#" class="lang-option" data-lang="ja">🇯🇵 日本語</a></li>
+                        <li><a href="#" class="lang-option" data-lang="es">🇪🇸 Español</a></li>
+                        <li><a href="#" class="lang-option" data-lang="pt">🇧🇷 Português</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Biblioteca de Prompts GPT Personalizados</h1>
+            <p>Prompts de sistema que projetei para automação de fluxos de trabalho IBM</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <article class="project-detail">
+
+                    <div class="fade-in">
+                        <h2>Por que criei estes prompts</h2>
+                        <p>Na IBM, eu me deparava constantemente com as mesmas tarefas demoradas: resumir transcrições de reuniões, estruturar apresentações, criar visualizações de dados para revisões com parceiros. Então, projetei prompts GPT personalizados para automatizá-las. Cada um tem entradas estruturadas, instruções de sistema detalhadas e formatação de saída consistente — os resultados são utilizáveis imediatamente, sem necessidade de retoques.</p>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2><i class="fas fa-microphone-alt" style="color: var(--accent); margin-right: 0.5rem;"></i> Gerador de Resumos de Reuniões</h2>
+                        <p>Transforma uma transcrição bruta de reunião em um resumo estruturado e profissional, pronto para ser enviado às partes interessadas.</p>
+
+                        <h3>Como funciona</h3>
+                        <ol style="line-height: 1.8; color: var(--text);">
+                            <li><strong>Entrada:</strong> Cole uma transcrição bruta do Teams, Zoom, Otter.ai ou notas manuais</li>
+                            <li><strong>Processamento:</strong> O GPT identifica os participantes, extrai os tópicos principais, decisões e itens de ação</li>
+                            <li><strong>Saída:</strong> Um resumo formatado com metadados, sumário executivo, pontos de discussão, itens de ação com responsáveis e prazos, e próximos passos</li>
+                        </ol>
+
+                        <h3>Escolhas de design</h3>
+                        <ul style="line-height: 1.8; color: var(--text);">
+                            <li>Lida com transcrições brutas e não formatadas com heurísticas de identificação de participantes</li>
+                            <li>Distingue <strong>decisões tomadas</strong> de <strong>pontos ainda em discussão</strong></li>
+                            <li>Itens de ação sempre incluem: tarefa, responsável e prazo (ou "A definir" se não especificado)</li>
+                            <li>Tom profissional adequado para distribuição em nível de liderança</li>
+                        </ul>
+
+                        <div class="quote-block">
+                            <p><strong>Caso de uso:</strong> Pontos semanais com mais de 30 organizações sem fins lucrativos parceiras. Este prompt transformou uma revisão de transcrição de 45 minutos em uma interação GPT de 2 minutos.</p>
+                        </div>
+
+                        <a href="/assets/meeting-recap-generator-prompt.pdf" class="btn btn-primary" download style="margin-top: 1rem;"><i class="fas fa-file-pdf"></i> Baixar PDF</a>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2><i class="fas fa-chalkboard" style="color: var(--accent); margin-right: 0.5rem;"></i> Designer de Materiais de Treinamento em IA &amp; Emprego</h2>
+                        <p>Gera planos de apresentação estruturados sobre temas de RSC e desenvolvimento da força de trabalho, seguindo os padrões de comunicação IBM.</p>
+
+                        <h3>Como funciona</h3>
+                        <ol style="line-height: 1.8; color: var(--text);">
+                            <li><strong>Entrada:</strong> Tema, audiência e dados ou tópicos principais</li>
+                            <li><strong>Processamento:</strong> Estrutura o conteúdo em um arco narrativo com slides baseados em dados</li>
+                            <li><strong>Saída:</strong> Plano slide a slide com títulos, pontos principais, notas do apresentador e sugestões de visualização</li>
+                        </ol>
+
+                        <h3>Escolhas de design</h3>
+                        <ul style="line-height: 1.8; color: var(--text);">
+                            <li>Estrutura narrativa: Contexto, Desafio, Solução, Impacto, Chamada para ação</li>
+                            <li>Cada slide inclui notas para o apresentador</li>
+                            <li>Sugere visualizações (barras, linhas do tempo, mapas) quando relevante</li>
+                            <li>Adapta o tom conforme a audiência: interno, parceiros externos ou liderança</li>
+                        </ul>
+
+                        <div class="quote-block">
+                            <p><strong>Caso de uso:</strong> Apresentações de impacto de RSC trimestrais para a liderança do IBM SkillsBuild. Transforma métricas brutas em narrativa visual.</p>
+                        </div>
+
+                        <a href="/assets/ai-workforce-deck-designer-prompt.pdf" class="btn btn-primary" download style="margin-top: 1rem;"><i class="fas fa-file-pdf"></i> Baixar PDF</a>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2><i class="fas fa-chart-bar" style="color: var(--accent); margin-right: 0.5rem;"></i> Construtor de Apresentações IBM com D3.js</h2>
+                        <p>Cria apresentações ricas em dados com visualizações D3.js interativas integráveis diretamente em apresentações web.</p>
+
+                        <h3>Como funciona</h3>
+                        <ol style="line-height: 1.8; color: var(--text);">
+                            <li><strong>Entrada:</strong> Conjunto de dados, contexto da apresentação e audiência-alvo</li>
+                            <li><strong>Processamento:</strong> Analisa tendências e seleciona os tipos de visualização adequados</li>
+                            <li><strong>Saída:</strong> Estrutura de slides com trechos de código D3.js para cada visualização e enquadramento narrativo</li>
+                        </ol>
+
+                        <h3>Escolhas de design</h3>
+                        <ul style="line-height: 1.8; color: var(--text);">
+                            <li>Visualizações D3.js autônomas e prontas para incorporação</li>
+                            <li>Barras, linhas, pizza, mapas geográficos e diagramas de rede</li>
+                            <li>Paletas de cores em conformidade com o IBM Carbon Design System</li>
+                            <li>Cada visualização inclui atributos de acessibilidade (ARIA, paletas para daltônicos)</li>
+                        </ul>
+
+                        <div class="quote-block">
+                            <p><strong>Caso de uso:</strong> Apresentações de revisão com parceiros orientadas a dados, mostrando engajamento dos aprendizes, taxas de conclusão e distribuição geográfica da rede IBM SkillsBuild.</p>
+                        </div>
+
+                        <a href="/assets/ibm-slide-deck-d3-prompt.pdf" class="btn btn-primary" download style="margin-top: 1rem;"><i class="fas fa-file-pdf"></i> Baixar PDF</a>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2><i class="fas fa-graduation-cap" style="color: var(--accent); margin-right: 0.5rem;"></i> Arquiteto de Planos de Aprendizagem SkillsBuild</h2>
+                        <p>Projeta planos de aprendizagem prontos para parceiros usando o conteúdo do IBM SkillsBuild, estruturando módulos, labs e certificações em progressões claras.</p>
+
+                        <h3>Como funciona</h3>
+                        <ol style="line-height: 1.8; color: var(--text);">
+                            <li><strong>Entrada:</strong> Tema, audiência-alvo (adultos em requalificação ou estudantes) e conteúdo SkillsBuild a incluir</li>
+                            <li><strong>Processamento:</strong> Seleciona o conteúdo adequado do catálogo, sequencia de ganhos rápidos até certificações e estrutura em duas seções</li>
+                            <li><strong>Saída:</strong> Plano de aprendizagem completo com títulos de seções, descrições, rótulos de atividades e tags obrigatório/opcional</li>
+                        </ol>
+
+                        <h3>Escolhas de design</h3>
+                        <ul style="line-height: 1.8; color: var(--text);">
+                            <li>Voz personalizada "você" ao longo de tudo — nunca "aprendizes" ou "estudantes" salvo indicação</li>
+                            <li>Adiciona automaticamente o lembrete do YouTube quando uma seção inclui vídeo externo</li>
+                            <li>Regras rígidas de sourcing: sem conteúdo acadêmico para audiências não universitárias</li>
+                            <li>Progressão consistente: <strong>Introdução → Prática → Certificação</strong></li>
+                        </ul>
+
+                        <div class="quote-block">
+                            <p><strong>Caso de uso:</strong> Construção de planos de aprendizagem IBM SkillsBuild para parceiros ONG. Transforma um briefing temático em um plano estruturado e pronto para a plataforma em uma única interação.</p>
+                        </div>
+
+                        <a href="/assets/skillsbuild-learning-plan-architect-prompt.pdf" class="btn btn-primary" download style="margin-top: 1rem;"><i class="fas fa-file-pdf"></i> Baixar PDF</a>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>O que eles têm em comum</h2>
+                        <p>Os quatro prompts seguem o mesmo esquema de engenharia:</p>
+                        <div class="card-grid">
+                            <div class="card">
+                                <h3 class="card-title">Camada de instrução do sistema</h3>
+                                <p class="card-description">Um persona detalhado, restrições e formato de saída definidos no prompt do sistema. Isso garante comportamento consistente independentemente da entrada do usuário.</p>
+                            </div>
+                            <div class="card">
+                                <h3 class="card-title">Esquema de entrada estruturado</h3>
+                                <p class="card-description">Cada prompt espera um formato de entrada específico (transcrição, briefing temático ou conjunto de dados) com parâmetros opcionais de personalização.</p>
+                            </div>
+                            <div class="card">
+                                <h3 class="card-title">Templates de saída</h3>
+                                <p class="card-description">As saídas seguem templates rígidos com seções, formatação e metadados consistentes. Utilizáveis imediatamente, sem pós-edição.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fade-in" style="margin-top: 2rem;">
+                        <a href="/pt/work.html" class="btn btn-primary">← Voltar aos Projetos</a>
+                    </div>
+
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-name">Emile Giovannie ZOUNON</p>
+            <p class="footer-tagline">Estrategista EdTech e IA</p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/emile-giovannie-zounon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Emile Giovannie ZOUNON. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
