@@ -224,16 +224,16 @@ if (document.readyState === 'loading') {
 
     // Detect locale from URL path
     const path = window.location.pathname;
-    const localeMatch = path.match(/^\/(fr|zh|ja)(\/|$)/);
+    const localeMatch = path.match(/^\/(fr|zh|ja|es|pt)(\/|$)/);
     const currentLocale = localeMatch ? localeMatch[1] : 'en';
 
     // Strip locale prefix to get the base page path
-    let pagePath = path.replace(/^\/(fr|zh|ja)/, '') || '/index.html';
+    let pagePath = path.replace(/^\/(fr|zh|ja|es|pt)/, '') || '/index.html';
     if (pagePath === '' || pagePath === '/') pagePath = '/index.html';
 
     // Build equivalent URLs for each locale
-    const prefixes = { en: '', fr: '/fr', zh: '/zh', ja: '/ja' };
-    const labels   = { en: 'EN', fr: 'FR', zh: '中文', ja: '日本語' };
+    const prefixes = { en: '', fr: '/fr', zh: '/zh', ja: '/ja', es: '/es', pt: '/pt' };
+    const labels   = { en: 'EN', fr: 'FR', zh: '中文', ja: '日本語', es: 'ES', pt: 'PT' };
 
     document.querySelectorAll('.lang-option').forEach(link => {
         const lang = link.dataset.lang;
