@@ -125,6 +125,32 @@
                     </div>
 
                     <div class="fade-in">
+                        <h2><i class="fas fa-graduation-cap" style="color: var(--accent); margin-right: 0.5rem;"></i> SkillsBuild Learning Plan Architect</h2>
+                        <p>Designs partner-ready learning plans using IBM SkillsBuild content, mapping modules, labs, and credentials into clear learner progressions.</p>
+
+                        <h3>How It Works</h3>
+                        <ol style="line-height: 1.8; color: var(--text);">
+                            <li><strong>Input:</strong> Topic, target audience (workforce adult learners or college students), and any specific SkillsBuild content to include</li>
+                            <li><strong>Processing:</strong> Selects appropriate catalogue content, sequences it from quick wins to credential pathways, and structures it into two sections</li>
+                            <li><strong>Output:</strong> A fully formatted learning plan with section titles, descriptions, activity labels, and mandatory/optional tags</li>
+                        </ol>
+
+                        <h3>Design Choices</h3>
+                        <ul style="line-height: 1.8; color: var(--text);">
+                            <li>Uses a "you" voice throughout — never "learners" or "students" unless specified</li>
+                            <li>Automatically adds YouTube reminder text when a section includes external video</li>
+                            <li>Enforces strict source rules: no academia content for non-college audiences</li>
+                            <li>Outputs a consistent structure: <strong>Intro → Practice → Credential</strong></li>
+                        </ul>
+
+                        <div class="quote-block">
+                            <p><strong>Use case:</strong> Building IBM SkillsBuild learning plans for nonprofit workforce partners. Turns a topic brief into a structured, platform-ready plan in one interaction.</p>
+                        </div>
+
+                        <a href="../assets/skillsbuild-learning-plan-architect-prompt.pdf" class="btn btn-primary" download style="margin-top: 1rem;"><i class="fas fa-file-pdf"></i> Download PDF</a>
+                    </div>
+
+                    <div class="fade-in">
                         <h2>What They Have in Common</h2>
                         <p>All three prompts follow the same engineering pattern:</p>
                         <div class="card-grid">
