@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intégration des Partenaires IBM SkillsBuild | EGZ</title>
+    <meta name="description" content="Programme d'intégration des partenaires IBM SkillsBuild avec modèles de lancement, sessions d'activation et cadre de permissions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="alternate" hreflang="en" href="https://emilezounon.com/projects/partner-onboarding.html">
+    <link rel="alternate" hreflang="fr" href="https://emilezounon.com/fr/projects/partner-onboarding.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://emilezounon.com/zh/projects/partner-onboarding.html">
+    <link rel="alternate" hreflang="ja" href="https://emilezounon.com/ja/projects/partner-onboarding.html">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/fr/index.html" class="nav-logo">EGZ</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Ouvrir le menu"><span class="hamburger"></span></button>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/fr/index.html" class="nav-link">Accueil</a></li>
+                <li><a href="/fr/work.html" class="nav-link active">Projets</a></li>
+                <li><a href="/fr/blog.html" class="nav-link">Blog</a></li>
+                <li><a href="/fr/gallery.html" class="nav-link">Galerie</a></li>
+                <li><a href="/fr/about.html" class="nav-link">À Propos</a></li>
+                <li><a href="/fr/contact.html" class="nav-link">Contact</a></li>
+                <li class="nav-lang">
+                    <button class="lang-toggle" id="lang-toggle" aria-label="Sélectionner la langue">
+                        <i class="fas fa-globe"></i><span class="lang-current">FR</span><i class="fas fa-chevron-down lang-chevron"></i>
+                    </button>
+                    <ul class="lang-dropdown">
+                        <li><a href="#" class="lang-option" data-lang="en">🇺🇸 English</a></li>
+                        <li><a href="#" class="lang-option" data-lang="fr">🇫🇷 Français</a></li>
+                        <li><a href="#" class="lang-option" data-lang="zh">🇨🇳 中文</a></li>
+                        <li><a href="#" class="lang-option" data-lang="ja">🇯🇵 日本語</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <header class="page-header">
+        <div class="container">
+            <h1>Intégration des Partenaires IBM SkillsBuild</h1>
+            <p>Un programme d'activation structuré pour 30+ partenaires associatifs et académiques</p>
+        </div>
+    </header>
+    <main>
+        <section class="section">
+            <div class="container">
+                <article class="project-detail">
+
+                    <div class="fade-in">
+                        <h2>Le Défi</h2>
+                        <p>Lorsque j'ai rejoint l'équipe IBM SkillsBuild, nous intégrions de nouveaux partenaires associatifs et académiques sans processus standardisé. Chaque partenaire vivait une expérience légèrement différente selon qui animait l'intégration. Ce n'est pas scalable quand on travaille avec 30+ partenaires ayant des populations d'apprenants et des contextes d'implémentation variés.</p>
+                        <p>J'ai conçu le programme d'intégration de bout en bout pour le rendre reproductible, cohérent et adaptable à différents types de partenaires.</p>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>Ce que J'ai Construit</h2>
+                        <div class="card-grid">
+                            <div class="card">
+                                <h3 class="card-title"><i class="fas fa-rocket" style="color: var(--accent); margin-right: 0.5rem;"></i>Lancement Pré-Implémentation</h3>
+                                <p class="card-description">Un modèle de lancement structuré couvrant les objectifs du partenaire, les données démographiques des apprenants cibles, les exigences techniques, les jalons du calendrier et les indicateurs de succès. L'idée est d'obtenir un alignement avant que toute configuration de plateforme ne commence.</p>
+                                <div class="card-tags">
+                                    <span class="tag tag-design">Modèle</span>
+                                    <span class="tag tag-education">Alignement</span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h3 class="card-title"><i class="fas fa-chalkboard-teacher" style="color: var(--accent); margin-right: 0.5rem;"></i>Sessions d'Activation</h3>
+                                <p class="card-description">Deux agendas de session sur mesure. L'un pour les partenaires à locataires adultes (développement de la main-d'œuvre, reconversion) et l'autre pour les partenaires à locataires étudiants (établissements académiques, programmes jeunesse). Chacun couvre la navigation sur la plateforme, la curation de contenu et le reporting.</p>
+                                <div class="card-tags">
+                                    <span class="tag tag-design">Locataire Adulte</span>
+                                    <span class="tag tag-design">Locataire Étudiant</span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h3 class="card-title"><i class="fas fa-shield-alt" style="color: var(--accent); margin-right: 0.5rem;"></i>Cadre de Permissions</h3>
+                                <p class="card-description">Une matrice de permissions basée sur les rôles définissant les niveaux d'accès pour les administrateurs partenaires, les instructeurs et les apprenants. Elle équilibre l'autonomie des partenaires avec la gouvernance de la plateforme et les exigences de confidentialité des données.</p>
+                                <div class="card-tags">
+                                    <span class="tag tag-tech">RBAC</span>
+                                    <span class="tag tag-education">Gouvernance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>Structure de la Réunion de Lancement</h2>
+                        <p>Le lancement pré-implémentation suit un ordre du jour structuré pour faire remonter les informations critiques tôt :</p>
+                        <ol style="line-height: 1.8; color: var(--text);">
+                            <li><strong>Bienvenue & Présentations :</strong> Présentations d'équipe, rôles et préférences de communication</li>
+                            <li><strong>Objectifs & Contexte du Partenaire :</strong> Mission organisationnelle, population cible, programmes existants et définition du succès</li>
+                            <li><strong>Aperçu de la Plateforme :</strong> Capacités d'IBM SkillsBuild, bibliothèque de contenus et options de personnalisation</li>
+                            <li><strong>Configuration Technique :</strong> Intégration SSO, exigences de marque, connexions LMS et flux de données</li>
+                            <li><strong>Stratégie de Contenu :</strong> Sélection des parcours d'apprentissage, besoins en contenu personnalisé et exigences de localisation</li>
+                            <li><strong>Calendrier & Jalons :</strong> Plan de déploiement phasé avec date de mise en service, groupe pilote et objectifs de mise à l'échelle</li>
+                            <li><strong>Indicateurs de Succès :</strong> KPIs, cadence de reporting et calendrier de revue trimestrielle</li>
+                            <li><strong>Prochaines Étapes :</strong> Actions avec responsables et délais</li>
+                        </ol>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>Conception des Sessions d'Activation</h2>
+
+                        <h3>Session Locataire Adulte</h3>
+                        <p>Axée sur le développement de la main-d'œuvre : reconversion professionnelle, programmes de perfectionnement et développement professionnel.</p>
+                        <ul style="line-height: 1.8; color: var(--text);">
+                            <li>Navigation sur la plateforme et visite guidée du tableau de bord admin</li>
+                            <li>Création et assignation de parcours d'apprentissage pour les apprenants adultes</li>
+                            <li>Gestion des badges et des certifications</li>
+                            <li>Reporting et suivi de la progression des apprenants</li>
+                            <li>Intégration avec les programmes de main-d'œuvre existants</li>
+                            <li>Meilleures pratiques pour l'engagement et la rétention des apprenants</li>
+                        </ul>
+
+                        <h3>Session Locataire Étudiant</h3>
+                        <p>Adaptée aux établissements académiques et aux organisations au service des jeunes :</p>
+                        <ul style="line-height: 1.8; color: var(--text);">
+                            <li>Stratégies d'intégration en classe et connectivité LMS</li>
+                            <li>Curation de contenu adapté à l'âge et conception de parcours</li>
+                            <li>Outils pour instructeurs et suivi de la progression</li>
+                            <li>Fonctionnalités en libre-service pour étudiants et constitution de portfolio</li>
+                            <li>Conception de programmes parascolaires et extrascolaires</li>
+                            <li>Reporting pour les parties prenantes institutionnelles et l'accréditation</li>
+                        </ul>
+                    </div>
+
+                    <div class="fade-in">
+                        <h2>Impact</h2>
+                        <div class="contact-stats" style="margin: 2rem 0;">
+                            <div class="stat">
+                                <div class="stat-number">30+</div>
+                                <div class="stat-label">Partenaires Intégrés</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">2M+</div>
+                                <div class="stat-label">Apprenants Servis</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">105</div>
+                                <div class="stat-label">Parcours d'Apprentissage</div>
+                            </div>
+                        </div>
+                        <p>Avoir un processus standardisé a réduit le délai d'activation des partenaires, maintenu une qualité cohérente selon les différents types de partenaires et fourni aux nouveaux Digital Success Managers un cadre clair qu'ils pouvaient suivre de manière autonome.</p>
+                    </div>
+
+                    <div class="fade-in" style="margin-top: 2rem;">
+                        <a href="/fr/work.html" class="btn btn-primary">← Retour aux Projets</a>
+                    </div>
+
+                </article>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-name">Emile Giovannie ZOUNON</p>
+            <p class="footer-tagline">Stratège EdTech &amp; IA</p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/emile-giovannie-zounon" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+            <p class="footer-copy">&copy; 2026 Emile Giovannie ZOUNON. Tous droits réservés.</p>
+        </div>
+    </footer>
+    <script src="/js/main.js"></script>
+</body>
+</html>
