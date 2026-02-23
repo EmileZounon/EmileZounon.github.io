@@ -171,6 +171,25 @@ if (contactForm) {
         const btn = contactForm.querySelector('button[type="submit"]');
         const originalHTML = btn.innerHTML;
 
+        // Validate before sending
+        const name = contactForm.querySelector('#name').value.trim();
+        const email = contactForm.querySelector('#email').value.trim();
+        const message = contactForm.querySelector('#message').value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        status.className = 'form-status error';
+        if (!name || !email || !message) {
+            status.textContent = 'Please fill in all fields.';
+            return;
+        }
+        if (!emailRegex.test(email)) {
+            status.textContent = 'Please enter a valid email address.';
+            return;
+        }
+        if (message.length > 5000) {
+            status.textContent = 'Message must be under 5000 characters.';
+            return;
+        }
+
         btn.disabled = true;
         btn.innerHTML = 'Sending… <i class="fas fa-spinner fa-spin"></i>';
         status.className = 'form-status';
