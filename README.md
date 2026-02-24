@@ -461,3 +461,11 @@ In `index.html` at the bottom, update the `<script type="application/ld+json">` 
 - **Card accent top border:** `.card` and `.edu-card` both use `border-top: 2px solid var(--accent)` — reuse this pattern for any card-like component
 - **Dark header pages:** use `<header class="page-header">` for any page that needs the dark top section
 - **Mobile nav close button:** injected by JS automatically — no HTML change needed when adding new pages
+
+---
+
+## Build History
+
+| Date | Version | Built With | Notes |
+|---|---|---|---|
+| February 17, 2025 | New iteration | Claude Opus 4.6 (via Claude Code) | Full site rebuild |
