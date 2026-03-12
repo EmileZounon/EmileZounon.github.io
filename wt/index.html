@@ -186,6 +186,12 @@
       const [houseYr, setHouseYr] = useState(5);
       const [burnout, setBurnout] = useState(true);
 
+      const [corpStartSal, setCorpStartSal] = useState(100000);
+      const [corpRaise, setCorpRaise] = useState(0.04);
+      const [corpPromoFreq, setCorpPromoFreq] = useState(4);
+      const [corpPromoLift, setCorpPromoLift] = useState(0.15);
+      const [corpSaveRt, setCorpSaveRt] = useState(0.20);
+
       const [mobile, setMobile] = useState(() => window.innerWidth < 700);
       useEffect(() => {
         const fn = () => setMobile(window.innerWidth < 700);
@@ -270,6 +276,34 @@
         return yrs;
       }, [everYrs, cGrowth, certLaunchYr, certGrowth, africaGrowth, quantumLaunchYr, invRet, saveRt, exitYr, exitMx, startNW, gift, giftPct, recession, recessionYr, qsbs, solo401k, marriage, marriageYr, kids, kidYr, house, houseYr, burnout, studentLoan, loanRate, loanPayoff, loanPayoffYr]);
 
+      const corpTrajectory = useMemo(() => {
+        const yrs = []; let sal = corpStartSal, inv = 0, k401 = 0, loanBal = studentLoan;
+        for (let y = 1; y <= 15; y++) {
+          sal *= (1 + corpRaise);
+          if (y % corpPromoFreq === 0) sal *= (1 + corpPromoLift);
+          let loanPayment = 0;
+          if (loanBal > 0) {
+            loanBal *= (1 + loanRate);
+            if (loanPayoff === "strategic") { loanPayment = Math.min(loanBal, y <= loanPayoffYr ? 7200 : loanBal); if (y === loanPayoffYr) loanPayment = loanBal; }
+            else { loanPayment = Math.min(loanBal, 24000); }
+            loanBal = Math.max(0, loanBal - loanPayment);
+          }
+          let lifeDeduct = loanPayment;
+          if (marriage && y === marriageYr) lifeDeduct += 50000;
+          if (kids && y === kidYr) lifeDeduct += 10000;
+          if (kids && y > kidYr) lifeDeduct += 18000;
+          if (house && y === houseYr) lifeDeduct += 150000;
+          const employeeContrib = Math.min(23000, sal * 0.10);
+          const employerMatch = Math.min(sal * 0.04, 6000);
+          const saveable = Math.max(0, sal * corpSaveRt - lifeDeduct);
+          inv = inv * (1 + invRet) + saveable;
+          k401 = k401 * (1 + invRet) + employeeContrib + employerMatch;
+          const nw = inv + k401 - loanBal;
+          yrs.push({ year: y, cal: 2025+y, age: 27+y, sal, inv, k401, nw, loanBal });
+        }
+        return yrs;
+      }, [corpStartSal, corpRaise, corpPromoFreq, corpPromoLift, corpSaveRt, invRet, studentLoan, loanRate, loanPayoff, loanPayoffYr, marriage, marriageYr, kids, kidYr, house, houseYr]);
+
       const hgseYr = trajectory.find(y => y.canGift);
       const maxNW = Math.max(...trajectory.map(y => y.nw), 1);
       const fin = trajectory[14];
@@ -279,6 +313,9 @@
       const qsbsSavings = qsbs ? Math.min(10000000, (trajectory[Math.min(exitYr-1,14)]?.certRev||0)*exitMx) * 0.24 : 0;
       const debtFreeYr = trajectory.find(y => y.loanBal <= 0);
       const totalLoanPaid = trajectory.reduce((s, y) => s + (y.loanPayment || 0), 0);
+      const corpFin = corpTrajectory[14];
+      const crossoverYr = trajectory.find((y,i) => i > 0 && y.nw > (corpTrajectory[i]?.nw||0) && trajectory[i-1].nw <= (corpTrajectory[i-1]?.nw||0));
+      const corpMaxNW = Math.max(...corpTrajectory.map(y => y.nw), 1);
 
       return (
         <div style={{ fontFamily: "'DM Sans', sans-serif", background: "linear-gradient(180deg, #020617 0%, #0f172a 50%, #020617 100%)", minHeight: "100vh", color: "#e2e8f0", padding: mobile ? "16px 12px" : "20px 16px" }}>
@@ -296,7 +333,7 @@
             </div>
 
             <div className="tab-bar">
-              {[["trajectory","Trajectory"],["controls","Adjust"],["models","Business Models"],["risks","Risks & Blind Spots"],["actions","Action Items"],["waves","Macro Waves"],["hgse","🎓 HGSE"]].map(([k,l])=>(
+              {[["trajectory","Trajectory"],["controls","Adjust"],["models","Business Models"],["risks","Risks & Blind Spots"],["actions","Action Items"],["waves","Macro Waves"],["hgse","🎓 HGSE"],["corp","🏢 Corporate Path"]].map(([k,l])=>(
                 <button key={k} onClick={()=>setTab(k)} className="tab-btn" style={{ background: tab===k?(k==="risks"?"#f43f5e":k==="hgse"?"linear-gradient(135deg,#a78bfa,#7c3aed)":k==="models"?"#f59e0b":"#22d3ee"):"#1e293b", color: tab===k?"#fff":"#94a3b8", borderColor: tab===k?(k==="risks"?"#f43f5e":k==="hgse"?"#a78bfa":k==="models"?"#f59e0b":"#22d3ee"):"#334155" }}>{l}</button>
               ))}
             </div>
@@ -620,6 +657,115 @@
                     <p style={{margin:"0 0 8px"}}><span style={{color:"#facc15",fontWeight:700}}>With recession, marriage, kids, house, burnout, and your own $100K student loans all factored in</span>, you reach {fmtM(reqNW)} around {hgseYr?`${hgseYr.cal} (age ${hgseYr.age})`:"your early 40s"}. This isn't a fantasy projection — it accounts for every real-world drag on your finances.</p>
                     <p style={{margin:"0 0 8px"}}><span style={{color:"#f43f5e",fontWeight:700}}>The story that makes it unforgettable:</span> "I carried $100K in HGSE debt. I know what it feels like to graduate from Harvard and wonder how you'll pay rent. That's why 283 students will never have to carry that weight."</p>
                     <p style={{margin:0}}><span style={{color:"#a78bfa",fontWeight:700}}>The Zounon Scholars.</span> Built on AI-proof, quantum-proof revenue. From -$50K net worth to a $15M gift. That's the arc.</p>
+                  </div>
+                </Card>
+              </div>
+            )}
+            {tab==="corp"&&(
+              <div style={{animation:"fadeIn 0.3s"}}>
+                <div style={{display:"grid",gridTemplateColumns:mobile?"repeat(2,1fr)":"repeat(4,1fr)",gap:8,marginBottom:14}}>
+                  <Metric label="Corporate NW (Yr 15)" value={fmtM(corpFin?.nw||0)} color="#3b82f6" large/>
+                  <Metric label="Entrep NW (Yr 15)" value={fmtM(fin?.nw||0)} color="#a78bfa" large/>
+                  <Metric label="Gap at Yr 15" value={fmtM(Math.abs((fin?.nw||0)-(corpFin?.nw||0)))} color={(fin?.nw||0)>(corpFin?.nw||0)?"#4ade80":"#f43f5e"} large/>
+                  <Metric label="Crossover" value={crossoverYr?`${crossoverYr.cal}`:"Not yet"} sub={crossoverYr?`Age ${crossoverYr.age}`:""} color={crossoverYr?"#f59e0b":"#64748b"} large/>
+                </div>
+
+                <Card title="Wealth Trajectory: Entrepreneurship vs Corporate America" accent="#3b82f6">
+                  <div style={{display:"flex",gap:12,marginBottom:10,flexWrap:"wrap"}}>
+                    <div style={{display:"flex",alignItems:"center",gap:5}}><div style={{width:12,height:12,borderRadius:2,background:"#a78bfa"}}/><span style={{fontSize:10,color:"#94a3b8"}}>Entrepreneurship</span></div>
+                    <div style={{display:"flex",alignItems:"center",gap:5}}><div style={{width:12,height:12,borderRadius:2,background:"#3b82f6"}}/><span style={{fontSize:10,color:"#94a3b8"}}>Corporate America</span></div>
+                  </div>
+                  <div style={{display:"flex",alignItems:"flex-end",gap:mobile?1:3,height:mobile?140:200,padding:"0 2px"}}>
+                    {trajectory.map((y,i)=>{
+                      const cY=corpTrajectory[i];
+                      const maxBoth=Math.max(maxNW,corpMaxNW,1);
+                      const chartH=mobile?118:178;
+                      const hEnt=Math.max((y.nw/maxBoth)*chartH,2);
+                      const hCorp=Math.max((cY.nw/maxBoth)*chartH,2);
+                      const entAhead=y.nw>=cY.nw;
+                      return(
+                        <div key={i} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
+                          {crossoverYr&&y.year===crossoverYr.year&&<div style={{fontSize:7,color:"#4ade80",fontWeight:700,whiteSpace:"nowrap"}}>CROSS</div>}
+                          <div style={{display:"flex",gap:1,alignItems:"flex-end",width:"100%",justifyContent:"center"}}>
+                            <div title={`Entrep: ${fmtM(y.nw)}`} style={{width:"46%",height:hEnt,background:`linear-gradient(180deg,#a78bfa,#a78bfa66)`,borderRadius:"2px 2px 0 0",transition:"height 0.5s"}}/>
+                            <div title={`Corp: ${fmtM(cY.nw)}`} style={{width:"46%",height:hCorp,background:`linear-gradient(180deg,#3b82f6,#3b82f666)`,borderRadius:"2px 2px 0 0",transition:"height 0.5s"}}/>
+                          </div>
+                          <div style={{fontSize:mobile?6:7,color:"#64748b",textAlign:"center",fontWeight:700}}>{mobile?String(y.cal).slice(2):y.cal}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {crossoverYr&&<div style={{marginTop:8,fontSize:10,color:"#4ade80",fontWeight:600}}>Entrepreneurship path takes the lead in {crossoverYr.cal} (Age {crossoverYr.age})</div>}
+                </Card>
+
+                <div style={{display:"grid",gridTemplateColumns:mobile?"1fr":"1fr 1fr",gap:14}}>
+                  <Card title="Corporate Path Assumptions" accent="#3b82f6">
+                    <Slider label="Starting Salary" value={corpStartSal} onChange={setCorpStartSal} min={60000} max={250000} step={5000}/>
+                    <Slider label="Annual Raise" value={corpRaise} onChange={setCorpRaise} min={0.01} max={0.08} step={0.005} format="percent" sub="Industry avg: 3-4% at utilities"/>
+                    <Slider label="Promotion Every N Years" value={corpPromoFreq} onChange={setCorpPromoFreq} min={2} max={8} step={1} format="raw" sub="Typical: every 3-5 years"/>
+                    <Slider label="Promotion Lift" value={corpPromoLift} onChange={setCorpPromoLift} min={0.05} max={0.35} step={0.05} format="percent" sub="Typical bump: 10-20%"/>
+                    <Slider label="Savings Rate" value={corpSaveRt} onChange={setCorpSaveRt} min={0.05} max={0.40} step={0.05} format="percent" sub="On top of 401k"/>
+                    <div style={{marginTop:8,padding:"8px 10px",background:"#0f172a",borderRadius:8,fontSize:10,color:"#64748b",lineHeight:1.5}}>
+                      Includes: ${Math.round(Math.min(23000, corpStartSal*0.10)/1000)}K/yr 401k + {Math.round(Math.min(corpStartSal*0.04,6000)/1000)}K employer match. Uses same life events, investment return, and loan settings from the Adjust tab.
+                    </div>
+                  </Card>
+
+                  <Card title="Year-by-Year Comparison" accent="#22d3ee">
+                    <div style={{overflowX:"auto"}}>
+                      <div style={{display:"grid",gridTemplateColumns:"42px 26px 52px 52px 58px",gap:1,minWidth:250}}>
+                        {["Year","Age","Corp","Entrep","Gap"].map(h=>(
+                          <div key={h} style={{background:"#1e293b",padding:"3px 2px",fontSize:7,fontWeight:700,color:"#94a3b8",textAlign:"center",textTransform:"uppercase"}}>{h}</div>
+                        ))}
+                        {trajectory.map((y,i)=>{
+                          const cY=corpTrajectory[i];
+                          const adv=y.nw-cY.nw;
+                          const isCross=crossoverYr&&y.year===crossoverYr.year;
+                          const bg=isCross?"#4ade800a":"transparent";
+                          return(<React.Fragment key={i}>
+                            <div style={{padding:"3px 1px",textAlign:"center",background:bg,fontFamily:"'Space Mono'",fontSize:9,color:"#e2e8f0",fontWeight:700}}>{y.cal}</div>
+                            <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:9,textAlign:"center",background:bg,color:"#22d3ee",fontWeight:700}}>{y.age}</div>
+                            <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:"#3b82f6"}}>{fmtM(cY.nw)}</div>
+                            <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:"#a78bfa"}}>{fmtM(y.nw)}</div>
+                            <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:adv>=0?"#4ade80":"#f43f5e",fontWeight:700}}>{adv>=0?"+":""}{fmtM(adv)}</div>
+                          </React.Fragment>);
+                        })}
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                <Card title="The Honest Case for Both Paths" accent="#64748b">
+                  <div style={{display:"grid",gridTemplateColumns:mobile?"1fr":"1fr 1fr",gap:16}}>
+                    <div>
+                      <div style={{fontSize:10,color:"#3b82f6",fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>🏢 Why Corporate Makes Sense</div>
+                      {[
+                        ["Predictable income","No payroll anxiety. Salary hits your account every 2 weeks regardless of economic conditions."],
+                        ["Benefits package","Health, dental, disability insurance — cheap while employed. Expensive or unavailable as a solo founder."],
+                        ["Employer 401k match","Free money. 4% match = ~$4K/yr you'd leave on the table by leaving."],
+                        ["Recession-proof income","If you stay, a recession slows your raise. If you leave, a recession can kill your business."],
+                        ["Time to build quietly","You can build the foundation (certifications, clients, Africa network) while Eversource pays the bills."],
+                      ].map(([t,d],i)=>(
+                        <div key={i} style={{marginBottom:8,paddingLeft:10,borderLeft:"2px solid #3b82f644"}}>
+                          <div style={{fontSize:11,color:"#cbd5e1",fontWeight:600,marginBottom:2}}>{t}</div>
+                          <div style={{fontSize:10,color:"#64748b",lineHeight:1.5}}>{d}</div>
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <div style={{fontSize:10,color:"#f43f5e",fontWeight:700,textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>⚠️ The Real Cost of Staying</div>
+                      {[
+                        ["The window closes","AI governance positioning is a 2025-2030 opportunity. Every year in corporate is a year incumbents build moats you'll have to fight through."],
+                        ["The salary ceiling","At Eversource trajectory, Year 15 salary hits ~"+fmtM(corpFin?.sal||0)+". Your entrepreneurship target is "+fmtM(fin?.nw||0)+" net worth — a different universe."],
+                        ["Compounding relationships","The Harvard network, the Beninese government connections, the Francophone Africa pipeline — these compound when you're actively working them, atrophy when you're in meetings."],
+                        ["Identity drift","Every year in corporate consolidates your identity as an employee. The longer you stay, the harder the psychological leap to founder."],
+                        ["The gap: "+fmtM(Math.abs((fin?.nw||0)-(corpFin?.nw||0))),"That's the 15-year difference between the two paths with all risks modeled. Adjust sliders to explore scenarios."],
+                      ].map(([t,d],i)=>(
+                        <div key={i} style={{marginBottom:8,paddingLeft:10,borderLeft:"2px solid #f43f5e44"}}>
+                          <div style={{fontSize:11,color:"#cbd5e1",fontWeight:600,marginBottom:2}}>{t}</div>
+                          <div style={{fontSize:10,color:"#64748b",lineHeight:1.5}}>{d}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </Card>
               </div>
