@@ -10,21 +10,25 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #020617; }
-    #gate { position: fixed; inset: 0; background: #020617; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: 'DM Sans', sans-serif; }
-    .gate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #22d3ee22; border-radius: 16px; padding: 40px 32px; text-align: center; width: 340px; }
+    body { background: #020617; overflow-x: hidden; }
+    #gate { position: fixed; inset: 0; background: #020617; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: 'DM Sans', sans-serif; padding: 16px; }
+    .gate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #22d3ee22; border-radius: 16px; padding: 40px 32px; text-align: center; width: 100%; max-width: 340px; }
     .gate-title { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: #22d3ee; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
     .gate-sub { font-size: 12px; color: #64748b; margin-bottom: 28px; }
     .gate-input { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 12px 16px; color: #e2e8f0; font-family: 'Space Mono', monospace; font-size: 15px; outline: none; text-align: center; letter-spacing: 3px; transition: border-color 0.2s; }
     .gate-input:focus { border-color: #22d3ee; }
-    .gate-btn { margin-top: 14px; width: 100%; padding: 12px; background: #22d3ee; color: #020617; border: none; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: background 0.2s; }
+    .gate-btn { margin-top: 14px; width: 100%; padding: 14px; background: #22d3ee; color: #020617; border: none; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: background 0.2s; -webkit-tap-highlight-color: transparent; }
     .gate-btn:hover { background: #06b6d4; }
     .gate-error { margin-top: 10px; font-size: 11px; color: #f43f5e; min-height: 16px; }
     @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
     .shake { animation: shake 0.4s ease; }
     input[type=range]{-webkit-appearance:none;appearance:none;background:#334155;border-radius:4px;outline:none}
-    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#22d3ee;cursor:pointer;border:2px solid #0f172a}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:#22d3ee;cursor:pointer;border:2px solid #0f172a}
     @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .tab-bar { display:flex; gap:6px; margin-bottom:12px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
+    .tab-bar::-webkit-scrollbar { display:none; }
+    .tab-bar { -ms-overflow-style:none; scrollbar-width:none; }
+    .tab-btn { flex-shrink:0; white-space:nowrap; font-size:11px; font-weight:600; padding:8px 13px; border-radius:7px; cursor:pointer; border-width:1px; border-style:solid; -webkit-tap-highlight-color:transparent; }
   </style>
 </head>
 <body>
@@ -81,7 +85,7 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script type="text/babel">
-    const { useState, useMemo } = React;
+    const { useState, useMemo, useEffect } = React;
 
     const fmt = (n) => { if (n == null || isNaN(n)) return "$0"; return (n < 0 ? "-$" : "$") + Math.abs(Math.round(n)).toLocaleString("en-US"); };
     const fmtM = (n) => { const m = n / 1000000; return m >= 1 ? `$${m.toFixed(1)}M` : n >= 1000 ? `$${Math.round(n / 1000)}K` : `$${Math.round(n)}`; };
@@ -106,8 +110,8 @@
     );
 
     const Metric = ({ label, value, sub, color = "#22d3ee", large }) => (
-      <div style={{ background: `${color}0a`, border: `1px solid ${color}25`, borderRadius: 10, padding: large ? "14px 10px" : "8px 6px", textAlign: "center", flex: 1, minWidth: 90 }}>
-        <div style={{ fontFamily: "'Space Mono'", fontSize: large ? 18 : 14, fontWeight: 700, color, lineHeight: 1.1 }}>{value}</div>
+      <div style={{ background: `${color}0a`, border: `1px solid ${color}25`, borderRadius: 10, padding: large ? "12px 8px" : "8px 6px", textAlign: "center" }}>
+        <div style={{ fontFamily: "'Space Mono'", fontSize: large ? 15 : 13, fontWeight: 700, color, lineHeight: 1.1 }}>{value}</div>
         <div style={{ fontSize: 9, color: "#94a3b8", marginTop: 3 }}>{label}</div>
         {sub && <div style={{ fontSize: 8, color: "#64748b", marginTop: 1 }}>{sub}</div>}
       </div>
@@ -181,6 +185,13 @@
       const [house, setHouse] = useState(true);
       const [houseYr, setHouseYr] = useState(5);
       const [burnout, setBurnout] = useState(true);
+
+      const [mobile, setMobile] = useState(() => window.innerWidth < 700);
+      useEffect(() => {
+        const fn = () => setMobile(window.innerWidth < 700);
+        window.addEventListener('resize', fn);
+        return () => window.removeEventListener('resize', fn);
+      }, []);
 
       const trajectory = useMemo(() => {
         const yrs = []; let nw = startNW, cRev = 50000, certRev = 0, africaRev = 0, regIntelRev = 0, quantumRev = 0, inv = 0, solo = 0, bEq = 0, exited = false, loanBal = studentLoan;
@@ -270,12 +281,12 @@
       const totalLoanPaid = trajectory.reduce((s, y) => s + (y.loanPayment || 0), 0);
 
       return (
-        <div style={{ fontFamily: "'DM Sans', sans-serif", background: "linear-gradient(180deg, #020617 0%, #0f172a 50%, #020617 100%)", minHeight: "100vh", color: "#e2e8f0", padding: "20px 12px" }}>
+        <div style={{ fontFamily: "'DM Sans', sans-serif", background: "linear-gradient(180deg, #020617 0%, #0f172a 50%, #020617 100%)", minHeight: "100vh", color: "#e2e8f0", padding: mobile ? "16px 12px" : "20px 16px" }}>
           <div style={{ maxWidth: 1020, margin: "0 auto" }}>
-            <h1 style={{ fontFamily: "'Space Mono'", fontSize: 18, fontWeight: 700, color: "#a78bfa", margin: "0 0 3px" }}>15-YEAR WEALTH TRAJECTORY</h1>
-            <p style={{ color: "#64748b", fontSize: 11, margin: "0 0 12px" }}>Age 28-42 | Starting from -$50K (with $100K student debt) | Post-SaaS: Governance, Cert, Quantum, Africa</p>
+            <h1 style={{ fontFamily: "'Space Mono'", fontSize: mobile ? 14 : 18, fontWeight: 700, color: "#a78bfa", margin: "0 0 3px" }}>15-YEAR WEALTH TRAJECTORY</h1>
+            <p style={{ color: "#64748b", fontSize: mobile ? 10 : 11, margin: "0 0 12px", lineHeight: 1.5 }}>{mobile ? "Age 28-42 · Governance, Cert, Quantum, Africa" : "Age 28-42 | Starting from -$50K (with $100K student debt) | Post-SaaS: Governance, Cert, Quantum, Africa"}</p>
 
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(3, 1fr)" : "repeat(6, 1fr)", gap: 6, marginBottom: 12 }}>
               <Metric label="Year 15 NW" value={fmtM(fin?.nw||0)} sub={`${fin?.cal} age ${fin?.age}`} color={fin?.nw>=100000000?"#4ade80":"#f97316"} large />
               <Metric label="HGSE Viable" value={hgseYr?`${hgseYr.cal}`:"--"} sub={hgseYr?`Age ${hgseYr.age}`:""} color={hgseYr?"#a78bfa":"#f87171"} large />
               <Metric label="QSBS Savings" value={qsbs?fmtM(qsbsSavings):"OFF"} sub="Sec 1202 tax excl." color="#4ade80" large />
@@ -284,16 +295,16 @@
               <Metric label="$100M" value={fin?.nw>=100000000?"✅":`${Math.round((fin?.nw||0)/1000000)}M`} color={fin?.nw>=100000000?"#4ade80":"#f87171"} large />
             </div>
 
-            <div style={{ display: "flex", gap: 3, marginBottom: 12, flexWrap: "wrap" }}>
+            <div className="tab-bar">
               {[["trajectory","Trajectory"],["controls","Adjust"],["models","Business Models"],["risks","Risks & Blind Spots"],["actions","Action Items"],["waves","Macro Waves"],["hgse","🎓 HGSE"]].map(([k,l])=>(
-                <button key={k} onClick={()=>setTab(k)} style={{ fontSize: 11, fontWeight: 600, padding: "6px 11px", background: tab===k?(k==="risks"?"#f43f5e":k==="hgse"?"linear-gradient(135deg,#a78bfa,#7c3aed)":k==="models"?"#f59e0b":"#22d3ee"):"#1e293b", color: tab===k?"#fff":"#94a3b8", border: `1px solid ${tab===k?(k==="risks"?"#f43f5e":k==="hgse"?"#a78bfa":k==="models"?"#f59e0b":"#22d3ee"):"#334155"}`, borderRadius: 7, cursor: "pointer" }}>{l}</button>
+                <button key={k} onClick={()=>setTab(k)} className="tab-btn" style={{ background: tab===k?(k==="risks"?"#f43f5e":k==="hgse"?"linear-gradient(135deg,#a78bfa,#7c3aed)":k==="models"?"#f59e0b":"#22d3ee"):"#1e293b", color: tab===k?"#fff":"#94a3b8", borderColor: tab===k?(k==="risks"?"#f43f5e":k==="hgse"?"#a78bfa":k==="models"?"#f59e0b":"#22d3ee"):"#334155" }}>{l}</button>
               ))}
             </div>
 
             {tab==="trajectory"&&(
               <div style={{animation:"fadeIn 0.3s"}}>
                 <Card title="Net Worth: Age 28 to 42" accent="#4ade80">
-                  <div style={{ display:"flex", alignItems:"flex-end", gap: 3, height: 200, padding:"0 2px" }}>
+                  <div style={{ display:"flex", alignItems:"flex-end", gap: mobile?2:3, height: mobile?140:200, padding:"0 2px" }}>
                     {trajectory.map((y,i)=>{
                       const h = maxNW>0?Math.max((y.nw/maxNW)*180,4):4;
                       const c = y.nw>=100000000?"#4ade80":y.nw>=reqNW?"#a78bfa":y.inRecession?"#f87171":pc[y.phase];
@@ -343,7 +354,7 @@
             )}
 
             {tab==="controls"&&(
-              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,animation:"fadeIn 0.3s"}}>
+              <div style={{display:"grid",gridTemplateColumns:mobile?"1fr":"1fr 1fr",gap:14,animation:"fadeIn 0.3s"}}>
                 <Card title="Business Streams" accent="#a78bfa">
                   <Slider label="Years at Eversource" value={everYrs} onChange={setEverYrs} min={1} max={5} step={1} format="raw"/>
                   <Slider label="Consulting Growth" value={cGrowth} onChange={setCGrowth} min={0.2} max={1.0} step={0.05} format="percent"/>
@@ -399,7 +410,7 @@
             {tab==="risks"&&(
               <div style={{animation:"fadeIn 0.3s"}}>
                 <Card title="Modelable Risks (toggle on/off)" accent="#f43f5e">
-                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+                  <div style={{display:"grid",gridTemplateColumns:mobile?"1fr":"1fr 1fr",gap:16}}>
                     <div>
                       <Toggle label={`Recession in Year ${recessionYr} (${2025+recessionYr})`} on={recession} onToggle={()=>setRecession(!recession)} sub="Revenue drops 35% Year 1, 20% Year 2. Guaranteed to happen at least once in 15 years." color="#f87171"/>
                       {recession&&<Slider label="Recession Year" value={recessionYr} onChange={setRecessionYr} min={3} max={10} step={1} format="year" sub="Most vulnerable: Year 4-7 (just left Eversource, fully dependent on business)"/>}
@@ -462,7 +473,7 @@
                   </div>
                   <div style={{background:"#0f172a",borderRadius:10,padding:14,border:"1px solid #f59e0b22"}}>
                     <div style={{fontSize:13,fontWeight:700,color:"#f59e0b",marginBottom:8}}>AI Training & Consulting (Year 1-3 primary revenue)</div>
-                    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+                    <div style={{display:"grid",gridTemplateColumns:mobile?"1fr":"1fr 1fr",gap:12}}>
                       <div>
                         <div style={{fontSize:10,color:"#64748b",fontWeight:700,textTransform:"uppercase",marginBottom:4}}>What You Sell</div>
                         <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.6}}>
@@ -564,7 +575,7 @@
                   </div>))}
                 </Card>
                 {WAVES.map(w=>(<Card key={w.id} title={`${w.name} (peak: ${w.peak})`} accent={w.color}>
-                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+                  <div style={{display:"grid",gridTemplateColumns:mobile?"1fr":"1fr 1fr",gap:12}}>
                     <div><div style={{fontSize:10,color:"#64748b",fontWeight:700,textTransform:"uppercase",marginBottom:4}}>The Shift</div><div style={{fontSize:11,color:"#94a3b8",lineHeight:1.5}}>{w.desc}</div></div>
                     <div><div style={{fontSize:10,color:w.color,fontWeight:700,textTransform:"uppercase",marginBottom:4}}>Why You</div><div style={{fontSize:11,color:"#94a3b8",lineHeight:1.5}}>{w.you}</div></div>
                   </div>
@@ -586,7 +597,7 @@
                     <Metric label="Viable" value={hgseYr?`${hgseYr.cal}`:"--"} sub={hgseYr?`Age ${hgseYr.age}`:""} color={hgseYr?"#4ade80":"#f87171"} large/>
                   </div>
                 </div>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+                <div style={{display:"grid",gridTemplateColumns:mobile?"1fr":"1fr 1fr",gap:14}}>
                   <Card title="Tax + QSBS Impact" accent="#22d3ee">
                     {(()=>{const tSave=gift*0.42;const eCost=gift-tSave; return(<>
                       {[["Gift",fmtM(gift),"#e2e8f0"],["Tax Savings (42%)",fmtM(tSave),"#4ade80"],["Effective Cost",fmtM(eCost),"#22d3ee"],["QSBS Exit Savings",qsbs?fmtM(qsbsSavings):"N/A","#4ade80"]].map(([l,v,c],i)=>(
