@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #020617; }
+    #gate { position: fixed; inset: 0; background: #020617; display: flex; align-items: center; justify-content: center; z-index: 9999; font-family: 'DM Sans', sans-serif; }
+    .gate-card { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border: 1px solid #22d3ee22; border-radius: 16px; padding: 40px 32px; text-align: center; width: 340px; }
+    .gate-title { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: #22d3ee; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .gate-sub { font-size: 12px; color: #64748b; margin-bottom: 28px; }
+    .gate-input { width: 100%; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 12px 16px; color: #e2e8f0; font-family: 'Space Mono', monospace; font-size: 15px; outline: none; text-align: center; letter-spacing: 3px; transition: border-color 0.2s; }
+    .gate-input:focus { border-color: #22d3ee; }
+    .gate-btn { margin-top: 14px; width: 100%; padding: 12px; background: #22d3ee; color: #020617; border: none; border-radius: 8px; font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; cursor: pointer; letter-spacing: 1px; transition: background 0.2s; }
+    .gate-btn:hover { background: #06b6d4; }
+    .gate-error { margin-top: 10px; font-size: 11px; color: #f43f5e; min-height: 16px; }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-8px)} 40%,80%{transform:translateX(8px)} }
+    .shake { animation: shake 0.4s ease; }
+    input[type=range]{-webkit-appearance:none;appearance:none;background:#334155;border-radius:4px;outline:none}
+    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#22d3ee;cursor:pointer;border:2px solid #0f172a}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  </style>
+</head>
+<body>
+
+  <!-- Password Gate -->
+  <div id="gate">
+    <div class="gate-card">
+      <div class="gate-title">Private Access</div>
+      <div class="gate-sub">Enter your access code to continue</div>
+      <input class="gate-input" id="pw" type="password" placeholder="••••••••••" autocomplete="off" />
+      <button class="gate-btn" id="pw-btn">ENTER →</button>
+      <div class="gate-error" id="pw-err"></div>
+    </div>
+  </div>
+
+  <div id="root"></div>
+
+  <script>
+    const HASH = "2727f4be402b04b01244bb2bdfc684adc76d2f4d195db8b7e1550d9df13cceb9";
+    const gate = document.getElementById('gate');
+    const pwInput = document.getElementById('pw');
+    const pwBtn = document.getElementById('pw-btn');
+    const pwErr = document.getElementById('pw-err');
+
+    if (sessionStorage.getItem('auth') === HASH) {
+      gate.style.display = 'none';
+    }
+
+    async function tryUnlock() {
+      const val = pwInput.value;
+      const enc = new TextEncoder();
+      const buf = await crypto.subtle.digest('SHA-256', enc.encode(val));
+      const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+      if (hex === HASH) {
+        sessionStorage.setItem('auth', HASH);
+        gate.style.display = 'none';
+      } else {
+        pwErr.textContent = 'Invalid code.';
+        const card = gate.querySelector('.gate-card');
+        card.classList.remove('shake');
+        void card.offsetWidth;
+        card.classList.add('shake');
+        pwInput.value = '';
+        pwInput.focus();
+      }
+    }
+
+    pwBtn.addEventListener('click', tryUnlock);
+    pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') tryUnlock(); });
+  </script>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const { useState, useMemo } = React;
+
+    const fmt = (n) => { if (n == null || isNaN(n)) return "$0"; return (n < 0 ? "-$" : "$") + Math.abs(Math.round(n)).toLocaleString("en-US"); };
+    const fmtM = (n) => { const m = n / 1000000; return m >= 1 ? `$${m.toFixed(1)}M` : n >= 1000 ? `$${Math.round(n / 1000)}K` : `$${Math.round(n)}`; };
+    const pct = (n) => `${(n * 100).toFixed(1)}%`;
+
+    const Slider = ({ label, value, onChange, min, max, step, format = "dollar", sub }) => (
+      <div style={{ marginBottom: 13 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+          <span style={{ fontSize: 11, color: "#94a3b8", fontWeight: 500 }}>{label}</span>
+          <span style={{ fontFamily: "'Space Mono'", fontSize: 12, color: "#e2e8f0", fontWeight: 700 }}>{format === "dollar" ? fmtM(value) : format === "percent" ? pct(value) : format === "year" ? `Yr ${value} (${2025 + value})` : value}</span>
+        </div>
+        {sub && <div style={{ fontSize: 9, color: "#64748b", marginBottom: 2 }}>{sub}</div>}
+        <input type="range" min={min} max={max} step={step} value={value} onChange={e => onChange(parseFloat(e.target.value))} style={{ width: "100%", accentColor: "#22d3ee", height: 5, cursor: "pointer" }} />
+      </div>
+    );
+
+    const Card = ({ title, children, accent = "#22d3ee" }) => (
+      <div style={{ background: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)", border: `1px solid ${accent}22`, borderRadius: 12, padding: 18, marginBottom: 14 }}>
+        {title && <h3 style={{ fontSize: 12, fontWeight: 700, color: accent, textTransform: "uppercase", letterSpacing: 1, marginBottom: 12, marginTop: 0 }}>{title}</h3>}
+        {children}
+      </div>
+    );
+
+    const Metric = ({ label, value, sub, color = "#22d3ee", large }) => (
+      <div style={{ background: `${color}0a`, border: `1px solid ${color}25`, borderRadius: 10, padding: large ? "14px 10px" : "8px 6px", textAlign: "center", flex: 1, minWidth: 90 }}>
+        <div style={{ fontFamily: "'Space Mono'", fontSize: large ? 18 : 14, fontWeight: 700, color, lineHeight: 1.1 }}>{value}</div>
+        <div style={{ fontSize: 9, color: "#94a3b8", marginTop: 3 }}>{label}</div>
+        {sub && <div style={{ fontSize: 8, color: "#64748b", marginTop: 1 }}>{sub}</div>}
+      </div>
+    );
+
+    const Toggle = ({ label, on, onToggle, sub, color = "#22d3ee" }) => (
+      <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 12, padding: "8px 0", borderBottom: "1px solid #1e293b" }}>
+        <button onClick={onToggle} style={{ width: 36, height: 20, borderRadius: 10, border: "none", cursor: "pointer", background: on ? color : "#334155", position: "relative", flexShrink: 0, marginTop: 2 }}>
+          <div style={{ width: 16, height: 16, borderRadius: "50%", background: "#fff", position: "absolute", top: 2, left: on ? 18 : 2, transition: "left 0.2s" }} />
+        </button>
+        <div><div style={{ fontSize: 12, color: on ? "#e2e8f0" : "#64748b", fontWeight: 600 }}>{label}</div>
+          {sub && <div style={{ fontSize: 10, color: "#64748b", marginTop: 2, lineHeight: 1.4 }}>{sub}</div>}
+        </div>
+      </div>
+    );
+
+    const WAVES = [
+      { id: "gov", name: "AI Governance", color: "#a78bfa", years: [1,5], peak: "2027-2029", desc: "EU AI Act enforcement, US AI bills. Every AI agent needs governance.", you: "Built governance inside regulated utility. As SaaS collapses, governance is what analysts say is NEXT." },
+      { id: "africa", name: "Africa Workforce", color: "#f59e0b", years: [2,15], peak: "2030-2040", desc: "740M new working-age Africans by 2050. Francophone market underserved. Institutional billions flowing.", you: "French + Beninese roots + Harvard + Develop Gio. Relationship-driven, AI-proof." },
+      { id: "quantum", name: "Quantum Governance", color: "#06b6d4", years: [5,15], peak: "2032-2037", desc: "NIST deprecates RSA by 2030. $97B quantum market by 2035. 250K professionals needed. All compliance rewritten.", you: "AI governance cert infrastructure pivots to quantum with 5-year head start." },
+      { id: "energy", name: "Energy/Climate AI", color: "#4ade80", years: [3,13], peak: "2029-2036", desc: "AI for grid optimization, carbon tracking. Legally mandated compliance.", you: "Eversource = AI + regulated utility + governance. A niche that barely exists." },
+      { id: "geo", name: "Francophone Geopolitics", color: "#f43f5e", years: [1,15], peak: "2027-2040", desc: "France losing West Africa influence. Institutions need credible delivery partners.", you: "Beninese-American, French, Harvard, AI expert with government connections." },
+    ];
+
+    const RISKS = [
+      { title: "Big 4 Competition", icon: "🏢", color: "#f97316", text: "Deloitte, PwC, EY, KPMG are all building AI governance practices. Your defense: own the certification standard so they become your CUSTOMERS, not competitors. They'll send their people to get YOUR cert.", action: "Build brand dominance in Years 1-3 before they catch up. File trademark for certification." },
+      { title: "Eversource Non-Compete & IP", icon: "⚠️", color: "#f43f5e", text: "Your employment agreement may restrict AI governance consulting for 12 months post-exit. IP assignment clauses could mean anything you build while employed belongs to them. MA limits non-competes to 12 months.", action: "READ YOUR AGREEMENT THIS WEEK. Know exactly what you signed before building anything." },
+      { title: "AI Governance Commoditization", icon: "🤖", color: "#a78bfa", text: "In 5 years, AI tools may automate 60-70% of governance work. Your consulting revenue could plateau. But certification bodies don't get commoditized — PMP wasn't disrupted by PM software.", action: "Shift primary revenue from consulting to certification by Year 5-6. Consulting becomes the on-ramp to cert." },
+      { title: "Africa Political Risk", icon: "🌍", color: "#f59e0b", text: "USAID budgets swing with administrations. Coups in Mali, Burkina Faso, Niger. Benin is stable but contingency needed. CFA franc / currency risk on Africa revenue.", action: "Diversify funding across US, European (GIZ/AFD), multilateral (World Bank), and private foundations. Price contracts in USD/EUR." },
+      { title: "Harvard Network (Underused)", icon: "🎓", color: "#22d3ee", text: "HGSE alumni network, Harvard Club of Boston, Harvard African Alumni are direct pipelines to decision-makers at foundations, school systems, policy orgs. You're not weaponizing this.", action: "Attend every HGSE alumni event. Join Harvard Club. Reconnect with classmates now in positions of influence." },
+      { title: "Advisory Board (Missing)", icon: "👔", color: "#4ade80", text: "You need 3-5 people: regulatory lawyer, Big 4 partner, someone with an exit, someone in African development. They open doors you can't.", action: "Identify and approach 5 potential advisors. Offer 0.25-1% equity or relationship value." },
+      { title: "Health & Disability", icon: "❤️", color: "#f87171", text: "You're the single point of failure. 6 months incapacitated and everything stops. Disability insurance is cheap while you're employed.", action: "Get disability insurance through Eversource benefits NOW while it's affordable. This costs ~$200/yr and protects your entire trajectory." },
+    ];
+
+    const ACTIONS = [
+      { priority: 1, action: "Talk to tax attorney about Section 1202 QSBS", detail: "If you structure as C-Corp from Day 1 and hold stock 5+ years, you can exclude up to $10M in capital gains at exit. This single conversation could save you $10M+.", deadline: "Before you incorporate", color: "#4ade80" },
+      { priority: 2, action: "Read Eversource employment agreement line by line", detail: "Non-compete, IP assignment, moonlighting policy. Know what you can and can't do. MA limits non-competes to 12 months.", deadline: "This week", color: "#f43f5e" },
+      { priority: 3, action: "Open a Donor Advised Fund", detail: "Even with $500. Starts the clock, builds the habit, creates a philanthropic track record Harvard's development office will notice.", deadline: "This month", color: "#a78bfa" },
+      { priority: 4, action: "Get disability insurance", detail: "While still employed at Eversource. Much cheaper as employee vs self-employed. Protects your entire $100M trajectory for ~$200/yr.", deadline: "Next benefits enrollment", color: "#f87171" },
+      { priority: 5, action: "Set up Solo 401k structure", detail: "Once self-employed, shelter up to $69K/yr from taxes. Over 15 years at 10% returns = $2M+ tax-advantaged wealth.", deadline: "When you leave Eversource", color: "#22d3ee" },
+      { priority: 6, action: "File trademark for AI governance certification name", detail: "Before anyone else does. This protects your brand and certification standard. Relatively cheap (~$350 per class).", deadline: "Year 1-2", color: "#f59e0b" },
+    ];
+
+    function App() {
+      const [tab, setTab] = useState("trajectory");
+      const [everYrs, setEverYrs] = useState(2);
+      const [cGrowth, setCGrowth] = useState(0.60);
+      const [certLaunchYr, setCertLaunchYr] = useState(4);
+      const [certGrowth, setCertGrowth] = useState(0.70);
+      const [africaGrowth, setAfricaGrowth] = useState(0.50);
+      const [quantumLaunchYr, setQuantumLaunchYr] = useState(7);
+      const [invRet, setInvRet] = useState(0.10);
+      const [saveRt, setSaveRt] = useState(0.30);
+      const [exitYr, setExitYr] = useState(13);
+      const [exitMx, setExitMx] = useState(6);
+      const [startNW, setStartNW] = useState(50000);
+      const [gift, setGift] = useState(15000000);
+      const [giftPct, setGiftPct] = useState(0.15);
+      const [studentLoan, setStudentLoan] = useState(100000);
+      const [loanRate, setLoanRate] = useState(0.065);
+      const [loanPayoff, setLoanPayoff] = useState("strategic");
+      const [loanPayoffYr, setLoanPayoffYr] = useState(4);
+      const [recession, setRecession] = useState(true);
+      const [recessionYr, setRecessionYr] = useState(6);
+      const [qsbs, setQsbs] = useState(true);
+      const [solo401k, setSolo401k] = useState(true);
+      const [marriage, setMarriage] = useState(true);
+      const [marriageYr, setMarriageYr] = useState(4);
+      const [kids, setKids] = useState(true);
+      const [kidYr, setKidYr] = useState(6);
+      const [house, setHouse] = useState(true);
+      const [houseYr, setHouseYr] = useState(5);
+      const [burnout, setBurnout] = useState(true);
+
+      const trajectory = useMemo(() => {
+        const yrs = []; let nw = startNW, cRev = 50000, certRev = 0, africaRev = 0, regIntelRev = 0, quantumRev = 0, inv = 0, solo = 0, bEq = 0, exited = false, loanBal = studentLoan;
+        for (let y = 1; y <= 15; y++) {
+          const atE = y <= everYrs;
+          const sal = atE ? 100000 * Math.pow(1.03, y) : 0;
+          let loanPayment = 0;
+          if (loanBal > 0) {
+            loanBal *= (1 + loanRate);
+            if (loanPayoff === "strategic") {
+              loanPayment = Math.min(loanBal, y <= loanPayoffYr ? 7200 : loanBal);
+              if (y === loanPayoffYr) loanPayment = loanBal;
+            } else {
+              loanPayment = Math.min(loanBal, 24000);
+            }
+            loanBal = Math.max(0, loanBal - loanPayment);
+          }
+          const inRecession = recession && (y === recessionYr || y === recessionYr + 1);
+          const recMult = inRecession ? (y === recessionYr ? 0.65 : 0.80) : 1.0;
+          const burnoutMult = burnout && y >= 3 && y <= 4 ? 0.90 : 1.0;
+          if (y <= 2) cRev = 50000 + y * 75000;
+          else if (y <= 5) cRev *= (1 + cGrowth * 0.7 * burnoutMult);
+          else if (y <= 8) cRev = Math.min(cRev * (1 + cGrowth * 0.3), 3000000);
+          else cRev = Math.min(cRev * 1.03, 3500000);
+          cRev *= recMult;
+          if (y >= certLaunchYr && !exited) {
+            if (y === certLaunchYr) certRev = 150000;
+            else certRev *= (1 + certGrowth * Math.max(0.3, 1 - (y - certLaunchYr) * 0.08));
+            certRev *= recMult;
+          }
+          if (y >= 3) {
+            if (y === 3) africaRev = 100000;
+            else africaRev *= (1 + africaGrowth * Math.max(0.4, 1 - (y - 3) * 0.06));
+            africaRev *= (inRecession ? 0.85 : 1.0);
+          }
+          if (y >= quantumLaunchYr && !exited) {
+            if (y === quantumLaunchYr) quantumRev = 120000;
+            else quantumRev *= (1 + 0.65 * Math.max(0.3, 1 - (y - quantumLaunchYr) * 0.08));
+            quantumRev *= recMult;
+          }
+          if (y >= 5) {
+            if (y === 5) regIntelRev = 80000;
+            else regIntelRev *= (1 + 0.40 * Math.max(0.3, 1 - (y - 5) * 0.07));
+            regIntelRev *= recMult;
+          }
+          const totalBizRev = cRev + certRev + africaRev + regIntelRev + quantumRev;
+          if (y === exitYr && !exited) {
+            let exitableRev = certRev + cRev * 0.5 + regIntelRev + quantumRev;
+            let exitProceeds = exitableRev * exitMx;
+            const capGains = exitProceeds;
+            const qsbsExclusion = qsbs ? Math.min(10000000, capGains) : 0;
+            const taxableGains = capGains - qsbsExclusion;
+            const afterTax = qsbsExclusion + taxableGains * 0.76;
+            inv += afterTax;
+            exited = true; bEq = 0;
+            cRev *= 0.3; certRev = 0; regIntelRev = 0; quantumRev = 0;
+          }
+          const inc = sal + totalBizRev;
+          let lifeDeduct = loanPayment;
+          if (marriage && y === marriageYr) lifeDeduct += 50000;
+          if (kids && y === kidYr) lifeDeduct += 10000;
+          if (kids && y > kidYr) lifeDeduct += 18000;
+          if (house && y === houseYr) lifeDeduct += 150000;
+          const solo401kContrib = solo401k && !atE && inc > 100000 ? Math.min(69000, inc * 0.20) : 0;
+          const saveable = Math.max(0, inc * saveRt - lifeDeduct);
+          inv = inv * (1 + invRet) + saveable;
+          solo = solo * (1 + invRet) + solo401kContrib;
+          if (!exited) {
+            bEq = certRev * (certRev > 2000000 ? exitMx : 3) + cRev * 2 + africaRev * 2.5 + regIntelRev * 3 + quantumRev * (quantumRev > 1000000 ? exitMx * 0.8 : 3);
+          } else { bEq = africaRev * 2.5; }
+          nw = inv + solo + bEq - loanBal;
+          const phase = y <= 3 ? "Foundation" : y <= 6 ? "Lift-off" : y <= 10 ? "Scale" : "Exit/Empire";
+          const canGift = nw >= gift / giftPct;
+          yrs.push({ year: y, cal: 2025+y, age: 27+y, atE, sal, cRev, certRev, africaRev, quantumRev, regIntelRev, totalBizRev, inc, inv, solo, bEq, nw, phase, exited: y >= exitYr, canGift, inRecession, lifeDeduct, solo401kContrib, loanBal, loanPayment });
+        }
+        return yrs;
+      }, [everYrs, cGrowth, certLaunchYr, certGrowth, africaGrowth, quantumLaunchYr, invRet, saveRt, exitYr, exitMx, startNW, gift, giftPct, recession, recessionYr, qsbs, solo401k, marriage, marriageYr, kids, kidYr, house, houseYr, burnout, studentLoan, loanRate, loanPayoff, loanPayoffYr]);
+
+      const hgseYr = trajectory.find(y => y.canGift);
+      const maxNW = Math.max(...trajectory.map(y => y.nw), 1);
+      const fin = trajectory[14];
+      const reqNW = gift / giftPct;
+      const pc = { Foundation: "#60a5fa", "Lift-off": "#a78bfa", Scale: "#22c55e", "Exit/Empire": "#f59e0b" };
+      const totalSolo = fin?.solo || 0;
+      const qsbsSavings = qsbs ? Math.min(10000000, (trajectory[Math.min(exitYr-1,14)]?.certRev||0)*exitMx) * 0.24 : 0;
+      const debtFreeYr = trajectory.find(y => y.loanBal <= 0);
+      const totalLoanPaid = trajectory.reduce((s, y) => s + (y.loanPayment || 0), 0);
+
+      return (
+        <div style={{ fontFamily: "'DM Sans', sans-serif", background: "linear-gradient(180deg, #020617 0%, #0f172a 50%, #020617 100%)", minHeight: "100vh", color: "#e2e8f0", padding: "20px 12px" }}>
+          <div style={{ maxWidth: 1020, margin: "0 auto" }}>
+            <h1 style={{ fontFamily: "'Space Mono'", fontSize: 18, fontWeight: 700, color: "#a78bfa", margin: "0 0 3px" }}>15-YEAR WEALTH TRAJECTORY</h1>
+            <p style={{ color: "#64748b", fontSize: 11, margin: "0 0 12px" }}>Age 28-42 | Starting from -$50K (with $100K student debt) | Post-SaaS: Governance, Cert, Quantum, Africa</p>
+
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 12 }}>
+              <Metric label="Year 15 NW" value={fmtM(fin?.nw||0)} sub={`${fin?.cal} age ${fin?.age}`} color={fin?.nw>=100000000?"#4ade80":"#f97316"} large />
+              <Metric label="HGSE Viable" value={hgseYr?`${hgseYr.cal}`:"--"} sub={hgseYr?`Age ${hgseYr.age}`:""} color={hgseYr?"#a78bfa":"#f87171"} large />
+              <Metric label="QSBS Savings" value={qsbs?fmtM(qsbsSavings):"OFF"} sub="Sec 1202 tax excl." color="#4ade80" large />
+              <Metric label="Debt Free" value={debtFreeYr?`${debtFreeYr.cal}`:"--"} sub={debtFreeYr?`Age ${debtFreeYr.age} (${fmtM(totalLoanPaid)} total paid)`:`$${Math.round(studentLoan/1000)}K loan`} color={debtFreeYr?"#22d3ee":"#f43f5e"} large />
+              <Metric label="Solo 401k" value={fmtM(totalSolo)} sub="Tax-advantaged" color="#22d3ee" large />
+              <Metric label="$100M" value={fin?.nw>=100000000?"✅":`${Math.round((fin?.nw||0)/1000000)}M`} color={fin?.nw>=100000000?"#4ade80":"#f87171"} large />
+            </div>
+
+            <div style={{ display: "flex", gap: 3, marginBottom: 12, flexWrap: "wrap" }}>
+              {[["trajectory","Trajectory"],["controls","Adjust"],["models","Business Models"],["risks","Risks & Blind Spots"],["actions","Action Items"],["waves","Macro Waves"],["hgse","🎓 HGSE"]].map(([k,l])=>(
+                <button key={k} onClick={()=>setTab(k)} style={{ fontSize: 11, fontWeight: 600, padding: "6px 11px", background: tab===k?(k==="risks"?"#f43f5e":k==="hgse"?"linear-gradient(135deg,#a78bfa,#7c3aed)":k==="models"?"#f59e0b":"#22d3ee"):"#1e293b", color: tab===k?"#fff":"#94a3b8", border: `1px solid ${tab===k?(k==="risks"?"#f43f5e":k==="hgse"?"#a78bfa":k==="models"?"#f59e0b":"#22d3ee"):"#334155"}`, borderRadius: 7, cursor: "pointer" }}>{l}</button>
+              ))}
+            </div>
+
+            {tab==="trajectory"&&(
+              <div style={{animation:"fadeIn 0.3s"}}>
+                <Card title="Net Worth: Age 28 to 42" accent="#4ade80">
+                  <div style={{ display:"flex", alignItems:"flex-end", gap: 3, height: 200, padding:"0 2px" }}>
+                    {trajectory.map((y,i)=>{
+                      const h = maxNW>0?Math.max((y.nw/maxNW)*180,4):4;
+                      const c = y.nw>=100000000?"#4ade80":y.nw>=reqNW?"#a78bfa":y.inRecession?"#f87171":pc[y.phase];
+                      return (
+                        <div key={i} style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:2}}>
+                          {i===exitYr-1&&<div style={{fontSize:8,color:"#22d3ee",fontWeight:700}}>EXIT</div>}
+                          {y.inRecession&&<div style={{fontSize:8,color:"#f87171",fontWeight:700}}>REC</div>}
+                          {hgseYr&&y.year===hgseYr.year&&<div style={{fontSize:9}}>🎓</div>}
+                          <div style={{width:"100%",maxWidth:38,height:h,background:`linear-gradient(180deg,${c},${c}66)`,borderRadius:"3px 3px 0 0",transition:"height 0.5s",position:"relative"}}>
+                            <div style={{position:"absolute",top:-14,left:"50%",transform:"translateX(-50%)",fontFamily:"'Space Mono'",fontSize:7,color:"#94a3b8",whiteSpace:"nowrap"}}>{fmtM(y.nw)}</div>
+                          </div>
+                          <div style={{fontSize:8,color:"#64748b",textAlign:"center"}}><div style={{fontWeight:700}}>{y.cal}</div><div style={{fontSize:7,color:"#22d3ee"}}>{y.age}</div></div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {recession&&<div style={{marginTop:6,fontSize:9,color:"#f87171"}}>Red bars = recession years (revenue drops 35% then 20%)</div>}
+                </Card>
+                <Card title="Year-by-Year Detail" accent="#22d3ee">
+                  <div style={{overflowX:"auto"}}>
+                    <div style={{display:"grid",gridTemplateColumns:"46px 30px 50px 58px 58px 58px 58px 58px 58px 62px 50px 68px",gap:1,minWidth:760}}>
+                      {["Year","Age","Phase","Consult","Cert","Africa","Quantum","RegInt","Invest","Solo401k","BizEq","NET WORTH"].map(h=>(
+                        <div key={h} style={{background:"#1e293b",padding:"3px 2px",fontSize:7,fontWeight:700,color:"#94a3b8",textAlign:"center",textTransform:"uppercase"}}>{h}</div>
+                      ))}
+                      {trajectory.map((y,i)=>{
+                        const bg=y.inRecession?"#f871710a":i===exitYr-1?"#22d3ee0a":"transparent";
+                        return(<React.Fragment key={i}>
+                          <div style={{padding:"3px 1px",textAlign:"center",background:bg,fontFamily:"'Space Mono'",fontWeight:700,fontSize:9,color:"#e2e8f0"}}>{y.cal}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:9,textAlign:"center",background:bg,color:"#22d3ee",fontWeight:700}}>{y.age}</div>
+                          <div style={{padding:"3px 1px",fontSize:8,textAlign:"center",background:bg,color:pc[y.phase],fontWeight:600}}>{y.phase.replace("Exit/Empire","Exit")}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:"#a78bfa"}}>{fmtM(y.cRev)}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:y.certRev>0?"#22d3ee":"#334155"}}>{y.certRev>0?fmtM(y.certRev):y.exited?"Sold":"--"}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:y.africaRev>0?"#f59e0b":"#334155"}}>{y.africaRev>0?fmtM(y.africaRev):"--"}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:y.quantumRev>0?"#06b6d4":"#334155"}}>{y.quantumRev>0?fmtM(y.quantumRev):y.exited?"Sold":"--"}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:y.regIntelRev>0?"#4ade80":"#334155"}}>{y.regIntelRev>0?fmtM(y.regIntelRev):y.exited?"Sold":"--"}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:"#facc15"}}>{fmtM(y.inv)}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:y.solo>0?"#22d3ee":"#334155"}}>{y.solo>0?fmtM(y.solo):"--"}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:8,textAlign:"center",background:bg,color:y.bEq>0?"#f97316":"#334155"}}>{y.bEq>0?fmtM(y.bEq):"--"}</div>
+                          <div style={{padding:"3px 1px",fontFamily:"'Space Mono'",fontSize:9,textAlign:"center",background:bg,color:y.nw>=100000000?"#4ade80":y.canGift?"#a78bfa":"#e2e8f0",fontWeight:700}}>{fmtM(y.nw)}{y.canGift&&hgseYr?.year===y.year?" 🎓":""}</div>
+                        </React.Fragment>);
+                      })}
+                    </div>
+                  </div>
+                  {trajectory.some(y=>y.lifeDeduct>0)&&<div style={{marginTop:8,fontSize:9,color:"#64748b"}}>Life events modeled: {studentLoan>0?`$${Math.round(studentLoan/1000)}K student loan `:""}{ marriage?"wedding ":""}{ kids?"kid(s) ":""}{ house?"house purchase":""}</div>}
+                </Card>
+              </div>
+            )}
+
+            {tab==="controls"&&(
+              <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14,animation:"fadeIn 0.3s"}}>
+                <Card title="Business Streams" accent="#a78bfa">
+                  <Slider label="Years at Eversource" value={everYrs} onChange={setEverYrs} min={1} max={5} step={1} format="raw"/>
+                  <Slider label="Consulting Growth" value={cGrowth} onChange={setCGrowth} min={0.2} max={1.0} step={0.05} format="percent"/>
+                  <Slider label="Certification Launch" value={certLaunchYr} onChange={setCertLaunchYr} min={3} max={7} step={1} format="year"/>
+                  <Slider label="Cert Growth" value={certGrowth} onChange={setCertGrowth} min={0.3} max={1.2} step={0.05} format="percent"/>
+                  <Slider label="Africa Growth" value={africaGrowth} onChange={setAfricaGrowth} min={0.2} max={0.8} step={0.05} format="percent"/>
+                  <Slider label="Quantum Launch" value={quantumLaunchYr} onChange={setQuantumLaunchYr} min={5} max={10} step={1} format="year" sub="NIST mandates 2030-2035"/>
+                </Card>
+                <Card title="Exit & Investments" accent="#22d3ee">
+                  <Slider label="Exit Year" value={exitYr} onChange={setExitYr} min={8} max={15} step={1} format="year"/>
+                  <Slider label="Exit Multiple" value={exitMx} onChange={setExitMx} min={3} max={10} step={0.5} format="raw" sub="Cert/compliance = 5-8x"/>
+                  <Slider label="Investment Return" value={invRet} onChange={setInvRet} min={0.06} max={0.15} step={0.01} format="percent"/>
+                  <Slider label="Savings Rate" value={saveRt} onChange={setSaveRt} min={0.15} max={0.50} step={0.05} format="percent"/>
+                  <Slider label="Starting NW (excl. loans)" value={startNW} onChange={setStartNW} min={10000} max={200000} step={10000}/>
+                  <Slider label="Gift Amount" value={gift} onChange={setGift} min={5000000} max={30000000} step={1000000}/>
+                </Card>
+                <Card title="Student Loan Debt" accent="#f43f5e">
+                  <Slider label="Loan Balance" value={studentLoan} onChange={setStudentLoan} min={0} max={200000} step={5000} sub="HGSE + any undergrad debt"/>
+                  <Slider label="Interest Rate" value={loanRate} onChange={setLoanRate} min={0.04} max={0.09} step={0.005} format="percent" sub="Federal grad loans ~6.5%, PLUS ~8.9%"/>
+                  <Slider label="Payoff Year (lump sum)" value={loanPayoffYr} onChange={setLoanPayoffYr} min={2} max={8} step={1} format="year" sub="Min payments until this year, then wipe it out"/>
+                  <div style={{display:"flex",gap:6,marginTop:4}}>
+                    {["strategic","aggressive"].map(s=>(
+                      <button key={s} onClick={()=>setLoanPayoff(s)} style={{flex:1,padding:"8px",fontSize:11,fontWeight:600,borderRadius:6,cursor:"pointer",
+                        background:loanPayoff===s?"#f43f5e":"#1e293b",color:loanPayoff===s?"#fff":"#94a3b8",border:`1px solid ${loanPayoff===s?"#f43f5e":"#334155"}`}}>
+                        {s==="strategic"?"Strategic (min + lump)":"Aggressive ($2K/mo)"}
+                      </button>
+                    ))}
+                  </div>
+                  <div style={{marginTop:8,fontSize:10,color:"#64748b",lineHeight:1.5}}>
+                    {loanPayoff==="strategic"
+                      ?`Strategy: minimum IDR payments (~$600/mo) until Year ${loanPayoffYr} (${2025+loanPayoffYr}), then wipe it out in one shot when business revenue is strong. This frees cash flow for business investment in early years.`
+                      :"Aggressive: $2K/mo payments. Debt-free faster but less cash for business investment in critical early years."}
+                  </div>
+                </Card>
+                <Card title="Life Events (toggle in Risks tab)" accent="#f97316">
+                  <Toggle label="Recession" on={recession} onToggle={()=>setRecession(!recession)} sub={recession?`Year ${recessionYr} (${2025+recessionYr}). Revenue drops 35% then 20%.`:""} color="#f87171"/>
+                  {recession&&<Slider label="Recession Year" value={recessionYr} onChange={setRecessionYr} min={3} max={10} step={1} format="year"/>}
+                  <Toggle label="QSBS Tax Exclusion" on={qsbs} onToggle={()=>setQsbs(!qsbs)} sub="Sec 1202: exclude up to $10M cap gains at exit" color="#4ade80"/>
+                  <Toggle label="Solo 401k" on={solo401k} onToggle={()=>setSolo401k(!solo401k)} sub="Shelter up to $69K/yr tax-free after leaving Eversource" color="#22d3ee"/>
+                  <Toggle label="Burnout Adjustment" on={burnout} onToggle={()=>setBurnout(!burnout)} sub="10% growth slowdown in Years 3-4 as intensity catches up" color="#f97316"/>
+                </Card>
+                <Card title="Quick Scenarios" accent="#f59e0b">
+                  {[["Conservative (recession + life)",()=>{setCGrowth(0.40);setCertGrowth(0.45);setAfricaGrowth(0.30);setExitMx(4);setInvRet(0.08);setSaveRt(0.25);setExitYr(14);setQuantumLaunchYr(9);setRecession(true);setRecessionYr(6);setMarriage(true);setKids(true);setHouse(true);setBurnout(true)}],
+                    ["Moderate (realistic)",()=>{setCGrowth(0.60);setCertGrowth(0.70);setAfricaGrowth(0.50);setExitMx(6);setInvRet(0.10);setSaveRt(0.30);setExitYr(13);setQuantumLaunchYr(7);setRecession(true);setRecessionYr(6);setMarriage(true);setKids(true);setHouse(true);setBurnout(true)}],
+                    ["Aggressive (no recession)",()=>{setCGrowth(0.80);setCertGrowth(0.90);setAfricaGrowth(0.60);setExitMx(7);setInvRet(0.12);setSaveRt(0.35);setExitYr(11);setQuantumLaunchYr(6);setRecession(false);setBurnout(false)}],
+                  ].map(([n,fn])=>(
+                    <button key={n} onClick={fn} style={{display:"block",width:"100%",padding:"9px 12px",background:"#1e293b",border:"1px solid #f59e0b33",borderRadius:7,cursor:"pointer",color:"#e2e8f0",fontSize:12,fontWeight:600,marginBottom:5,textAlign:"left"}}>{n}</button>
+                  ))}
+                </Card>
+              </div>
+            )}
+
+            {tab==="risks"&&(
+              <div style={{animation:"fadeIn 0.3s"}}>
+                <Card title="Modelable Risks (toggle on/off)" accent="#f43f5e">
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
+                    <div>
+                      <Toggle label={`Recession in Year ${recessionYr} (${2025+recessionYr})`} on={recession} onToggle={()=>setRecession(!recession)} sub="Revenue drops 35% Year 1, 20% Year 2. Guaranteed to happen at least once in 15 years." color="#f87171"/>
+                      {recession&&<Slider label="Recession Year" value={recessionYr} onChange={setRecessionYr} min={3} max={10} step={1} format="year" sub="Most vulnerable: Year 4-7 (just left Eversource, fully dependent on business)"/>}
+                      <Toggle label="Marriage" on={marriage} onToggle={()=>setMarriage(!marriage)} sub={marriage?`Year ${marriageYr}: $50K wedding + related costs`:""} color="#ec4899"/>
+                      {marriage&&<Slider label="Wedding Year" value={marriageYr} onChange={setMarriageYr} min={2} max={10} step={1} format="year"/>}
+                      <Toggle label="Kids" on={kids} onToggle={()=>setKids(!kids)} sub={kids?`First kid Year ${kidYr}: $10K first year, $18K/yr ongoing`:""} color="#ec4899"/>
+                      {kids&&<Slider label="First Kid Year" value={kidYr} onChange={setKidYr} min={3} max={12} step={1} format="year"/>}
+                    </div>
+                    <div>
+                      <Toggle label="House Purchase" on={house} onToggle={()=>setHouse(!house)} sub={house?`Year ${houseYr}: $150K down payment (Boston area)`:""} color="#f97316"/>
+                      {house&&<Slider label="Purchase Year" value={houseYr} onChange={setHouseYr} min={3} max={10} step={1} format="year"/>}
+                      <Toggle label="Burnout Adjustment" on={burnout} onToggle={()=>setBurnout(!burnout)} sub="10% growth slowdown Years 3-4. You can't do 80hr weeks for 3 years straight." color="#f97316"/>
+                      <Toggle label="QSBS Tax Exclusion" on={qsbs} onToggle={()=>setQsbs(!qsbs)} sub={`Sec 1202: exclude $10M cap gains = ~${fmtM(qsbsSavings)} saved at exit. MUST be C-Corp from Day 1.`} color="#4ade80"/>
+                      <Toggle label="Solo 401k" on={solo401k} onToggle={()=>setSolo401k(!solo401k)} sub={`$69K/yr tax-sheltered. 15yr value: ~${fmtM(totalSolo)}`} color="#22d3ee"/>
+                    </div>
+                  </div>
+                </Card>
+                <Card title="Strategic Risks (not modelable, but critical)" accent="#f97316">
+                  {RISKS.map((r,i)=>(
+                    <div key={i} style={{marginBottom:14,padding:12,background:"#0f172a",borderRadius:10,borderLeft:`3px solid ${r.color}`}}>
+                      <div style={{fontSize:13,fontWeight:700,color:r.color,marginBottom:4}}>{r.icon} {r.title}</div>
+                      <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.5,marginBottom:6}}>{r.text}</div>
+                      <div style={{fontSize:11,color:"#e2e8f0",fontWeight:600,background:`${r.color}0a`,padding:"6px 10px",borderRadius:6}}>Action: {r.action}</div>
+                    </div>
+                  ))}
+                </Card>
+              </div>
+            )}
+
+            {tab==="actions"&&(
+              <div style={{animation:"fadeIn 0.3s"}}>
+                <Card title="Immediate Action Items — Priority Order" accent="#4ade80">
+                  <div style={{fontSize:12,color:"#64748b",marginBottom:16}}>These are the things that could each save or make you millions, and most cost $0-$500 to do right now.</div>
+                  {ACTIONS.map((a,i)=>(
+                    <div key={i} style={{display:"flex",gap:14,marginBottom:16,padding:14,background:"#0f172a",borderRadius:10,border:`1px solid ${a.color}22`}}>
+                      <div style={{fontFamily:"'Space Mono'",fontSize:24,fontWeight:700,color:a.color,minWidth:36,textAlign:"center"}}>#{a.priority}</div>
+                      <div style={{flex:1}}>
+                        <div style={{fontSize:14,fontWeight:700,color:"#e2e8f0",marginBottom:4}}>{a.action}</div>
+                        <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.5,marginBottom:6}}>{a.detail}</div>
+                        <div style={{display:"flex",gap:8}}>
+                          <span style={{fontSize:10,color:a.color,background:`${a.color}11`,border:`1px solid ${a.color}33`,borderRadius:4,padding:"2px 8px",fontWeight:600}}>Deadline: {a.deadline}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </Card>
+                <Card title="12-Month Emergency Fund Rule" accent="#f43f5e">
+                  <div style={{fontSize:13,color:"#94a3b8",lineHeight:1.7}}>
+                    <span style={{color:"#f43f5e",fontWeight:700}}>Do NOT leave Eversource until you have 12 months of living expenses liquid.</span> Not 6 months. Twelve. Recession can hit right after you leave. Consulting clients can ghost. Grant timelines slip 6-12 months. Your emergency fund is the difference between "I can weather this" and "I need to take a job at CVS."
+                  </div>
+                </Card>
+              </div>
+            )}
+
+            {tab==="models"&&(
+              <div style={{animation:"fadeIn 0.3s"}}>
+                <Card title="Your Starting Point: AI Training & Consulting" accent="#f59e0b">
+                  <div style={{fontSize:12,color:"#94a3b8",lineHeight:1.7,marginBottom:12}}>
+                    <span style={{color:"#f59e0b",fontWeight:700}}>This is what you can sell tomorrow.</span> You train people and organizations on how to use AI. That's your bridge from Eversource salary to full-time business owner. Every other model below grows FROM this foundation.
+                  </div>
+                  <div style={{background:"#0f172a",borderRadius:10,padding:14,border:"1px solid #f59e0b22"}}>
+                    <div style={{fontSize:13,fontWeight:700,color:"#f59e0b",marginBottom:8}}>AI Training & Consulting (Year 1-3 primary revenue)</div>
+                    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+                      <div>
+                        <div style={{fontSize:10,color:"#64748b",fontWeight:700,textTransform:"uppercase",marginBottom:4}}>What You Sell</div>
+                        <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.6}}>
+                          Workshops: "AI for Your Team" (half-day, full-day, multi-session). Corporate training: onboarding entire departments to AI tools. Executive briefings: AI strategy for leadership. Custom curriculum: tailored AI training programs for specific industries. Keynote speaking: conferences, universities, corporate events.
+                        </div>
+                      </div>
+                      <div>
+                        <div style={{fontSize:10,color:"#64748b",fontWeight:700,textTransform:"uppercase",marginBottom:4}}>Why You Win</div>
+                        <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.6}}>
+                          Harvard MEd in Learning Design (you don't just know AI, you know how to teach it). IBM SkillsBuild: designed learning for 2M+ global learners. Eversource: live AI implementation in a regulated industry. Bilingual English/French: entire Francophone market is open. Develop Gio: proven delivery in emerging markets.
+                        </div>
+                      </div>
+                    </div>
+                    <div style={{marginTop:10}}>
+                      <div style={{fontSize:10,color:"#64748b",fontWeight:700,textTransform:"uppercase",marginBottom:4}}>Pricing</div>
+                      <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.6}}>
+                        Half-day workshop: $2,500-$5,000. Full-day corporate training: $5,000-$10,000. Multi-session program (4-8 weeks): $15,000-$30,000. Executive briefing: $3,000-$7,500. Keynote: $5,000-$15,000. Monthly retainer (ongoing advisory): $3,000-$8,000/mo.
+                      </div>
+                    </div>
+                    <div style={{marginTop:10}}>
+                      <div style={{fontSize:10,color:"#f59e0b",fontWeight:700,textTransform:"uppercase",marginBottom:4}}>First Clients Pipeline</div>
+                      <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.6}}>
+                        Harvard alumni network (HGSE, HBS Club of Boston, Harvard African Alumni). LinkedIn content (build authority with daily posts). Eversource connections (after you leave, former colleagues become clients). Develop Gio network (institutional contacts in Francophone Africa). Speaking at conferences and events.
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card title="Evolution Path: Training → Empire" accent="#22d3ee">
+                  <div style={{fontSize:11,color:"#64748b",marginBottom:14}}>Each model builds on the last. You don't jump — you evolve. Training clients become governance clients. Governance clients need certification. Certification infrastructure expands to quantum.</div>
+                  {[
+                    {phase:"NOW",year:"Year 1-3",name:"AI Training & Consulting",icon:"🎓",color:"#f59e0b",
+                      what:"Train people/orgs to use AI. Workshops, corporate training, executive briefings, keynotes. This is your cash machine while building everything else.",
+                      revenue:"$50K-$500K/yr",
+                      evolves:"Training clients ask: 'How do we govern this AI we just deployed?' That's your on-ramp to governance consulting."},
+                    {phase:"NEXT",year:"Year 2-4",name:"AI Governance Consulting",icon:"🛡️",color:"#a78bfa",
+                      what:"Help organizations build AI governance frameworks, policies, risk assessments, and compliance programs. Priced per engagement or monthly retainer. Focus on regulated industries (utilities, finance, healthcare) where governance is legally required.",
+                      revenue:"$200K-$3M/yr",
+                      evolves:"After building 20-30 governance frameworks, you see the patterns. You codify them into a certification standard."},
+                    {phase:"SCALE",year:"Year 4-7",name:"AI Governance Certification",icon:"🏅",color:"#22d3ee",
+                      what:"Like PMP for project managers or CISSP for cybersecurity — but for AI governance. You certify professionals, not just advise companies. Exam fees, training courses, renewal fees, corporate licensing. The certification body becomes the most valuable asset you own.",
+                      revenue:"$500K-$10M/yr",
+                      evolves:"When NIST mandates quantum-safe migration by 2030-2035, you expand the certification to cover quantum governance. Same infrastructure, bigger market."},
+                    {phase:"WAVE 2",year:"Year 5-10",name:"Quantum Governance & Readiness",icon:"⚛️",color:"#06b6d4",
+                      what:"Post-quantum migration consulting, quantum-safe compliance audits, quantum governance certification. NIST deprecates RSA-2048 by 2030. All federal systems quantum-safe by 2035. 250K+ quantum professionals needed globally. $97B market by 2035.",
+                      revenue:"$120K-$5M/yr",
+                      evolves:"Your AI + quantum certification body is now the premier governance credential. Acquirable at 5-8x revenue."},
+                    {phase:"PARALLEL",year:"Year 3-15",name:"Develop Gio / Africa Marketplace",icon:"🌍",color:"#f59e0b",
+                      what:"AI education and workforce development across Francophone Africa. Not software — relationship-driven, grant-funded, institutional contracts (World Bank, AfDB, USAID, GIZ). Training marketplace for HR directors across Sub-Saharan Africa. Your six French-language AI webinar modules are the seed.",
+                      revenue:"$100K-$5M/yr",
+                      evolves:"This is your legacy vehicle. You keep this even if you sell everything else. It's AI-proof because no AI replicates your Beninese government relationships."},
+                    {phase:"INTEL",year:"Year 5-15",name:"Regulatory Intelligence Service",icon:"📊",color:"#4ade80",
+                      what:"Subscription-based intel: which AI/quantum regulations are passing where, what compliance frameworks apply, what audit standards are required. Usage-based pricing. Enterprises pay because the regulatory landscape changes monthly.",
+                      revenue:"$80K-$2M/yr",
+                      evolves:"Feeds directly into your consulting and certification businesses. Clients subscribe for intel, then hire you for implementation."},
+                  ].map((m,i)=>(
+                    <div key={i} style={{marginBottom:2,position:"relative"}}>
+                      {i<5&&<div style={{position:"absolute",left:17,top:70,bottom:-2,width:2,background:`${m.color}33`,zIndex:0}}/>}
+                      <div style={{display:"flex",gap:12,padding:14,background:"#0f172a",borderRadius:10,border:`1px solid ${m.color}22`,position:"relative",zIndex:1}}>
+                        <div style={{display:"flex",flexDirection:"column",alignItems:"center",minWidth:36}}>
+                          <div style={{fontSize:22}}>{m.icon}</div>
+                          <div style={{fontSize:8,color:m.color,fontWeight:700,marginTop:2}}>{m.phase}</div>
+                        </div>
+                        <div style={{flex:1}}>
+                          <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
+                            <div style={{fontSize:14,fontWeight:700,color:m.color}}>{m.name}</div>
+                            <div style={{display:"flex",gap:6}}>
+                              <span style={{fontSize:9,background:`${m.color}15`,border:`1px solid ${m.color}33`,borderRadius:4,padding:"1px 6px",color:m.color,fontWeight:600}}>{m.year}</span>
+                              <span style={{fontSize:9,background:"#22c55e15",border:"1px solid #22c55e33",borderRadius:4,padding:"1px 6px",color:"#22c55e",fontWeight:600}}>{m.revenue}</span>
+                            </div>
+                          </div>
+                          <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.5,marginBottom:6}}>{m.what}</div>
+                          <div style={{fontSize:10,color:m.color,fontWeight:600,fontStyle:"italic"}}>Evolves: {m.evolves}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </Card>
+
+                <Card title="Why NOT SaaS" accent="#f43f5e">
+                  <div style={{fontSize:12,color:"#94a3b8",lineHeight:1.7}}>
+                    <p style={{margin:"0 0 8px"}}><span style={{color:"#f43f5e",fontWeight:700}}>The SaaSpocalypse (2026):</span> $2T wiped from software stocks. Per-seat SaaS is dying. Atlassian -35%, Salesforce -28%. AI agents are replacing the human seats that SaaS companies charge for. Median SaaS multiple dropped from 7x to below 5x.</p>
+                    <p style={{margin:"0 0 8px"}}><span style={{color:"#22d3ee",fontWeight:700}}>Your models are AI-proof because:</span> Governance requires human judgment. Certification requires institutional trust. Africa marketplace requires relationships. Regulatory intel requires implementation knowledge. None of these can be replaced by an AI agent.</p>
+                    <p style={{margin:0}}><span style={{color:"#f59e0b",fontWeight:700}}>The playbook:</span> Start with training (cash flow). Evolve to governance (higher margins). Build the certification (recurring revenue + highest multiple asset). Expand to quantum (market expansion). Keep Africa (legacy). Layer on regulatory intel (recurring subscription). Sell the cert+governance+quantum business at 5-8x. Keep Africa. That's $100M.</p>
+                  </div>
+                </Card>
+              </div>
+            )}
+
+            {tab==="waves"&&(
+              <div style={{animation:"fadeIn 0.3s"}}>
+                <Card title="Macro Wave Timeline" accent="#f59e0b">
+                  <div style={{marginBottom:6,display:"flex",gap:2}}>{Array.from({length:15},(_,i)=>(<div key={i} style={{flex:1,textAlign:"center"}}><div style={{fontSize:7,color:"#64748b"}}>{2026+i}</div><div style={{fontSize:6,color:"#22d3ee"}}>{28+i}</div></div>))}</div>
+                  {WAVES.map(w=>(<div key={w.id} style={{marginBottom:5}}>
+                    <div style={{display:"flex",gap:2,alignItems:"center"}}>
+                      {Array.from({length:15},(_,i)=>{const on=i+1>=w.years[0]&&i+1<=w.years[1];return(<div key={i} style={{flex:1,height:11,borderRadius:3,background:on?`${w.color}66`:"#0f172a",border:on?`1px solid ${w.color}44`:"1px solid #1e293b"}}/>);})}
+                      <span style={{fontSize:9,color:w.color,fontWeight:600,minWidth:100,marginLeft:4}}>{w.name}</span>
+                    </div>
+                  </div>))}
+                </Card>
+                {WAVES.map(w=>(<Card key={w.id} title={`${w.name} (peak: ${w.peak})`} accent={w.color}>
+                  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}}>
+                    <div><div style={{fontSize:10,color:"#64748b",fontWeight:700,textTransform:"uppercase",marginBottom:4}}>The Shift</div><div style={{fontSize:11,color:"#94a3b8",lineHeight:1.5}}>{w.desc}</div></div>
+                    <div><div style={{fontSize:10,color:w.color,fontWeight:700,textTransform:"uppercase",marginBottom:4}}>Why You</div><div style={{fontSize:11,color:"#94a3b8",lineHeight:1.5}}>{w.you}</div></div>
+                  </div>
+                </Card>))}
+              </div>
+            )}
+
+            {tab==="hgse"&&(
+              <div style={{animation:"fadeIn 0.3s"}}>
+                <div style={{background:"linear-gradient(135deg,#1a0a2e,#0f172a 50%,#0a1628)",border:"1px solid #a78bfa33",borderRadius:16,padding:24,marginBottom:16}}>
+                  <div style={{fontSize:12,color:"#a78bfa",fontWeight:700,letterSpacing:1.5,textTransform:"uppercase",marginBottom:3}}>The HGSE Legacy</div>
+                  <div style={{fontFamily:"'Space Mono'",fontSize:30,fontWeight:700,color:"#e2e8f0"}}>{fmtM(gift)} Scholarship</div>
+                  <div style={{fontSize:12,color:"#94a3b8",marginTop:4,marginBottom:16}}>Wipe out student loan debt for every student of color at HGSE</div>
+                  <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+                    <Metric label="Students" value="283" sub="36% of HGSE" color="#a78bfa" large/>
+                    <Metric label="Avg Debt" value="~$53K" color="#22d3ee" large/>
+                    <Metric label="Total" value={fmtM(283*53000)} color="#4ade80" large/>
+                    <Metric label="Need NW" value={fmtM(reqNW)} sub={pct(giftPct)} color="#f59e0b" large/>
+                    <Metric label="Viable" value={hgseYr?`${hgseYr.cal}`:"--"} sub={hgseYr?`Age ${hgseYr.age}`:""} color={hgseYr?"#4ade80":"#f87171"} large/>
+                  </div>
+                </div>
+                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:14}}>
+                  <Card title="Tax + QSBS Impact" accent="#22d3ee">
+                    {(()=>{const tSave=gift*0.42;const eCost=gift-tSave; return(<>
+                      {[["Gift",fmtM(gift),"#e2e8f0"],["Tax Savings (42%)",fmtM(tSave),"#4ade80"],["Effective Cost",fmtM(eCost),"#22d3ee"],["QSBS Exit Savings",qsbs?fmtM(qsbsSavings):"N/A","#4ade80"]].map(([l,v,c],i)=>(
+                        <div key={i} style={{display:"flex",justifyContent:"space-between",padding:"4px 0",borderBottom:"1px solid #1e293b"}}><span style={{fontSize:11,color:"#94a3b8"}}>{l}</span><span style={{fontFamily:"'Space Mono'",fontSize:12,color:c,fontWeight:700}}>{v}</span></div>
+                      ))}
+                      <div style={{marginTop:8,fontSize:11,color:"#64748b",lineHeight:1.5}}>QSBS + charitable deductions together could save {fmtM(qsbsSavings + gift*0.42)} in taxes. That's money funding the scholarship, not the IRS.</div>
+                    </>);})()}
+                  </Card>
+                  <Card title="Structure Options" accent="#a78bfa">
+                    <div style={{fontSize:11,color:"#94a3b8",lineHeight:1.6}}>
+                      <p style={{margin:"0 0 8px"}}><span style={{color:"#a78bfa",fontWeight:700}}>A: Full wipeout.</span> 283 students debt-free.</p>
+                      <p style={{margin:"0 0 8px"}}><span style={{color:"#4ade80",fontWeight:700}}>B: Endowment.</span> {fmtM(gift)} at 5% = {fmtM(gift*0.05)}/yr (~{Math.round(gift*0.05/53000)} scholarships/yr forever).</p>
+                      <p style={{margin:"0 0 8px"}}><span style={{color:"#facc15",fontWeight:700}}>C: Hybrid.</span> {fmtM(gift*0.5)} wipeout + {fmtM(gift*0.5)} endowment.</p>
+                      <p style={{margin:0}}><span style={{color:"#f43f5e",fontWeight:700}}>The Zounon Scholars Program at HGSE.</span></p>
+                    </div>
+                  </Card>
+                </div>
+                <Card title="The Path (with risks modeled)" accent="#facc15">
+                  <div style={{fontSize:12,color:"#94a3b8",lineHeight:1.7}}>
+                    <p style={{margin:"0 0 8px"}}><span style={{color:"#facc15",fontWeight:700}}>With recession, marriage, kids, house, burnout, and your own $100K student loans all factored in</span>, you reach {fmtM(reqNW)} around {hgseYr?`${hgseYr.cal} (age ${hgseYr.age})`:"your early 40s"}. This isn't a fantasy projection — it accounts for every real-world drag on your finances.</p>
+                    <p style={{margin:"0 0 8px"}}><span style={{color:"#f43f5e",fontWeight:700}}>The story that makes it unforgettable:</span> "I carried $100K in HGSE debt. I know what it feels like to graduate from Harvard and wonder how you'll pay rent. That's why 283 students will never have to carry that weight."</p>
+                    <p style={{margin:0}}><span style={{color:"#a78bfa",fontWeight:700}}>The Zounon Scholars.</span> Built on AI-proof, quantum-proof revenue. From -$50K net worth to a $15M gift. That's the arc.</p>
+                  </div>
+                </Card>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+</body>
+</html>
