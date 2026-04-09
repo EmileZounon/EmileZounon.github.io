@@ -81,12 +81,12 @@
                         <div class="card fade-in">
                             <span class="card-type">Webアプリ</span>
                             <h3 class="card-title">空手出席管理トラッカー</h3>
-                            <p class="card-description">2026年空手黒帯プログラム用の出席管理アプリ。クリックで切り替えられる出席グリッド、学習者ランキングと月次サマリーによる分析、Rechartsによるインタラクティブなグラフ、Wordドキュメントのインポート、PDF出力機能を搭載。精勤への取り組みを可視化します。</p>
+                            <p class="card-description">2026年空手黒帯プログラム用の出席管理アプリ。クリック切替式グリッド、ランキング分析、Rechartsによるグラフ、Wordインポート、3シートExcelエクスポート。Firebaseバックエンドによる不変自動バックアップと週次メールレポート。</p>
                             <div class="card-tags">
                                 <span class="tag tag-tech">React</span>
+                                <span class="tag tag-tech">Firebase</span>
                                 <span class="tag tag-tech">Recharts</span>
                                 <span class="tag tag-design">データ可視化</span>
-                                <span class="tag tag-tech">PDF出力</span>
                             </div>
                             <span class="card-link" style="cursor: default; opacity: 0.5;"><i class="fas fa-lock"></i> 内部使用のみ</span>
                         </div>
@@ -112,6 +112,43 @@
                                 <span class="tag tag-education">先住民の歴史</span>
                             </div>
                             <a href="https://emilezounon.github.io/lenape-bronx-map/" target="_blank" rel="noopener noreferrer" class="card-link"><i class="fas fa-external-link-alt"></i> マップを探索</a>
+                        </div>
+
+                        <div class="card fade-in">
+                            <span class="card-type">フルスタックWebアプリ</span>
+                            <h3 class="card-title">ResLife — レジデンスライフ管理</h3>
+                            <p class="card-description">小規模大学や寄宿学校向けのWebベース住居管理プラットフォーム。管理者トグル付き学生の部屋自己選択、インシデントレポート、メンテナンスリクエスト、入居率ダッシュボード、CSV一括インポート。スプレッドシートで住居を管理していた校長のために構築。</p>
+                            <div class="card-tags">
+                                <span class="tag tag-tech">Next.js</span>
+                                <span class="tag tag-tech">Firebase</span>
+                                <span class="tag tag-tech">Tailwind</span>
+                                <span class="tag tag-design">shadcn/ui</span>
+                            </div>
+                            <a href="https://reslife-red.vercel.app" target="_blank" rel="noopener noreferrer" class="card-link"><i class="fas fa-external-link-alt"></i> アプリを見る</a>
+                        </div>
+
+                        <div class="card fade-in">
+                            <span class="card-type">ジオリファレンスツール</span>
+                            <h3 class="card-title">ブロンクスの奴隷にされたアフリカ人</h3>
+                            <p class="card-description">1750年のブロンクスにおける奴隷にされたアフリカ人の歴史的地図を現代のGoogle Mapsに重ねるインタラクティブなジオリファレンスツール。ドラッグ可能なコーナーハンドルによる精密な位置合わせ、不透明度ブレンドによる視覚的比較、研究用のJSONエクスポート。モヤ教授の歴史研究のために構築。</p>
+                            <div class="card-tags">
+                                <span class="tag tag-tech">Google Maps API</span>
+                                <span class="tag tag-education">アフリカ系アメリカ人の歴史</span>
+                                <span class="tag tag-design">ジオリファレンス</span>
+                            </div>
+                            <a href="https://emilezounon.github.io/enslaved-africans-bronx-moya/" target="_blank" rel="noopener noreferrer" class="card-link"><i class="fas fa-external-link-alt"></i> ツールを起動</a>
+                        </div>
+
+                        <div class="card fade-in">
+                            <span class="card-type">イベントサイト</span>
+                            <h3 class="card-title">Boston SERAC 2026 — デジタルパンフレット</h3>
+                            <p class="card-description">ケンブリッジとボストンでのSERAC没入型プログラムのためのインタラクティブ旅行パンフレット。日ごとの旅程、会場詳細、旅行ロジスティクスを含む雑誌風エディトリアルデザイン。ブラジルの聴衆向けにポルトガル語で構築。</p>
+                            <div class="card-tags">
+                                <span class="tag tag-design">エディトリアルデザイン</span>
+                                <span class="tag tag-tech">HTML/CSS</span>
+                                <span class="tag tag-education">ポルトガル語</span>
+                            </div>
+                            <a href="https://emilezounon.github.io/BostonSERAC2026/" target="_blank" rel="noopener noreferrer" class="card-link"><i class="fas fa-external-link-alt"></i> パンフレットを見る</a>
                         </div>
                     </div>
                 </div>
@@ -246,6 +283,19 @@
                             </div>
                             <a href="/ja/projects/prompt-library.html" class="card-link">プロンプトを見る <i class="fas fa-arrow-right"></i></a>
                         </div>
+
+                        <div class="card fade-in">
+                            <span class="card-type">開発者ツール</span>
+                            <h3 class="card-title">Claude Code Installer</h3>
+                            <p class="card-description">Claude Code CLI、VS Code拡張機能、APIキー設定をワンコマンドで自動インストール。Windows（PowerShell）とMac/Linux（Bash）対応のクロスプラットフォームスクリプトが、Node.jsセットアップ、CLIインストール、環境設定を一括で処理。</p>
+                            <div class="card-tags">
+                                <span class="tag tag-ai">Claude</span>
+                                <span class="tag tag-tech">PowerShell</span>
+                                <span class="tag tag-tech">Bash</span>
+                                <span class="tag tag-tech">オープンソース</span>
+                            </div>
+                            <a href="https://github.com/EmileZounon/claude-code-installer" target="_blank" rel="noopener noreferrer" class="card-link"><i class="fab fa-github"></i> GitHubで見る</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -271,6 +321,20 @@
                                 <span class="tag tag-design">ベナン</span>
                             </div>
                             <a href="/ja/projects/developgio.html" class="card-link">プロジェクトを見る <i class="fas fa-arrow-right"></i></a>
+                        </div>
+
+                        <div class="card fade-in">
+                            <span class="card-type">PWA</span>
+                            <h3 class="card-title">TopClean+ — キャッシュフロー管理</h3>
+                            <p class="card-description">従業員の窃盗で資金損失していたベナンの21人規模クリーニング企業向けに構築したオフラインファーストの現金管理アプリ。写真証拠付き取引入力、差異検出付き日次精算、フランス語自然言語チャットアシスタント、週次Excelエクスポート。バックエンドなしで完全にデバイス上で動作。</p>
+                            <div class="card-tags">
+                                <span class="tag tag-tech">React</span>
+                                <span class="tag tag-tech">Vite</span>
+                                <span class="tag tag-tech">PWA</span>
+                                <span class="tag tag-education">フランス語</span>
+                                <span class="tag tag-design">ベナン</span>
+                            </div>
+                            <a href="https://topclean-app.vercel.app" target="_blank" rel="noopener noreferrer" class="card-link"><i class="fas fa-external-link-alt"></i> アプリを見る</a>
                         </div>
                     </div>
                 </div>
