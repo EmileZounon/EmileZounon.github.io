@@ -30,26 +30,69 @@ Les deux construisent le meme type de site. La difference, c'est l'outil.
 
 **Sur ordinateur :** allez sur claude.ai et connectez-vous.
 
-## Etape 2. Commencer par un PLAN (regle d'or)
+## Etape 2. Copier le prompt maitre (l'exemple LinguaLibre)
 
-Ne demandez PAS a Claude de coder tout de suite. Ouvrez une nouvelle conversation et collez ce prompt :
+Ouvrez une nouvelle conversation et collez ce prompt. C'est le prompt exact qu'Emile utilise sur scene. Pour votre propre projet, remplacez la marque, la promesse et les sections par les votres.
 
 ```
-Je veux construire un site web d'une seule page pour [DECRIVEZ VOTRE PROJET EN 2 PHRASES].
-Public cible : [QUI S'EN SERT].
-Objectif : [CE QUE VOUS VOULEZ QU'ILS FASSENT].
+Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
+JavaScript inline, rien d'externe sauf Google Fonts). Affiche-le
+comme un artefact pour que je puisse le voir en direct.
 
-Avant d'ecrire le moindre code, propose-moi un PLAN detaille :
-1. La liste des sections dans l'ordre
-2. Le message principal de chaque section
-3. La palette de couleurs suggeree
-4. La typographie suggeree
-5. Les elements interactifs prevus
+Marque: "LinguaLibre" — un programme de coaching en anglais en ligne
+pour les professionnels francophones d'Afrique et d'Europe. Fondatrice:
+Aminata Diallo. Promesse: parler anglais couramment en 90 jours.
 
-Ne commence PAS a coder. Attends ma validation du plan.
+Toute la copie en francais.
+
+Sections dans cet ordre precis:
+1. Barre de navigation sticky en haut: logo a gauche, liens (Programme,
+   Temoignages, Coach, Tarifs, Contact), bouton CTA "Commencer" a
+   droite. Menu hamburger sous 768px.
+2. Hero plein ecran: grand titre "Parlez anglais couramment en 90
+   jours", sous-titre de 2 lignes, vignette video placeholder a
+   droite avec un bouton play, bouton CTA principal.
+3. Bandeau de preuves sociales: 5 mentions de presse fictives en
+   texte (ex: "Vu dans Jeune Afrique", "Cite par RFI").
+4. Grille 3 colonnes presentant la methode: immersion, coaching prive,
+   communaute. Chaque colonne: icone SVG, titre, 2 phrases.
+5. Temoignages: grille responsive de 6 cartes style video, chaque
+   carte avec un portrait placeholder (degrade colore), prenom,
+   emoji drapeau pays, citation courte.
+6. Section "Qui est Aminata": grand portrait placeholder a gauche,
+   son histoire a droite en 3 paragraphes courts et une citation mise
+   en valeur.
+7. Tarifs: 3 offres (Essentiel, Pro, Immersion Totale) avec prix en
+   euros, 4 a 6 points chacune, offre du milieu mise en avant avec
+   badge "Le plus populaire".
+8. FAQ avec accordeon: 6 questions, clic pour deplier.
+9. CTA final: titre fort, bouton.
+10. Pied de page: liens de navigation, icones reseaux sociaux en SVG,
+    copyright.
+
+Direction artistique:
+- Palette: bleu marine profond (#0B2545) en couleur principale, or
+  chaud (#F4B942) en accent, fond blanc, texte gris fonce.
+- Typographie: Poppins via Google Fonts, gras pour les titres.
+- Style moderne, editorial, premium. Beaucoup d'espace blanc. Coins
+  arrondis sur les cartes et boutons. Ombres subtiles.
+- Entierement responsive jusqu'a 360px de large.
+- Scroll fluide sur les liens d'ancre. Accordeon FAQ fonctionnel.
+  Effets hover sur tous les boutons et cartes.
+
+Images: uniquement des SVG ou degrades CSS comme placeholders, jamais
+d'URL externe. Rends-les elegants, pas brises.
+
+Interdictions:
+- Pas de tirets cadratins ou demi-cadratins. Utilise virgules,
+  points ou deux-points.
+- Rien d'externe sauf Google Fonts Poppins.
+
+Tout doit tenir dans UN fichier artefact HTML unique et fonctionner
+tout de suite.
 ```
 
-**Exemple rempli :** Je veux construire un site web pour mon programme de coaching en nutrition en ligne. Public cible : femmes francophones de 30 a 50 ans. Objectif : qu'elles reservent un appel decouverte gratuit.
+> **Pour votre propre projet :** changez la marque *LinguaLibre*, la fondatrice, la promesse, les sections, la palette, la typographie. Gardez la structure du prompt : brief clair, sections numerotees, direction artistique, interdictions.
 
 ## Etape 3. Valider ou corriger le plan
 
