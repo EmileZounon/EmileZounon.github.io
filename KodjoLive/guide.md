@@ -14,7 +14,7 @@ Vous avez assisté à la démo. Voici le guide complet pour le refaire vous-mêm
 |---|---|---|
 | Pour qui | Tous, même débutants | Ceux qui veulent aller plus loin |
 | Plateforme | claude.ai ou app iOS / Android | App Claude pour Mac ou Windows |
-| Pré-requis | Un compte gratuit | Un compte Claude, c'est tout |
+| Pré-requis | Un compte gratuit | Un compte Claude payant (20 $ / mois et plus) |
 | Temps | 15 à 30 minutes | 20 à 40 minutes |
 | Résultat | Un fichier HTML | Un projet complet pret à déployer |
 
