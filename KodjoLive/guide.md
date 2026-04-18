@@ -106,11 +106,44 @@ Avant de laisser Claude coder, verifiez :
 
 **Si non :** *"Retire la section FAQ. Ajoute des temoignages avant les tarifs. Change la palette en bleu et blanc."*
 
-## Etape 4. Laisser Claude construire
+## Etape 4. Lancer la construction (second prompt)
+
+Si le plan vous convient, collez ce second prompt. Il declenche la construction complete du site selon le plan valide.
+
+```
+Parfait, le plan me convient. Construis maintenant le site complet
+en UN SEUL fichier HTML avec tout inline (HTML + CSS + JavaScript).
+Rien d'externe sauf Google Fonts.
+
+Respecte integralement le plan que tu viens de proposer :
+- Toutes les sections dans l'ordre
+- La palette et la typographie decidees
+- Les elements interactifs prevus (menu hamburger, scroll fluide,
+  accordeon FAQ, effets hover)
+- Entierement responsive jusqu'a 360px de large
+- Boutons minimum 44px de haut pour le mobile
+- Placeholders SVG ou degrades CSS pour toutes les images,
+  jamais d'URL externe
+
+Affiche le resultat comme un artefact pour que je puisse le voir
+en direct.
+
+Interdictions :
+- Pas de tirets cadratins ou demi-cadratins. Utilise virgules,
+  points ou deux-points.
+- Pas de Lorem ipsum. Ecris de vrais textes pour chaque section.
+
+A la fin, fais un court bilan en 3 points :
+1. Ce que tu as construit
+2. Les choix que tu as faits (couleurs, typo, structure)
+3. Ce que je peux te demander de modifier en premier
+```
+
+## Etape 5. Laisser Claude construire
 
 Sur ordinateur : le site apparait dans le panneau de droite. Sur telephone : tapez sur la carte de l'artefact pour l'apercu plein ecran. Attendez la fin de la generation.
 
-## Etape 5. Jeter un oeil rapide a l'artefact
+## Etape 6. Jeter un oeil rapide a l'artefact
 
 Avec Claude, vous voyez le site se construire directement dans l'artefact. Pas besoin de checklist technique : regardez le resultat et posez-vous trois questions simples.
 
@@ -123,7 +156,7 @@ Si un detail vous chiffonne, passez directement a l'etape suivante pour demander
 
 > La vraie checklist detaillee (contenu, design, mobile) se trouve dans l'Option 2, car c'est la qu'on manipule un vrai projet multi-fichiers.
 
-## Etape 6. Iterer, un changement a la fois
+## Etape 7. Iterer, un changement a la fois
 
 ```
 Sur mobile, le titre deborde de l'ecran. Corrige uniquement ce point.
@@ -132,7 +165,7 @@ Ajoute une section temoignages entre la methode et les tarifs.
 Change la palette pour du vert foret et du beige.
 ```
 
-## Etape 7. Sauvegarder le code
+## Etape 8. Sauvegarder le code
 
 Sur l'artefact, cliquez sur **Copy** ou **Download**. Collez dans un fichier nomme `index.html`. Double-cliquez : le site s'ouvre dans votre navigateur sans internet.
 

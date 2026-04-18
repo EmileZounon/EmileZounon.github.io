@@ -332,10 +332,42 @@ tout de suite.</span>
       <p style="color:var(--ink-muted);margin-top:14px"><strong>Si oui, dites :</strong> <em>"Parfait. Construis maintenant le site complet en un seul fichier HTML avec tout inline (CSS et JavaScript). Affiche-le comme artefact."</em></p>
       <p style="color:var(--ink-muted)"><strong>Si non :</strong> <em>"Retire la section FAQ. Ajoute des temoignages avant les tarifs. Change la palette en bleu et blanc."</em></p>
 
-      <h3>Etape 4. Laisser Claude construire</h3>
+      <h3>Etape 4. Lancer la construction (second prompt)</h3>
+      <p style="color:var(--ink-muted)">Si le plan vous convient, collez ce second prompt. Il declenche la construction complete du site selon le plan valide.</p>
+      <div class="prompt">
+<button class="copy" data-target="p1build">Copier</button>
+<span id="p1build">Parfait, le plan me convient. Construis maintenant le site complet
+en UN SEUL fichier HTML avec tout inline (HTML + CSS + JavaScript).
+Rien d'externe sauf Google Fonts.
+
+Respecte integralement le plan que tu viens de proposer :
+- Toutes les sections dans l'ordre
+- La palette et la typographie decidees
+- Les elements interactifs prevus (menu hamburger, scroll fluide,
+  accordeon FAQ, effets hover)
+- Entierement responsive jusqu'a 360px de large
+- Boutons minimum 44px de haut pour le mobile
+- Placeholders SVG ou degrades CSS pour toutes les images,
+  jamais d'URL externe
+
+Affiche le resultat comme un artefact pour que je puisse le voir
+en direct.
+
+Interdictions :
+- Pas de tirets cadratins ou demi-cadratins. Utilise virgules,
+  points ou deux-points.
+- Pas de Lorem ipsum. Ecris de vrais textes pour chaque section.
+
+A la fin, fais un court bilan en 3 points :
+1. Ce que tu as construit
+2. Les choix que tu as faits (couleurs, typo, structure)
+3. Ce que je peux te demander de modifier en premier</span>
+      </div>
+
+      <h3>Etape 5. Laisser Claude construire</h3>
       <p style="color:var(--ink-muted)">Sur ordinateur, le site apparait a droite. Sur telephone, tapez sur la carte de l'artefact pour voir l'apercu en plein ecran. Attendez la fin de la generation.</p>
 
-      <h3>Etape 5. Jeter un oeil rapide a l'artefact</h3>
+      <h3>Etape 6. Jeter un oeil rapide a l'artefact</h3>
       <p style="color:var(--ink-muted)">Avec Claude, vous voyez le site se construire directement dans l'artefact. Pas besoin de checklist technique : regardez simplement le resultat et posez-vous trois questions simples.</p>
       <div class="check">
         <div class="check-title">Verification express</div>
@@ -347,7 +379,7 @@ tout de suite.</span>
       </div>
       <p style="color:var(--ink-muted);margin-top:14px">Si un detail vous chiffonne, passez directement a l'etape suivante pour demander une correction.</p>
 
-      <h3>Etape 6. Iterer, un changement a la fois</h3>
+      <h3>Etape 7. Iterer, un changement a la fois</h3>
       <div class="prompt">
 <button class="copy" data-target="p1b">Copier</button>
 <span id="p1b">Sur mobile, le titre deborde de l'ecran. Corrige uniquement ce point.
@@ -356,7 +388,7 @@ Ajoute une section temoignages entre la methode et les tarifs.
 Change la palette pour du vert foret et du beige.</span>
       </div>
 
-      <h3>Etape 7. Sauvegarder le code</h3>
+      <h3>Etape 8. Sauvegarder le code</h3>
       <div class="steps">
         <div class="step"><div class="n">A</div><div><h4>Telecharger le fichier</h4><p>Sur l'artefact, cliquez sur <strong>Copy</strong> ou <strong>Download</strong>. Collez dans un fichier nomme <code>index.html</code> sur votre ordinateur. Double-cliquez pour verifier : le site s'ouvre dans votre navigateur, sans internet.</p></div></div>
         <div class="step"><div class="n">B</div><div><h4>Pret a publier ?</h4><p>Suivez la section <a href="#publier"><strong>"Publier sur GitHub Pages"</strong></a> plus bas pour mettre votre site en ligne gratuitement et pour toujours.</p></div></div>
