@@ -67,25 +67,18 @@ Avant de laisser Claude coder, verifiez :
 
 Sur ordinateur : le site apparait dans le panneau de droite. Sur telephone : tapez sur la carte de l'artefact pour l'apercu plein ecran. Attendez la fin de la generation.
 
-## Etape 5. Valider le site (checklist)
+## Etape 5. Jeter un oeil rapide a l'artefact
 
-**Contenu**
-- [ ] Titre principal clair et accrocheur
-- [ ] Chaque section a un but evident
-- [ ] Aucun texte "Lorem ipsum" oublie
-- [ ] Prix et informations exactes
+Avec Claude, vous voyez le site se construire directement dans l'artefact. Pas besoin de checklist technique : regardez le resultat et posez-vous trois questions simples.
 
-**Design**
-- [ ] Couleurs correspondent a ma marque
-- [ ] Texte lisible, bon contraste
-- [ ] Images et icones s'affichent
-- [ ] Espacement aere
+**Verification express**
+- [ ] Le resultat ressemble a ce que j'avais imagine
+- [ ] Les textes sont corrects, les prix sont les bons
+- [ ] Sur telephone, tout reste lisible et les boutons sont cliquables
 
-**Mobile**
-- [ ] Tout est lisible sur un ecran de telephone
-- [ ] Boutons assez grands pour le doigt
-- [ ] Aucune image ne deborde
-- [ ] Menu hamburger fonctionne
+Si un detail vous chiffonne, passez directement a l'etape suivante pour demander une correction.
+
+> La vraie checklist detaillee (contenu, design, mobile) se trouve dans l'Option 2, car c'est la qu'on manipule un vrai projet multi-fichiers.
 
 ## Etape 6. Iterer, un changement a la fois
 
@@ -162,11 +155,29 @@ Claude propose un plan. Lisez-le. Demandez des ajustements si necessaire. Quand 
 
 Claude cree `index.html`, `styles.css`, `script.js` directement dans votre dossier. Vous voyez les fichiers apparaitre en direct dans Finder / Explorateur.
 
-## Etape 7. Valider le site
+## Etape 7. Valider le site (la vraie checklist)
 
-Double-cliquez sur `index.html` : le site s'ouvre dans votre navigateur. Passez en revue la checklist de l'Option 1 (contenu, design, mobile).
+Double-cliquez sur `index.html` : le site s'ouvre dans votre navigateur. Contrairement a l'artefact de l'Option 1, ici vous avez un vrai projet multi-fichiers. Passez en revue chaque categorie.
 
-Pour une auto-validation, demandez a Claude :
+**Contenu**
+- [ ] Titre principal clair et accrocheur
+- [ ] Chaque section a un but evident
+- [ ] Aucun texte "Lorem ipsum" oublie
+- [ ] Prix et informations exactes
+
+**Design**
+- [ ] Couleurs correspondent a ma marque
+- [ ] Texte lisible, bon contraste
+- [ ] Images et icones s'affichent
+- [ ] Espacement aere
+
+**Mobile (testez vraiment sur votre telephone)**
+- [ ] Tout est lisible sur un ecran de telephone
+- [ ] Boutons assez grands pour le doigt (44px minimum)
+- [ ] Aucune image ne deborde
+- [ ] Menu hamburger fonctionne
+
+Pour une validation automatique plus poussee, demandez a Claude :
 
 ```
 Fais une auto-validation du site : verifie que le HTML est valide,

@@ -292,34 +292,17 @@ Ne commence PAS a coder. Attends ma validation du plan.</span>
       <h3>Etape 4. Laisser Claude construire</h3>
       <p style="color:var(--ink-muted)">Sur ordinateur, le site apparait a droite. Sur telephone, tapez sur la carte de l'artefact pour voir l'apercu en plein ecran. Attendez la fin de la generation.</p>
 
-      <h3>Etape 5. Valider le site (checklist)</h3>
+      <h3>Etape 5. Jeter un oeil rapide a l'artefact</h3>
+      <p style="color:var(--ink-muted)">Avec Claude, vous voyez le site se construire directement dans l'artefact. Pas besoin de checklist technique : regardez simplement le resultat et posez-vous trois questions simples.</p>
       <div class="check">
-        <div class="check-title">Contenu</div>
+        <div class="check-title">Verification express</div>
         <ul>
-          <li>Le titre principal est clair et accrocheur</li>
-          <li>Chaque section a un but evident</li>
-          <li>Aucun texte "Lorem ipsum" oublie</li>
-          <li>Les prix et informations sont exacts</li>
+          <li>Le resultat ressemble a ce que j'avais imagine</li>
+          <li>Les textes sont corrects, les prix sont les bons</li>
+          <li>Sur telephone, tout reste lisible et les boutons sont cliquables</li>
         </ul>
       </div>
-      <div class="check">
-        <div class="check-title">Design</div>
-        <ul>
-          <li>Les couleurs correspondent a ma marque</li>
-          <li>Le texte est lisible, bon contraste</li>
-          <li>Images et icones s'affichent correctement</li>
-          <li>L'espacement est aere</li>
-        </ul>
-      </div>
-      <div class="check">
-        <div class="check-title">Mobile</div>
-        <ul>
-          <li>Tout est lisible sur un ecran de telephone</li>
-          <li>Les boutons sont assez grands pour le doigt</li>
-          <li>Aucune image ne deborde</li>
-          <li>Le menu hamburger fonctionne</li>
-        </ul>
-      </div>
+      <p style="color:var(--ink-muted);margin-top:14px">Si un detail vous chiffonne, passez directement a l'etape suivante pour demander une correction.</p>
 
       <h3>Etape 6. Iterer, un changement a la fois</h3>
       <div class="prompt">
@@ -402,9 +385,36 @@ N'ecris aucun code tant que je n'ai pas valide le plan.</span>
       <h3>Etape 6. Laisser Claude construire</h3>
       <p style="color:var(--ink-muted)">Claude cree les fichiers <code>index.html</code>, <code>styles.css</code>, <code>script.js</code> directement dans votre dossier. Vous pouvez les ouvrir dans Finder / Explorateur pendant qu'il travaille, vous les voyez apparaitre en direct.</p>
 
-      <h3>Etape 7. Valider le site</h3>
-      <p style="color:var(--ink-muted)">Double-cliquez sur <code>index.html</code> dans votre dossier : le site s'ouvre dans votre navigateur. Passez en revue la meme checklist que l'Option 1 (contenu, design, mobile).</p>
-      <p style="color:var(--ink-muted)">Si vous voulez une validation automatique, demandez a Claude :</p>
+      <h3>Etape 7. Valider le site (la vraie checklist)</h3>
+      <p style="color:var(--ink-muted)">Double-cliquez sur <code>index.html</code> dans votre dossier : le site s'ouvre dans votre navigateur. Contrairement a l'artefact de l'Option 1, ici vous avez un vrai projet multi-fichiers. Passez en revue chaque categorie.</p>
+      <div class="check">
+        <div class="check-title">Contenu</div>
+        <ul>
+          <li>Le titre principal est clair et accrocheur</li>
+          <li>Chaque section a un but evident</li>
+          <li>Aucun texte "Lorem ipsum" oublie</li>
+          <li>Les prix et informations sont exacts</li>
+        </ul>
+      </div>
+      <div class="check">
+        <div class="check-title">Design</div>
+        <ul>
+          <li>Les couleurs correspondent a ma marque</li>
+          <li>Le texte est lisible, bon contraste</li>
+          <li>Images et icones s'affichent correctement</li>
+          <li>L'espacement est aere</li>
+        </ul>
+      </div>
+      <div class="check">
+        <div class="check-title">Mobile (testez vraiment sur votre telephone)</div>
+        <ul>
+          <li>Tout est lisible sur un ecran de telephone</li>
+          <li>Les boutons sont assez grands pour le doigt (44px minimum)</li>
+          <li>Aucune image ne deborde</li>
+          <li>Le menu hamburger fonctionne</li>
+        </ul>
+      </div>
+      <p style="color:var(--ink-muted);margin-top:14px">Pour une validation automatique plus poussee, demandez a Claude :</p>
       <div class="prompt">
 <button class="copy" data-target="p2c">Copier</button>
 <span id="p2c">Fais une auto-validation du site : verifie que le HTML est valide, que tous les liens fonctionnent, que le CSS n'a pas d'erreurs, que le site est bien responsive. Liste chaque probleme trouve avec la ligne exacte a corriger.</span>
