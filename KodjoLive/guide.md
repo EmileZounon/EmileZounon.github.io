@@ -30,9 +30,57 @@ Les deux construisent le meme type de site. La difference, c'est l'outil.
 
 **Sur ordinateur :** allez sur claude.ai et connectez-vous.
 
-## Etape 2. Copier le prompt maitre (l'exemple LinguaLibre)
+## Etape 2. Copier le prompt maitre
 
-Ouvrez une nouvelle conversation et collez ce prompt. C'est le prompt exact qu'Emile utilise sur scene. Pour votre propre projet, remplacez la marque, la promesse et les sections par les votres.
+Ouvrez une nouvelle conversation. Vous avez deux options : commencer par le **modele vierge** a remplir avec vos propres details, ou copier l'**exemple LinguaLibre** complet pour voir ce qu'Emile a construit sur scene.
+
+### 🧩 Modele a remplir (votre projet)
+
+Remplacez les crochets `[]` par les details de votre projet.
+
+```
+Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
+JavaScript inline, rien d'externe sauf Google Fonts). Affiche-le
+comme un artefact pour que je puisse le voir en direct.
+
+Marque: "[NOM DE VOTRE MARQUE]" — [UNE PHRASE POUR DECRIRE VOTRE PRODUIT OU SERVICE].
+Fondateur / fondatrice: [VOTRE NOM].
+Promesse: [LA PROMESSE PRINCIPALE, EN UNE LIGNE].
+Public cible: [QUI S'EN SERT].
+
+Toute la copie en [LANGUE].
+
+Sections dans cet ordre precis:
+1. Barre de navigation sticky: logo a gauche, liens ([LISTE DE VOS LIENS]), bouton CTA "[TEXTE DU BOUTON]" a droite. Menu hamburger sous 768px.
+2. Hero plein ecran: grand titre "[VOTRE TITRE PRINCIPAL]", sous-titre de 2 lignes, vignette video ou image placeholder, bouton CTA principal.
+3. Bandeau de preuves sociales: [NOMBRE] mentions ou logos fictifs.
+4. [VOTRE SECTION METHODE / PRODUIT] : [DECRIRE LA GRILLE OU LE FORMAT].
+5. Temoignages: grille de [NOMBRE] cartes avec portrait placeholder, prenom, citation.
+6. "Qui est [VOTRE NOM]": portrait placeholder a gauche, 3 paragraphes a droite, une citation mise en avant.
+7. Tarifs: [NOMBRE] offres avec prix, points cles, offre du milieu en avant.
+8. FAQ avec accordeon: [NOMBRE] questions, clic pour deplier.
+9. CTA final: titre fort, bouton.
+10. Pied de page: liens, reseaux sociaux, copyright.
+
+Direction artistique:
+- Palette: [COULEUR PRINCIPALE] en couleur principale, [COULEUR ACCENT] en accent, fond [COULEUR FOND], texte [COULEUR TEXTE].
+- Typographie: [NOM DE POLICE] via Google Fonts, gras pour les titres.
+- Style moderne, editorial, premium. Beaucoup d'espace blanc. Coins arrondis. Ombres subtiles.
+- Entierement responsive jusqu'a 360px de large.
+- Scroll fluide sur les liens d'ancre. Accordeon FAQ fonctionnel. Effets hover sur boutons et cartes.
+
+Images: uniquement des SVG ou degrades CSS comme placeholders, jamais d'URL externe.
+
+Interdictions:
+- Pas de tirets cadratins ou demi-cadratins. Utilise virgules, points ou deux-points.
+- Rien d'externe sauf Google Fonts.
+
+Avant de coder, propose-moi d'abord le plan detaille complet de ce que tu vas construire. Ne commence pas a ecrire le code avant ma validation.
+```
+
+### 📘 Exemple complet rempli : LinguaLibre
+
+Le prompt exact qu'Emile utilise sur scene. Parfait comme reference pour voir a quoi ressemble un prompt entierement rempli.
 
 ```
 Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
@@ -91,8 +139,6 @@ Interdictions:
 Tout doit tenir dans UN fichier artefact HTML unique et fonctionner
 tout de suite.
 ```
-
-> **Pour votre propre projet :** changez la marque *LinguaLibre*, la fondatrice, la promesse, les sections, la palette, la typographie. Gardez la structure du prompt : brief clair, sections numerotees, direction artistique, interdictions.
 
 ## Etape 3. Valider ou corriger le plan
 
@@ -201,7 +247,53 @@ Plan Mode force Claude a reflechir et proposer un plan AVANT de toucher le moind
 
 ## Etape 4. Decrire votre projet
 
-Collez ce prompt dans le champ *"Describe a task or ask a question"*. C'est l'exemple concret qu'Emile utilise sur scene : la marque fictive **LinguaLibre**. Remplacez les details par les votres pour votre propre projet.
+Collez un prompt dans le champ *"Describe a task or ask a question"*. Deux options : le **modele vierge** a remplir, ou l'**exemple LinguaLibre** complet.
+
+### 🧩 Modele a remplir (votre projet)
+
+Remplacez les crochets `[]` par les details de votre projet.
+
+```
+Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
+JavaScript inline, rien d'externe sauf Google Fonts).
+
+Marque: "[NOM DE VOTRE MARQUE]" — [UNE PHRASE POUR DECRIRE VOTRE PRODUIT].
+Fondateur / fondatrice: [VOTRE NOM].
+Promesse: [LA PROMESSE PRINCIPALE].
+Public cible: [QUI S'EN SERT].
+
+Toute la copie en [LANGUE].
+
+Sections dans cet ordre precis:
+1. Navigation sticky: logo, liens, CTA.
+2. Hero: titre principal, sous-titre, visuel placeholder, CTA.
+3. Preuves sociales: [NOMBRE] mentions fictives.
+4. [VOTRE SECTION PRINCIPALE].
+5. Temoignages: [NOMBRE] cartes avec portrait placeholder, prenom, citation.
+6. "Qui est [VOTRE NOM]": portrait + 3 paragraphes.
+7. Tarifs: [NOMBRE] offres, offre du milieu en avant.
+8. FAQ accordeon: [NOMBRE] questions.
+9. CTA final.
+10. Pied de page.
+
+Direction artistique:
+- Palette: [COULEUR PRINCIPALE] + [COULEUR ACCENT] + fond [COULEUR FOND].
+- Typographie: [NOM DE POLICE] via Google Fonts.
+- Moderne, editorial, premium. Responsive jusqu'a 360px.
+- Scroll fluide, accordeon fonctionnel, hover sur boutons et cartes.
+
+Images: SVG ou degrades CSS uniquement.
+
+Interdictions:
+- Pas de tirets cadratins ou demi-cadratins.
+- Rien d'externe sauf Google Fonts.
+
+Avant de coder, propose-moi d'abord le plan detaille complet. Ne commence pas a ecrire le code avant ma validation.
+```
+
+### 📘 Exemple complet rempli : LinguaLibre
+
+Le prompt exact qu'Emile utilise sur scene.
 
 ```
 Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +

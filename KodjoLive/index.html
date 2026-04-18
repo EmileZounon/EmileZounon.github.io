@@ -257,8 +257,54 @@
         <div class="step"><div class="n">2</div><div><h4>Sur ordinateur</h4><p>Allez sur <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> dans votre navigateur et connectez-vous.</p></div></div>
       </div>
 
-      <h3>Etape 2. Copier le prompt maitre (l'exemple LinguaLibre)</h3>
-      <p style="color:var(--ink-muted)">Ouvrez une nouvelle conversation et collez ce prompt. C'est le prompt exact qu'Emile utilise sur scene. Pour votre propre projet, remplacez la marque, la promesse et les sections par les votres.</p>
+      <h3>Etape 2. Copier le prompt maitre</h3>
+      <p style="color:var(--ink-muted)">Ouvrez une nouvelle conversation. Vous avez deux options : commencer par le <strong>modele vierge</strong> a remplir avec vos propres details, ou copier l'<strong>exemple LinguaLibre</strong> complet pour voir exactement ce qu'Emile a construit sur scene.</p>
+
+      <p style="color:var(--navy);font-weight:700;margin-top:18px">🧩 Modele a remplir (votre projet)</p>
+      <p style="color:var(--ink-muted);font-size:14px">Remplacez les crochets <code>[]</code> par les details de votre propre projet.</p>
+      <div class="prompt">
+<button class="copy" data-target="p1tpl">Copier</button>
+<span id="p1tpl">Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
+JavaScript inline, rien d'externe sauf Google Fonts). Affiche-le
+comme un artefact pour que je puisse le voir en direct.
+
+Marque: "[NOM DE VOTRE MARQUE]" — [UNE PHRASE POUR DECRIRE VOTRE PRODUIT OU SERVICE].
+Fondateur / fondatrice: [VOTRE NOM].
+Promesse: [LA PROMESSE PRINCIPALE, EN UNE LIGNE].
+Public cible: [QUI S'EN SERT].
+
+Toute la copie en [LANGUE].
+
+Sections dans cet ordre precis:
+1. Barre de navigation sticky: logo a gauche, liens ([LISTE DE VOS LIENS]), bouton CTA "[TEXTE DU BOUTON]" a droite. Menu hamburger sous 768px.
+2. Hero plein ecran: grand titre "[VOTRE TITRE PRINCIPAL]", sous-titre de 2 lignes, vignette video ou image placeholder, bouton CTA principal.
+3. Bandeau de preuves sociales: [NOMBRE] mentions ou logos fictifs.
+4. [VOTRE SECTION METHODE / PRODUIT] : [DECRIRE LA GRILLE OU LE FORMAT].
+5. Temoignages: grille de [NOMBRE] cartes avec portrait placeholder, prenom, citation.
+6. "Qui est [VOTRE NOM]": portrait placeholder a gauche, 3 paragraphes a droite, une citation mise en avant.
+7. Tarifs: [NOMBRE] offres avec prix, points cles, offre du milieu en avant.
+8. FAQ avec accordeon: [NOMBRE] questions, clic pour deplier.
+9. CTA final: titre fort, bouton.
+10. Pied de page: liens, reseaux sociaux, copyright.
+
+Direction artistique:
+- Palette: [COULEUR PRINCIPALE] en couleur principale, [COULEUR ACCENT] en accent, fond [COULEUR FOND], texte [COULEUR TEXTE].
+- Typographie: [NOM DE POLICE] via Google Fonts, gras pour les titres.
+- Style moderne, editorial, premium. Beaucoup d'espace blanc. Coins arrondis. Ombres subtiles.
+- Entierement responsive jusqu'a 360px de large.
+- Scroll fluide sur les liens d'ancre. Accordeon FAQ fonctionnel. Effets hover sur boutons et cartes.
+
+Images: uniquement des SVG ou degrades CSS comme placeholders, jamais d'URL externe.
+
+Interdictions:
+- Pas de tirets cadratins ou demi-cadratins. Utilise virgules, points ou deux-points.
+- Rien d'externe sauf Google Fonts.
+
+Avant de coder, propose-moi d'abord le plan detaille complet de ce que tu vas construire. Ne commence pas a ecrire le code avant ma validation.</span>
+      </div>
+
+      <p style="color:var(--navy);font-weight:700;margin-top:26px">📘 Exemple complet rempli : LinguaLibre</p>
+      <p style="color:var(--ink-muted);font-size:14px">C'est le prompt exact qu'Emile utilise sur scene. Parfait comme reference pour voir a quoi ressemble un prompt entierement rempli.</p>
       <div class="prompt">
 <button class="copy" data-target="p1">Copier</button>
 <span id="p1">Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
@@ -317,8 +363,6 @@ Interdictions:
 Tout doit tenir dans UN fichier artefact HTML unique et fonctionner
 tout de suite.</span>
       </div>
-
-      <div class="note"><strong>Pour votre propre projet :</strong> changez la marque <em>LinguaLibre</em>, la fondatrice, la promesse, les sections, la palette, la typographie. Gardez la structure du prompt : brief clair, sections numerotees, direction artistique, interdictions.</div>
 
       <h3>Etape 3. Valider ou corriger le plan</h3>
       <div class="check">
@@ -430,7 +474,51 @@ Change la palette pour du vert foret et du beige.</span>
       </div>
 
       <h3>Etape 4. Decrire votre projet</h3>
-      <p style="color:var(--ink-muted)">Collez ce prompt dans le champ <em>"Describe a task or ask a question"</em>. C'est l'exemple concret qu'Emile utilise sur scene : la marque fictive <strong>LinguaLibre</strong>. Remplacez les details par les votres pour votre propre projet.</p>
+      <p style="color:var(--ink-muted)">Collez un prompt dans le champ <em>"Describe a task or ask a question"</em>. Deux options : le <strong>modele vierge</strong> a remplir avec votre propre projet, ou l'<strong>exemple LinguaLibre</strong> complet pour voir exactement ce qu'Emile utilise sur scene.</p>
+
+      <p style="color:var(--navy);font-weight:700;margin-top:18px">🧩 Modele a remplir (votre projet)</p>
+      <p style="color:var(--ink-muted);font-size:14px">Remplacez les crochets <code>[]</code> par les details de votre projet.</p>
+      <div class="prompt">
+<button class="copy" data-target="p2tpl">Copier</button>
+<span id="p2tpl">Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
+JavaScript inline, rien d'externe sauf Google Fonts).
+
+Marque: "[NOM DE VOTRE MARQUE]" — [UNE PHRASE POUR DECRIRE VOTRE PRODUIT].
+Fondateur / fondatrice: [VOTRE NOM].
+Promesse: [LA PROMESSE PRINCIPALE].
+Public cible: [QUI S'EN SERT].
+
+Toute la copie en [LANGUE].
+
+Sections dans cet ordre precis:
+1. Navigation sticky: logo, liens, CTA.
+2. Hero: titre principal, sous-titre, visuel placeholder, CTA.
+3. Preuves sociales: [NOMBRE] mentions fictives.
+4. [VOTRE SECTION PRINCIPALE].
+5. Temoignages: [NOMBRE] cartes avec portrait placeholder, prenom, citation.
+6. "Qui est [VOTRE NOM]": portrait + 3 paragraphes.
+7. Tarifs: [NOMBRE] offres, offre du milieu en avant.
+8. FAQ accordeon: [NOMBRE] questions.
+9. CTA final.
+10. Pied de page.
+
+Direction artistique:
+- Palette: [COULEUR PRINCIPALE] + [COULEUR ACCENT] + fond [COULEUR FOND].
+- Typographie: [NOM DE POLICE] via Google Fonts.
+- Moderne, editorial, premium. Responsive jusqu'a 360px.
+- Scroll fluide, accordeon fonctionnel, hover sur boutons et cartes.
+
+Images: SVG ou degrades CSS uniquement.
+
+Interdictions:
+- Pas de tirets cadratins ou demi-cadratins.
+- Rien d'externe sauf Google Fonts.
+
+Avant de coder, propose-moi d'abord le plan detaille complet. Ne commence pas a ecrire le code avant ma validation.</span>
+      </div>
+
+      <p style="color:var(--navy);font-weight:700;margin-top:26px">📘 Exemple complet rempli : LinguaLibre</p>
+      <p style="color:var(--ink-muted);font-size:14px">Le prompt exact qu'Emile utilise sur scene. A copier si vous voulez reproduire la meme demo, ou comme reference pour voir un prompt entierement rempli.</p>
       <div class="prompt">
 <button class="copy" data-target="p2b">Copier</button>
 <span id="p2b">Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
