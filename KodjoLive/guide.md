@@ -152,9 +152,17 @@ Avant de laisser Claude coder, verifiez :
 
 **Si non :** *"Retire la section FAQ. Ajoute des temoignages avant les tarifs. Change la palette en bleu et blanc."*
 
-## Etape 4. Lancer la construction (second prompt)
+## Etape 4. Dire oui a Claude
 
-Si le plan vous convient, collez ce second prompt. Il declenche la construction complete du site selon le plan valide.
+Si le plan vous convient tel quel, pas besoin de recopier un long prompt. Une courte phrase suffit, Claude a deja tout le contexte :
+
+```
+Parfait, le plan me convient. Construis le site maintenant et affiche-le comme artefact.
+```
+
+### Option avancee (facultative)
+
+Si vous voulez ajouter une exigence ou renforcer les regles, utilisez ce prompt plus detaille a la place :
 
 ```
 Parfait, le plan me convient. Construis maintenant le site complet
@@ -171,8 +179,7 @@ Respecte integralement le plan que tu viens de proposer :
 - Placeholders SVG ou degrades CSS pour toutes les images,
   jamais d'URL externe
 
-Affiche le resultat comme un artefact pour que je puisse le voir
-en direct.
+Affiche le resultat comme un artefact.
 
 Interdictions :
 - Pas de tirets cadratins ou demi-cadratins. Utilise virgules,

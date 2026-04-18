@@ -376,9 +376,17 @@ tout de suite.</span>
       <p style="color:var(--ink-muted);margin-top:14px"><strong>Si oui, dites :</strong> <em>"Parfait. Construis maintenant le site complet en un seul fichier HTML avec tout inline (CSS et JavaScript). Affiche-le comme artefact."</em></p>
       <p style="color:var(--ink-muted)"><strong>Si non :</strong> <em>"Retire la section FAQ. Ajoute des temoignages avant les tarifs. Change la palette en bleu et blanc."</em></p>
 
-      <h3>Etape 4. Lancer la construction (second prompt)</h3>
-      <p style="color:var(--ink-muted)">Si le plan vous convient, collez ce second prompt. Il declenche la construction complete du site selon le plan valide.</p>
+      <h3>Etape 4. Dire oui a Claude</h3>
+      <p style="color:var(--ink-muted)">Si le plan vous convient tel quel, pas besoin de recopier un long prompt. Une courte phrase suffit, Claude a deja tout le contexte :</p>
       <div class="prompt">
+<button class="copy" data-target="p1yes">Copier</button>
+<span id="p1yes">Parfait, le plan me convient. Construis le site maintenant et affiche-le comme artefact.</span>
+      </div>
+
+      <div class="note"><strong>Option avancee :</strong> si vous voulez ajouter une exigence ou renforcer les regles, utilisez ce prompt plus detaille a la place.</div>
+      <details style="margin-top:10px">
+        <summary style="cursor:pointer;color:var(--navy);font-weight:600;padding:10px 0">Afficher le prompt long (optionnel)</summary>
+        <div class="prompt">
 <button class="copy" data-target="p1build">Copier</button>
 <span id="p1build">Parfait, le plan me convient. Construis maintenant le site complet
 en UN SEUL fichier HTML avec tout inline (HTML + CSS + JavaScript).
@@ -394,8 +402,7 @@ Respecte integralement le plan que tu viens de proposer :
 - Placeholders SVG ou degrades CSS pour toutes les images,
   jamais d'URL externe
 
-Affiche le resultat comme un artefact pour que je puisse le voir
-en direct.
+Affiche le resultat comme un artefact.
 
 Interdictions :
 - Pas de tirets cadratins ou demi-cadratins. Utilise virgules,
@@ -406,7 +413,8 @@ A la fin, fais un court bilan en 3 points :
 1. Ce que tu as construit
 2. Les choix que tu as faits (couleurs, typo, structure)
 3. Ce que je peux te demander de modifier en premier</span>
-      </div>
+        </div>
+      </details>
 
       <h3>Etape 5. Laisser Claude construire</h3>
       <p style="color:var(--ink-muted)">Sur ordinateur, le site apparait a droite. Sur telephone, tapez sur la carte de l'artefact pour voir l'apercu en plein ecran. Attendez la fin de la generation.</p>
