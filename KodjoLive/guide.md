@@ -1,8 +1,8 @@
 # Construire votre site web avec Claude
 
-**Le guide officiel du KodjoLive, par Emile Zounon.**
+**Le guide officiel du KodjoLive · 19 avril 2026 · par Emile Zounon.**
 
-Version PDF disponible a : emilezounon.com/KodjoLive
+Version en ligne : emilezounon.com/KodjoLive
 
 Vous avez assisté à la démo. Voici le guide complet pour le refaire vous-même, chez vous, à votre rythme. Deux chemins, au choix selon votre niveau. Le résultat : un vrai site web en ligne que vous pouvez partager aujourd'hui.
 
