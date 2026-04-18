@@ -220,12 +220,12 @@
 
         <div class="card two">
           <span class="badge">Option 2 · Intermediaire</span>
-          <h3>Claude Code (le terminal)</h3>
-          <p>Pour ceux qui veulent aller plus loin. Claude travaille directement dans vos fichiers avec le mode Plan, ideal pour des projets serieux.</p>
+          <h3>Claude pour Mac / Windows (mode Code)</h3>
+          <p>Pour ceux qui veulent aller plus loin. L'application Claude sur ordinateur a un mode "Code" avec le Plan Mode integre. Claude cree et modifie les fichiers sur votre ordinateur, dans un projet reel.</p>
           <ul>
-            <li><strong>Plateforme :</strong> terminal (Mac, Windows, Linux)</li>
-            <li><strong>Pre-requis :</strong> Node.js installe, compte Claude</li>
-            <li><strong>Temps :</strong> 30 a 60 minutes</li>
+            <li><strong>Plateforme :</strong> application Claude pour Mac ou Windows</li>
+            <li><strong>Pre-requis :</strong> un compte Claude, c'est tout</li>
+            <li><strong>Temps :</strong> 20 a 40 minutes</li>
             <li><strong>Resultat :</strong> un vrai projet sur votre ordinateur, pret a deployer</li>
           </ul>
           <a class="btn btn-primary go" href="#option2">Suivre le guide Option 2</a>
@@ -332,32 +332,37 @@ Change la palette pour du vert foret et du beige.</span>
   <section class="block" id="option2" style="background:#fff">
     <div class="wrap">
       <span class="pill">Option 2</span>
-      <h2>Construire avec Claude Code</h2>
-      <p style="color:var(--ink-muted);max-width:680px">Claude Code est un assistant dans votre terminal. Il travaille directement dans vos fichiers, il peut <strong>vraiment</strong> utiliser le Plan Mode, lancer un serveur, tester le site. C'est l'outil des developpeurs, mais tout debutant motive peut l'utiliser.</p>
+      <h2>Construire avec l'application Claude pour ordinateur (mode Code)</h2>
+      <p style="color:var(--ink-muted);max-width:680px">L'application Claude pour Mac et Windows a un mode <strong>Code</strong>. C'est comme un chat classique, mais Claude peut creer et modifier des fichiers directement sur votre ordinateur, dans un dossier que vous choisissez. Le <strong>Plan Mode</strong> est integre, activable en un clic. Aucun terminal, aucune ligne de commande.</p>
 
-      <h3>Etape 1. Installer Claude Code</h3>
+      <figure style="margin:24px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fafafa">
+        <img src="img/claude-app-code-mode.png" alt="L'application Claude en mode Code avec Plan mode active en bas" style="width:100%;display:block" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <div style="display:none;padding:40px;text-align:center;color:var(--ink-muted);font-style:italic">Capture d'ecran de l'application Claude en mode Code (a venir)</div>
+        <figcaption style="padding:12px 18px;font-size:13px;color:var(--ink-muted);background:#fff;border-top:1px solid var(--line)">L'application Claude pour ordinateur en <strong>mode Code</strong>. Notez le bouton "Plan mode" en bas a gauche, et le selecteur de dossier (Local / emilegio) au-dessus du champ de saisie.</figcaption>
+      </figure>
+
+      <h3>Etape 1. Installer l'application Claude</h3>
       <div class="steps">
-        <div class="step"><div class="n">1</div><div><h4>Installer Node.js</h4><p>Allez sur <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>, telechargez la version LTS, installez-la. Verifiez dans le terminal avec <code>node --version</code>.</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Installer Claude Code</h4><p>Ouvrez votre terminal (Terminal sur Mac, PowerShell sur Windows) et tapez : <code>npm install -g @anthropic-ai/claude-code</code></p></div></div>
-        <div class="step"><div class="n">3</div><div><h4>Se connecter</h4><p>Dans le terminal, tapez <code>claude</code>. Suivez le lien, connectez-vous avec votre compte Anthropic. Vous etes pret.</p></div></div>
+        <div class="step"><div class="n">1</div><div><h4>Telecharger l'app</h4><p>Allez sur <a href="https://claude.ai/download" target="_blank" rel="noopener">claude.ai/download</a>. Choisissez votre systeme (Mac ou Windows). Telechargez et installez comme n'importe quelle application.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Se connecter</h4><p>Ouvrez l'application, connectez-vous avec votre compte Claude (le meme que sur claude.ai).</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Activer le mode Code</h4><p>En haut a gauche, cliquez sur l'onglet <strong>Code</strong> (icone &lt;/&gt;). C'est la nouvelle interface qui permet a Claude de travailler avec vos fichiers.</p></div></div>
       </div>
 
       <h3>Etape 2. Creer un dossier pour votre projet</h3>
-      <div class="prompt">
-<button class="copy" data-target="p2a">Copier</button>
-<span id="p2a">mkdir ~/monsite
-cd ~/monsite
-claude</span>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Sur votre ordinateur</h4><p>Creez un nouveau dossier (Finder sur Mac, Explorateur sur Windows) nomme par exemple <code>monsite</code>. Vous pouvez le mettre sur le Bureau ou dans Documents.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Selectionner le dossier dans Claude</h4><p>Dans l'app Claude, en bas au-dessus de la zone de saisie, cliquez sur le bouton <strong>Local</strong> puis sur l'icone dossier. Choisissez votre dossier <code>monsite</code>. Claude travaillera desormais dans ce dossier.</p></div></div>
       </div>
 
       <h3>Etape 3. Activer le PLAN MODE</h3>
       <p style="color:var(--ink-muted)">Plan Mode force Claude a reflechir et proposer un plan <strong>avant</strong> de toucher le moindre fichier. C'est la discipline qui separe un bon resultat d'un chaos.</p>
-
       <div class="steps">
-        <div class="step"><div class="n">1</div><div><h4>Entrer en Plan Mode</h4><p>Dans Claude Code, appuyez sur <strong>Shift + Tab</strong> deux fois. La barre en bas affichera "plan mode on". Claude ne modifiera plus aucun fichier sans votre feu vert.</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Decrire votre projet</h4><p>Collez le prompt ci-dessous dans Claude Code.</p></div></div>
+        <div class="step"><div class="n">1</div><div><h4>Un seul clic</h4><p>En bas a gauche de la fenetre Claude, cliquez sur <strong>Plan mode</strong>. Le libelle passe en actif. Claude ne modifiera plus aucun fichier sans votre feu vert.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Ouvrir une nouvelle session</h4><p>Dans la barre laterale gauche, cliquez sur <strong>New session</strong>.</p></div></div>
       </div>
 
+      <h3>Etape 4. Decrire votre projet</h3>
+      <p style="color:var(--ink-muted)">Collez ce prompt dans le champ <em>"Describe a task or ask a question"</em> :</p>
       <div class="prompt">
 <button class="copy" data-target="p2b">Copier</button>
 <span id="p2b">Je veux construire un site web statique d'une seule page pour [PROJET].
@@ -377,37 +382,39 @@ Propose-moi un plan complet :
 N'ecris aucun code tant que je n'ai pas valide le plan.</span>
       </div>
 
-      <h3>Etape 4. Valider le plan</h3>
-      <p style="color:var(--ink-muted)">Claude vous proposera un plan. Lisez-le. Demandez des ajustements si necessaire. Quand c'est bon, appuyez sur <strong>Shift + Tab</strong> pour sortir du Plan Mode et autoriser la construction.</p>
-      <div class="note">Astuce : Claude Code affiche un bouton "Accept plan" a la fin. Cliquez-le, ou tapez simplement "yes, proceed" quand il demande.</div>
+      <h3>Etape 5. Valider le plan</h3>
+      <p style="color:var(--ink-muted)">Claude propose un plan dans la fenetre de chat. Lisez-le. Demandez des ajustements si necessaire. Quand c'est bon, <strong>desactivez Plan mode</strong> (meme bouton en bas a gauche), puis dites a Claude :</p>
+      <div class="prompt">
+<button class="copy" data-target="p2v">Copier</button>
+<span id="p2v">Parfait, le plan me va. Construis le site maintenant dans mon dossier monsite.</span>
+      </div>
 
-      <h3>Etape 5. Laisser Claude construire</h3>
-      <p style="color:var(--ink-muted)">Claude va creer les fichiers, ecrire le code, structurer le projet. Vous voyez tout en direct dans le terminal. Laissez-le finir.</p>
+      <h3>Etape 6. Laisser Claude construire</h3>
+      <p style="color:var(--ink-muted)">Claude cree les fichiers <code>index.html</code>, <code>styles.css</code>, <code>script.js</code> directement dans votre dossier. Vous pouvez les ouvrir dans Finder / Explorateur pendant qu'il travaille, vous les voyez apparaitre en direct.</p>
 
-      <h3>Etape 6. Valider le site</h3>
-      <p style="color:var(--ink-muted)">Demandez a Claude Code de lancer un serveur local :</p>
+      <h3>Etape 7. Valider le site</h3>
+      <p style="color:var(--ink-muted)">Double-cliquez sur <code>index.html</code> dans votre dossier : le site s'ouvre dans votre navigateur. Passez en revue la meme checklist que l'Option 1 (contenu, design, mobile).</p>
+      <p style="color:var(--ink-muted)">Si vous voulez une validation automatique, demandez a Claude :</p>
       <div class="prompt">
 <button class="copy" data-target="p2c">Copier</button>
-<span id="p2c">Lance un serveur local sur le port 8080 pour que je puisse voir le site dans mon navigateur.
-Ensuite, fais une auto-validation : verifie que le site est responsive, que tous les liens fonctionnent, que le JavaScript ne lance pas d'erreurs dans la console, et liste tout probleme trouve.</span>
+<span id="p2c">Fais une auto-validation du site : verifie que le HTML est valide, que tous les liens fonctionnent, que le CSS n'a pas d'erreurs, que le site est bien responsive. Liste chaque probleme trouve avec la ligne exacte a corriger.</span>
       </div>
-      <p style="color:var(--ink-muted)">Ouvrez <strong>http://localhost:8080</strong> dans votre navigateur. Passez en revue la meme checklist que l'Option 1 (contenu, design, mobile).</p>
 
-      <h3>Etape 7. Iterer avec Plan Mode pour les gros changements</h3>
-      <p style="color:var(--ink-muted)">Pour un petit ajustement : demandez directement ("change la couleur du bouton en or"). Pour un changement structurel (nouvelle section complete, refonte de la navigation) : <strong>reactivez Plan Mode</strong> avec Shift + Tab, faites proposer un plan, validez, puis executez. C'est la methode pro.</p>
+      <h3>Etape 8. Iterer avec Plan Mode pour les gros changements</h3>
+      <p style="color:var(--ink-muted)">Pour un petit ajustement : demandez directement (<em>"change la couleur du bouton en or"</em>). Pour un changement structurel (nouvelle section complete, refonte de la navigation) : <strong>reactivez Plan mode</strong> en bas a gauche, faites proposer un plan, validez, desactivez, puis laissez executer. C'est la methode pro.</p>
 
-      <h3>Etape 8. Publier sur GitHub Pages</h3>
-      <p style="color:var(--ink-muted)">Suivez la meme procedure que l'Option 1 : voir la section <a href="#publier"><strong>"Publier votre site"</strong></a> plus bas. Claude Code peut meme vous aider a automatiser la premiere poussee :</p>
+      <h3>Etape 9. Publier sur GitHub Pages</h3>
+      <p style="color:var(--ink-muted)">Suivez la section <a href="#publier"><strong>"Publier votre site"</strong></a> plus bas. L'app Claude peut vous guider pas a pas :</p>
       <div class="prompt">
 <button class="copy" data-target="p2d">Copier</button>
-<span id="p2d">Initialise git dans ce dossier, cree un premier commit avec un message clair,
-puis guide-moi etape par etape pour :
-1. Creer un nouveau depot sur github.com
-2. Pousser mon code dessus
-3. Activer GitHub Pages
-4. Trouver et copier mon URL publique finale
+<span id="p2d">Guide-moi etape par etape, avec les boutons exacts a cliquer, pour :
+1. Creer un compte GitHub si je n'en ai pas
+2. Creer un nouveau depot public nomme mon-site
+3. Uploader mon fichier index.html
+4. Activer GitHub Pages dans les parametres
+5. Trouver et copier mon URL publique finale
 
-Donne-moi les commandes exactes a taper et les boutons exacts a cliquer.</span>
+Je suis debutant total, je n'ai jamais utilise GitHub. Sois tres precis.</span>
       </div>
     </div>
   </section>

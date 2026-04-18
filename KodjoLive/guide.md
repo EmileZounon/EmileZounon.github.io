@@ -10,12 +10,12 @@ Vous avez assiste a la demo. Voici le guide complet pour le refaire vous-meme, c
 
 ## Choisissez votre chemin
 
-| | Option 1 : Claude (l'application) | Option 2 : Claude Code (le terminal) |
+| | Option 1 : Claude (app mobile / web) | Option 2 : Claude pour ordinateur (mode Code) |
 |---|---|---|
 | Pour qui | Tous, meme debutants | Ceux qui veulent aller plus loin |
-| Plateforme | claude.ai ou app iOS / Android | Terminal Mac, Windows, Linux |
-| Pre-requis | Un compte gratuit | Node.js installe + compte Claude |
-| Temps | 15 a 30 minutes | 30 a 60 minutes |
+| Plateforme | claude.ai ou app iOS / Android | App Claude pour Mac ou Windows |
+| Pre-requis | Un compte gratuit | Un compte Claude, c'est tout |
+| Temps | 15 a 30 minutes | 20 a 40 minutes |
 | Resultat | Un fichier HTML | Un projet complet pret a deployer |
 
 Les deux construisent le meme type de site. La difference, c'est l'outil.
@@ -104,30 +104,35 @@ Sur l'artefact, cliquez sur **Copy** ou **Download**. Collez dans un fichier nom
 
 ---
 
-# OPTION 2 : Construire avec Claude Code
+# OPTION 2 : Construire avec l'application Claude pour ordinateur (mode Code)
 
-Claude Code est un assistant dans votre terminal. Il travaille directement dans vos fichiers, peut VRAIMENT utiliser le Plan Mode, lancer un serveur local, tester le site. C'est l'outil des developpeurs, mais tout debutant motive peut l'utiliser.
+L'application Claude pour Mac et Windows a un mode **Code**. C'est comme un chat classique, mais Claude cree et modifie des fichiers directement sur votre ordinateur, dans un dossier que vous choisissez. Le **Plan Mode** est integre, activable en un clic. Aucun terminal, aucune ligne de commande.
 
-## Etape 1. Installer Claude Code
+![L'application Claude en mode Code avec Plan mode](img/claude-app-code-mode.png)
 
-1. **Installer Node.js** : allez sur nodejs.org, telechargez la version LTS, installez-la. Verifiez dans le terminal : `node --version`.
-2. **Installer Claude Code** : dans le terminal, tapez `npm install -g @anthropic-ai/claude-code`.
-3. **Se connecter** : tapez `claude`, suivez le lien, connectez-vous avec votre compte Anthropic.
+*L'application Claude pour ordinateur en mode Code. Notez le bouton "Plan mode" en bas a gauche, et le selecteur de dossier (Local / emilegio) au-dessus du champ de saisie.*
+
+## Etape 1. Installer l'application Claude
+
+1. **Telecharger l'app** : allez sur claude.ai/download. Choisissez votre systeme (Mac ou Windows). Installez comme n'importe quelle application.
+2. **Se connecter** : ouvrez l'application, connectez-vous avec votre compte Claude.
+3. **Activer le mode Code** : en haut a gauche, cliquez sur l'onglet **Code** (icone </>).
 
 ## Etape 2. Creer un dossier pour votre projet
 
-```bash
-mkdir ~/monsite
-cd ~/monsite
-claude
-```
+1. Sur votre ordinateur, creez un dossier nomme `monsite` (Finder sur Mac, Explorateur sur Windows). Bureau ou Documents, au choix.
+2. Dans l'app Claude, au-dessus de la zone de saisie, cliquez sur **Local** puis l'icone dossier. Choisissez votre dossier. Claude travaillera desormais dedans.
 
 ## Etape 3. Activer le PLAN MODE
 
-Plan Mode force Claude a reflechir et proposer un plan AVANT de toucher le moindre fichier. C'est la discipline qui separe un bon resultat d'un chaos.
+Plan Mode force Claude a reflechir et proposer un plan AVANT de toucher le moindre fichier.
 
-1. **Entrer en Plan Mode** : appuyez sur **Shift + Tab** deux fois. La barre en bas affichera "plan mode on". Claude ne modifiera plus aucun fichier sans votre feu vert.
-2. **Decrire votre projet** : collez ce prompt :
+1. **En bas a gauche**, cliquez sur **Plan mode**. Le libelle passe en actif.
+2. Dans la barre laterale, cliquez sur **New session** pour commencer proprement.
+
+## Etape 4. Decrire votre projet
+
+Collez ce prompt dans le champ *"Describe a task or ask a question"* :
 
 ```
 Je veux construire un site web statique d'une seule page pour [PROJET].
@@ -147,44 +152,47 @@ Propose-moi un plan complet :
 N'ecris aucun code tant que je n'ai pas valide le plan.
 ```
 
-## Etape 4. Valider le plan
+## Etape 5. Valider le plan
 
-Lisez le plan. Demandez des ajustements si necessaire. Quand c'est bon, appuyez sur **Shift + Tab** pour sortir du Plan Mode, OU cliquez sur "Accept plan", OU tapez "yes, proceed".
+Claude propose un plan. Lisez-le. Demandez des ajustements si necessaire. Quand c'est bon, **desactivez Plan mode** (meme bouton en bas a gauche), puis dites :
 
-## Etape 5. Laisser Claude construire
+*"Parfait, le plan me va. Construis le site maintenant dans mon dossier monsite."*
 
-Claude cree les fichiers, ecrit le code, structure le projet. Vous voyez tout en direct dans le terminal. Laissez-le finir.
+## Etape 6. Laisser Claude construire
 
-## Etape 6. Valider le site
+Claude cree `index.html`, `styles.css`, `script.js` directement dans votre dossier. Vous voyez les fichiers apparaitre en direct dans Finder / Explorateur.
 
-Demandez a Claude Code :
+## Etape 7. Valider le site
+
+Double-cliquez sur `index.html` : le site s'ouvre dans votre navigateur. Passez en revue la checklist de l'Option 1 (contenu, design, mobile).
+
+Pour une auto-validation, demandez a Claude :
 
 ```
-Lance un serveur local sur le port 8080 pour que je puisse voir le site dans mon navigateur.
-Ensuite, fais une auto-validation : verifie que le site est responsive, que tous les liens fonctionnent,
-que le JavaScript ne lance pas d'erreurs dans la console, et liste tout probleme trouve.
+Fais une auto-validation du site : verifie que le HTML est valide,
+que tous les liens fonctionnent, que le CSS n'a pas d'erreurs,
+que le site est bien responsive.
+Liste chaque probleme trouve avec la ligne exacte a corriger.
 ```
 
-Ouvrez http://localhost:8080. Passez en revue la meme checklist que l'Option 1.
-
-## Etape 7. Iterer avec Plan Mode pour les gros changements
+## Etape 8. Iterer avec Plan Mode pour les gros changements
 
 - **Petit ajustement** : demandez directement ("change la couleur du bouton en or").
-- **Changement structurel** (nouvelle section, refonte de la navigation) : reactivez Plan Mode avec Shift + Tab, faites proposer un plan, validez, executez.
+- **Changement structurel** : reactivez Plan mode, faites proposer un plan, validez, desactivez, laissez executer.
 
-## Etape 8. Pret a publier ?
+## Etape 9. Pret a publier ?
 
-Passez a la section "Publier votre site" en bas. Claude Code peut automatiser la premiere poussee vers GitHub :
+Passez a la section "Publier votre site" en bas. L'app Claude peut vous guider :
 
 ```
-Initialise git dans ce dossier, cree un premier commit avec un message clair,
-puis guide-moi etape par etape pour :
-1. Creer un nouveau depot sur github.com
-2. Pousser mon code dessus
-3. Activer GitHub Pages
-4. Trouver et copier mon URL publique finale
+Guide-moi etape par etape, avec les boutons exacts a cliquer, pour :
+1. Creer un compte GitHub si je n'en ai pas
+2. Creer un nouveau depot public nomme mon-site
+3. Uploader mon fichier index.html
+4. Activer GitHub Pages dans les parametres
+5. Trouver et copier mon URL publique finale
 
-Donne-moi les commandes exactes a taper et les boutons exacts a cliquer.
+Je suis debutant total, je n'ai jamais utilise GitHub. Sois tres precis.
 ```
 
 ---
@@ -258,8 +266,8 @@ ETAPE 1 : Propose-moi un plan detaille (sections, messages, palette, typographie
 Ne code rien avant ma validation.
 
 ETAPE 2 : Apres validation, construis le site complet.
-- Option Claude (app) : UN SEUL fichier HTML, tout inline, Google Fonts autorise, affiche en artefact.
-- Option Claude Code : structure propre (index.html, styles.css, script.js), lance un serveur local.
+- Option Claude (app mobile / web) : UN SEUL fichier HTML, tout inline, Google Fonts autorise, affiche en artefact.
+- Option Claude pour ordinateur (mode Code) : structure propre (index.html, styles.css, script.js) dans mon dossier local.
 
 ETAPE 3 : Assure-toi que le site est parfaitement responsive et utilisable sur telephone
 (boutons minimum 44px, texte lisible, pas de debordement).
@@ -284,5 +292,5 @@ Pas de tirets cadratins (— ou –). Utilise virgules, points ou deux-points.
 Ressources :
 - Guide en ligne : emilezounon.com/KodjoLive
 - Claude : claude.ai
-- Claude Code : anthropic.com/claude-code
+- Claude pour ordinateur : claude.ai/download
 - GitHub : github.com
