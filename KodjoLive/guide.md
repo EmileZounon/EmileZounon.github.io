@@ -80,7 +80,7 @@ Avant de coder, propose-moi d'abord le plan detaille complet de ce que tu vas co
 
 ### 📘 Exemple complet rempli : LinguaLibre
 
-Le prompt exact qu'Emile utilise sur scene. **Voir le resultat en direct** : [emilezounon.com/KodjoLIvetest/](https://emilezounon.com/KodjoLIvetest/) Parfait comme reference pour voir a quoi ressemble un prompt entierement rempli.
+Le prompt exact qu'Emile utilise sur scene. **Voir le resultat en direct** : [emilezounon.com/lingualibre-demo/](https://emilezounon.com/lingualibre-demo/) Parfait comme reference pour voir a quoi ressemble un prompt entierement rempli.
 
 ```
 Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
@@ -300,7 +300,7 @@ Avant de coder, propose-moi d'abord le plan detaille complet. Ne commence pas a 
 
 ### 📘 Exemple complet rempli : LinguaLibre
 
-Le prompt exact qu'Emile utilise sur scene. **Voir le resultat en direct** : [emilezounon.com/KodjoLIvetest/](https://emilezounon.com/KodjoLIvetest/)
+Le prompt exact qu'Emile utilise sur scene. **Voir le resultat en direct** : [emilezounon.com/lingualibre-demo/](https://emilezounon.com/lingualibre-demo/)
 
 ```
 Cree un site web complet en UN SEUL fichier HTML (HTML + CSS +
