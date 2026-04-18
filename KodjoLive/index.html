@@ -194,7 +194,7 @@
       <p class="lede">Vous avez assiste a la demo. Voici le guide complet pour le refaire vous-meme. Deux chemins, au choix selon votre niveau. Le resultat, un vrai site web que vous pouvez partager aujourd'hui.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#choose">Commencer</a>
-        <a class="btn btn-gold" href="#prompt">Voir le prompt maitre</a>
+        <a class="btn btn-gold" href="#publier">Publier mon site</a>
       </div>
     </div>
   </header>
@@ -319,10 +319,10 @@ Ajoute une section temoignages entre la methode et les tarifs.
 Change la palette pour du vert foret et du beige.</span>
       </div>
 
-      <h3>Etape 7. Sauvegarder et publier</h3>
+      <h3>Etape 7. Sauvegarder le code</h3>
       <div class="steps">
-        <div class="step"><div class="n">A</div><div><h4>Garder le code</h4><p>Cliquez sur <strong>Copy</strong> ou <strong>Download</strong> sur l'artefact. Collez dans un fichier nomme <code>index.html</code>. Double-cliquez, le site s'ouvre sans internet.</p></div></div>
-        <div class="step"><div class="n">B</div><div><h4>Publier en ligne gratuitement</h4><p>Allez sur <a href="https://app.netlify.com/drop" target="_blank" rel="noopener">Netlify Drop</a>, glissez-deposez votre fichier, obtenez une URL publique en 10 secondes.</p></div></div>
+        <div class="step"><div class="n">A</div><div><h4>Telecharger le fichier</h4><p>Sur l'artefact, cliquez sur <strong>Copy</strong> ou <strong>Download</strong>. Collez dans un fichier nomme <code>index.html</code> sur votre ordinateur. Double-cliquez pour verifier : le site s'ouvre dans votre navigateur, sans internet.</p></div></div>
+        <div class="step"><div class="n">B</div><div><h4>Pret a publier ?</h4><p>Suivez la section <a href="#publier"><strong>"Publier sur GitHub Pages"</strong></a> plus bas pour mettre votre site en ligne gratuitement et pour toujours.</p></div></div>
       </div>
     </div>
   </section>
@@ -395,12 +395,74 @@ Ensuite, fais une auto-validation : verifie que le site est responsive, que tous
       <h3>Etape 7. Iterer avec Plan Mode pour les gros changements</h3>
       <p style="color:var(--ink-muted)">Pour un petit ajustement : demandez directement ("change la couleur du bouton en or"). Pour un changement structurel (nouvelle section complete, refonte de la navigation) : <strong>reactivez Plan Mode</strong> avec Shift + Tab, faites proposer un plan, validez, puis executez. C'est la methode pro.</p>
 
-      <h3>Etape 8. Publier</h3>
+      <h3>Etape 8. Publier sur GitHub Pages</h3>
+      <p style="color:var(--ink-muted)">Suivez la meme procedure que l'Option 1 : voir la section <a href="#publier"><strong>"Publier votre site"</strong></a> plus bas. Claude Code peut meme vous aider a automatiser la premiere poussee :</p>
       <div class="prompt">
 <button class="copy" data-target="p2d">Copier</button>
 <span id="p2d">Initialise git dans ce dossier, cree un premier commit avec un message clair,
-puis explique-moi pas a pas comment publier le projet sur GitHub Pages ou Vercel.</span>
+puis guide-moi etape par etape pour :
+1. Creer un nouveau depot sur github.com
+2. Pousser mon code dessus
+3. Activer GitHub Pages
+4. Trouver et copier mon URL publique finale
+
+Donne-moi les commandes exactes a taper et les boutons exacts a cliquer.</span>
       </div>
+    </div>
+  </section>
+
+  <!-- PUBLIER SUR GITHUB PAGES -->
+  <section class="block" id="publier">
+    <div class="wrap">
+      <span class="pill">Publier votre site</span>
+      <h2>Mettre votre site en ligne avec GitHub Pages (gratuit, pour toujours)</h2>
+      <p style="color:var(--ink-muted);max-width:680px">GitHub Pages heberge votre site gratuitement, a vie. Pas de carte bancaire, pas de limite de temps. Tout se passe dans le navigateur, aucun outil a installer.</p>
+
+      <h3>Etape 1. Creer un compte GitHub (si vous n'en avez pas)</h3>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Inscription gratuite</h4><p>Allez sur <a href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup</a>. Creez un compte avec votre email. Choisissez un nom d'utilisateur court et professionnel, il apparaitra dans votre URL publique.</p></div></div>
+      </div>
+
+      <h3>Etape 2. Creer un nouveau depot (repository)</h3>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Ouvrir le formulaire de creation</h4><p>Allez sur <a href="https://github.com/new" target="_blank" rel="noopener">github.com/new</a>.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Remplir les champs</h4><p>Nom du depot : quelque chose de court comme <code>mon-site</code>. Cochez <strong>Public</strong> (obligatoire pour GitHub Pages gratuit). Cochez <strong>Add a README file</strong>. Cliquez <strong>Create repository</strong>.</p></div></div>
+      </div>
+
+      <h3>Etape 3. Ajouter votre fichier HTML</h3>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Uploader le fichier</h4><p>Sur la page du depot, cliquez <strong>Add file</strong> (en haut a droite de la liste de fichiers) puis <strong>Upload files</strong>.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Deposer votre index.html</h4><p>Glissez-deposez votre fichier. <strong>Important :</strong> il DOIT s'appeler <code>index.html</code> (en minuscules, sans accent). Si votre fichier a un autre nom, renommez-le avant.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Valider</h4><p>Descendez en bas de page, cliquez <strong>Commit changes</strong>.</p></div></div>
+      </div>
+
+      <div class="note">Si vous avez deja uploade un fichier avec un mauvais nom : cliquez dessus, cliquez sur l'icone crayon (en haut a droite du fichier), renommez en <code>index.html</code>, validez.</div>
+
+      <h3>Etape 4. Activer GitHub Pages</h3>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Ouvrir les parametres</h4><p>Dans votre depot, cliquez sur l'onglet <strong>Settings</strong> (tout en haut a droite, a cote de Insights).</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Aller dans Pages</h4><p>Dans le menu de gauche, cliquez sur <strong>Pages</strong>.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Configurer la source</h4><p>Sous <em>"Build and deployment" → "Source"</em>, laissez <strong>Deploy from a branch</strong>. Sous <em>"Branch"</em>, selectionnez <strong>main</strong> et le dossier <strong>/ (root)</strong>. Cliquez <strong>Save</strong>.</p></div></div>
+      </div>
+
+      <h3>Etape 5. Trouver votre lien public (c'est ici que ca devient magique)</h3>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Attendre 60 a 90 secondes</h4><p>GitHub construit votre site. Allez prendre un verre d'eau, ne fermez pas la page.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Rafraichir la page Pages</h4><p>Rafraichissez la page <strong>Settings → Pages</strong>. Un encadre vert apparait tout en haut avec le message : <em>"Your site is live at..."</em>, suivi de votre URL.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Copier et partager votre URL</h4><p>Le lien ressemble a : <code>https://VOTRE-NOM.github.io/mon-site/</code>. Cliquez sur le lien pour tester, puis cliquez sur l'icone <strong>copier</strong> a cote pour le partager partout (WhatsApp, LinkedIn, email, carte de visite).</p></div></div>
+      </div>
+
+      <div class="note"><strong>Astuce visuelle :</strong> vous pouvez aussi voir votre lien directement sur la page d'accueil du depot. Regardez a droite, sous <em>"About"</em>, GitHub affiche un lien <strong>globe</strong> 🌐 vers votre site une fois Pages active.</div>
+
+      <h3>Etape 6. Modifier votre site plus tard</h3>
+      <p style="color:var(--ink-muted)">Pas besoin de refaire toutes les etapes. Pour chaque mise a jour :</p>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Ouvrir le fichier sur GitHub</h4><p>Dans votre depot, cliquez sur <code>index.html</code>.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Editer ou remplacer</h4><p>Cliquez sur l'icone crayon pour editer directement, ou cliquez sur l'icone corbeille pour supprimer puis uploadez une nouvelle version.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Commit et attendre</h4><p>Validez. GitHub redeploie automatiquement en 30 secondes. Rafraichissez votre URL publique.</p></div></div>
+      </div>
+
+      <div class="note"><strong>Bonus pro :</strong> connectez un nom de domaine personnalise (comme <code>monsite.com</code>) gratuitement via <em>Settings → Pages → Custom domain</em>. Votre registraire (OVH, GoDaddy, Namecheap) vous dira quoi pointer. Demandez a Claude : <em>"Guide-moi pour connecter mon domaine monsite.com a GitHub Pages."</em></div>
     </div>
   </section>
 
