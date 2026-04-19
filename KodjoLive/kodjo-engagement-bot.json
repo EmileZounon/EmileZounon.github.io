@@ -95,7 +95,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Inputs:\n//   items[0].json = first student row (but this node receives merged data)\n// Better approach: pull students and messages from the two prior nodes via $('node').all()\n\nconst students = $('Read students').all().map(i => i.json);\nconst messages = $('Read messages').all().map(i => i.json);\nconst thresholdDays = 7;\nconst now = new Date();\n\nconst output = [];\n\nfor (const student of students) {\n  if (String(student.active).toUpperCase() !== 'TRUE') continue;\n\n  const userMsgs = messages.filter(m =>\n    String(m.telegram_user_id) === String(student.telegram_user_id)\n  );\n\n  let lastMsgDate = null;\n  if (userMsgs.length > 0) {\n    lastMsgDate = new Date(\n      Math.max(...userMsgs.map(m => new Date(m.timestamp).getTime()))\n    );\n  }\n\n  const daysSilent = lastMsgDate\n    ? Math.floor((now - lastMsgDate) / (1000 * 60 * 60 * 24))\n    : 999;\n\n  if (daysSilent > thresholdDays) {\n    output.push({\n      json: {\n        telegram_user_id: student.telegram_user_id,\n        first_name: student.first_name,\n        email: student.email,\n        preferred_channel: student.preferred_channel || 'email',\n        days_silent: daysSilent,\n        last_message_date: lastMsgDate ? lastMsgDate.toISOString() : 'jamais'\n      }\n    });\n  }\n}\n\nreturn output;"
+        "jsCode": "// Check who has been silent for more than 48 hours.\n// We prioritize Telegram DM, fall back to email if the Telegram node fails (see Route by channel node).\n\nconst students = $('Read students').all().map(i => i.json);\nconst messages = $('Read messages').all().map(i => i.json);\nconst thresholdHours = 48;\nconst now = new Date();\n\nconst output = [];\n\nfor (const student of students) {\n  if (String(student.active).toUpperCase() !== 'TRUE') continue;\n\n  const userMsgs = messages.filter(m =>\n    String(m.telegram_user_id) === String(student.telegram_user_id)\n  );\n\n  let lastMsgDate = null;\n  if (userMsgs.length > 0) {\n    lastMsgDate = new Date(\n      Math.max(...userMsgs.map(m => new Date(m.timestamp).getTime()))\n    );\n  }\n\n  const hoursSilent = lastMsgDate\n    ? Math.floor((now - lastMsgDate) / (1000 * 60 * 60))\n    : 9999;\n\n  if (hoursSilent >= thresholdHours) {\n    // Channel cascade: Telegram first (free + personal), email as fallback.\n    // WhatsApp will slot in between these two in v2.\n    const hasTelegramId = student.telegram_user_id && String(student.telegram_user_id).trim() !== '';\n    const primary_channel = hasTelegramId ? 'telegram' : 'email';\n\n    output.push({\n      json: {\n        telegram_user_id: student.telegram_user_id,\n        first_name: student.first_name,\n        email: student.email,\n        primary_channel: primary_channel,\n        hours_silent: hoursSilent,\n        days_silent: Math.floor(hoursSilent / 24),\n        last_message_date: lastMsgDate ? lastMsgDate.toISOString() : 'jamais'\n      }\n    });\n  }\n}\n\nreturn output;"
       },
       "id": "compute-inactivity",
       "name": "Compute inactive students",
@@ -126,11 +126,11 @@
     {
       "parameters": {
         "dataType": "string",
-        "value1": "={{ $('Compute inactive students').item.json.preferred_channel }}",
+        "value1": "={{ $('Compute inactive students').item.json.primary_channel }}",
         "rules": {
           "values": [
-            { "conditions": { "string": [{ "value1": "={{ $('Compute inactive students').item.json.preferred_channel }}", "operation": "equal", "value2": "telegram" }] }, "outputKey": "telegram" },
-            { "conditions": { "string": [{ "value1": "={{ $('Compute inactive students').item.json.preferred_channel }}", "operation": "equal", "value2": "email" }] }, "outputKey": "email" }
+            { "conditions": { "string": [{ "value1": "={{ $('Compute inactive students').item.json.primary_channel }}", "operation": "equal", "value2": "telegram" }] }, "outputKey": "telegram" },
+            { "conditions": { "string": [{ "value1": "={{ $('Compute inactive students').item.json.primary_channel }}", "operation": "equal", "value2": "email" }] }, "outputKey": "email" }
           ]
         },
         "fallbackOutput": "email"
@@ -152,7 +152,9 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [1680, 480],
-      "notes": "Student must have sent /start to the bot at least once for this to work."
+      "continueOnFail": true,
+      "onError": "continueErrorOutput",
+      "notes": "Student must have sent /start to the bot at least once for this to work. If it fails (user didn't /start), the error branch routes to the email node as fallback."
     },
     {
       "parameters": {
@@ -207,7 +209,10 @@
         [{ "node": "Gmail: send email", "type": "main", "index": 0 }]
       ]
     },
-    "Telegram: send DM": { "main": [[{ "node": "Log outreach", "type": "main", "index": 0 }]] },
+    "Telegram: send DM": {
+      "main": [[{ "node": "Log outreach", "type": "main", "index": 0 }]],
+      "error": [[{ "node": "Gmail: send email", "type": "main", "index": 0 }]]
+    },
     "Gmail: send email": { "main": [[{ "node": "Log outreach", "type": "main", "index": 0 }]] }
   },
   "settings": { "executionOrder": "v1" },
