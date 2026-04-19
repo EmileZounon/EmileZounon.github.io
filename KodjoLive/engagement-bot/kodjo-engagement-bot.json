@@ -105,23 +105,28 @@
     },
     {
       "parameters": {
-        "resource": "message",
-        "modelId": { "__rl": true, "value": "claude-sonnet-4-5", "mode": "list" },
-        "messages": {
-          "values": [
-            {
-              "content": "=Tu ecris un petit message doux et encourageant en francais pour un eleve du programme d'anglais de Kodjo, qui n'a pas ecrit dans le groupe Telegram depuis {{ $json.days_silent }} jours.\n\nPrenom de l'eleve : {{ $json.first_name }}\nDerniere activite : {{ $json.last_message_date }}\n\nTon a incarner : coach bienveillant, grand frere ou grande sœur qui prend des nouvelles. La personne doit se sentir vue et accompagnee, jamais jugee ni pressee.\n\nRegles strictes :\n- 2 a 3 phrases maximum.\n- Commence par le prenom.\n- Exprime que l'equipe pense a la personne, sincerement.\n- Rappelle qu'il n'y a pas de pression, que son rythme est ok.\n- Termine par une question tres ouverte et legere (pas un interrogatoire).\n- Pas de tirets cadratins. Un seul emoji chaleureux maximum (🌱 💛 ✨), et seulement si ca sert.\n- Signature : L'equipe Kodjo English\n\nInterdits absolus :\n- Ne jamais dire \"tu n'as pas participe\", \"tu es absent\", \"ou es-tu passe\", \"qu'est-ce qui bloque\".\n- Jamais de tonalite accountability ou culpabilisante.\n- Pas de relance commerciale.\n\nExemples du ton attendu :\n1. \"Aminata, on pense a toi ces derniers jours. Prends le temps qu'il te faut, on est la quand tu reviens. Comment tu vas, de ton cote ? — L'equipe Kodjo English\"\n2. \"Yao, petit message pour te dire qu'on ne t'oublie pas 🌱 Pas de pression, avance a ton rythme. Y a-t-il quelque chose qu'on pourrait faire pour toi aujourd'hui ? — L'equipe Kodjo English\"\n\nNe renvoie que le texte du message, sans guillemets ni commentaire."
-            }
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "anthropic-version", "value": "2023-06-01" },
+            { "name": "content-type", "value": "application/json" }
           ]
         },
-        "options": { "maxTokensToSample": 300, "temperature": 0.7 }
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-4-5\",\n  \"max_tokens\": 400,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Tu ecris un petit message doux et encourageant en francais pour un eleve du programme d'anglais de Kodjo, qui n'a pas ecrit dans le groupe Telegram depuis {{ $json.days_silent }} jours.\\n\\nPrenom de l'eleve : {{ $json.first_name }}\\nDerniere activite : {{ $json.last_message_date }}\\n\\nTon a incarner : coach bienveillant, grand frere ou grande soeur qui prend des nouvelles. La personne doit se sentir vue et accompagnee, jamais jugee ni pressee.\\n\\nRegles strictes :\\n- 2 a 3 phrases maximum.\\n- Commence par le prenom.\\n- Exprime que l'equipe pense a la personne, sincerement.\\n- Rappelle qu'il n'y a pas de pression, que son rythme est ok.\\n- Termine par une question tres ouverte et legere.\\n- Pas de tirets cadratins. Un seul emoji chaleureux maximum.\\n- Signature : L'equipe Kodjo English\\n\\nInterdits absolus :\\n- Ne jamais dire tu n'as pas participe, tu es absent, ou es-tu passe, qu'est-ce qui bloque.\\n- Jamais de tonalite accountability ou culpabilisante.\\n- Pas de relance commerciale.\\n\\nExemples du ton attendu :\\n1. Aminata, on pense a toi ces derniers jours. Prends le temps qu'il te faut, on est la quand tu reviens. Comment tu vas, de ton cote ? L'equipe Kodjo English\\n2. Yao, petit message pour te dire qu'on ne t'oublie pas. Pas de pression, avance a ton rythme. Y a-t-il quelque chose qu'on pourrait faire pour toi aujourd'hui ? L'equipe Kodjo English\\n\\nNe renvoie que le texte du message, sans guillemets ni commentaire.\"\n    }\n  ]\n}",
+        "options": {}
       },
       "id": "claude-message",
       "name": "Claude: generate nudge",
-      "type": "@n8n/n8n-nodes-langchain.anthropic",
-      "typeVersion": 1.3,
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
       "position": [1200, 600],
-      "notes": "Requires Anthropic API credential. Uses Claude Sonnet 4.5 for speed and cost."
+      "notes": "Calls Anthropic API directly. Create a 'Header Auth' credential in n8n with Name=x-api-key and Value=<your Anthropic API key>. Response text is at $json.content[0].text."
     },
     {
       "parameters": {
