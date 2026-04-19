@@ -25,7 +25,11 @@
 
     .topbar{background:var(--navy);color:#fff;padding:10px 0;font-size:13px}
     .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
-    .topbar a{color:#F4B942;text-decoration:none;font-weight:600}
+    .topbar .left{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .topbar .back{color:#F4B942;text-decoration:none;font-weight:600}
+    .lang-toggle{display:inline-flex;border:1px solid rgba(255,255,255,.25);border-radius:999px;overflow:hidden;font-size:12px}
+    .lang-toggle a{padding:4px 12px;color:rgba(255,255,255,.7);text-decoration:none;font-weight:600}
+    .lang-toggle a.active{background:#F4B942;color:var(--navy)}
 
     .hero{padding:60px 0 36px;border-bottom:1px solid var(--line)}
     .eyebrow{display:inline-block;letter-spacing:.18em;text-transform:uppercase;font-size:12px;font-weight:700;color:var(--blue);background:var(--light);padding:6px 12px;border-radius:4px;margin-bottom:18px}
@@ -103,8 +107,14 @@
 
   <div class="topbar">
     <div class="wrap">
-      <span><strong>Guide de deploiement et test</strong> · Bot d'engagement</span>
-      <a href="index.html">← retour au kit</a>
+      <div class="left">
+        <span><strong>Guide de deploiement et test</strong> · Bot d'engagement</span>
+        <span class="lang-toggle">
+          <a href="deployment.html" class="active">FR</a>
+          <a href="deployment.en.html">EN</a>
+        </span>
+      </div>
+      <a class="back" href="index.html">← retour au kit</a>
     </div>
   </div>
 
