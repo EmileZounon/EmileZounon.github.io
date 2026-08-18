@@ -21,7 +21,7 @@ Import `lead-intake-claude-reply.json` into n8n (**Workflows → ⋯ → Import 
 | 1 | `Claude Writes Reply` | Anthropic API credential (built-in credential type) |
 | 2 | `Send Gmail Reply`, `Alert Me About The Failure` | Gmail OAuth2 credential |
 | 3 | Both Google Sheets nodes | Google Sheets credential, then replace `REPLACE_WITH_YOUR_GOOGLE_SHEET_ID` with your spreadsheet ID |
-| 4 | `Alert Me About The Failure` | Alert recipient — currently `emile.giovannie@gmail.com` |
+| 4 | `Alert Me About The Failure` | Replace `REPLACE_WITH_YOUR_ALERT_EMAIL` with the address that should receive failure alerts |
 
 Create the spreadsheet in Google Sheets first — the workflow appends to an existing file,
 it does not create one. It needs a tab named **Leads** whose row 1 is exactly:
@@ -82,7 +82,13 @@ Being text, the column sorts alphabetically rather than chronologically. If you 
 by date in Sheets, map the column to `submitted_at` instead (the raw ISO value, which does
 sort correctly as text) and format it in Sheets.
 
-## Sharing this sheet
+## Sharing this workflow
+
+The exported JSON contains no credentials, no API keys and no lead data — n8n never exports
+those — and both the sheet ID and the alert address are placeholders. It is safe to publish
+as-is. Fill the placeholders in inside n8n after importing, not in the file.
+
+## Sharing the sheet
 
 The sheet holds leads' names, email addresses and the full text of what they wrote — personal
 data they gave you privately. Before sharing it publicly, hide or remove `Email` and
