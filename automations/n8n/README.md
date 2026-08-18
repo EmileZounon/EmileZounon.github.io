@@ -27,7 +27,7 @@ Create the spreadsheet in Google Sheets first — the workflow appends to an exi
 it does not create one. It needs a tab named **Leads** whose row 1 is exactly:
 
 ```
-Name | Email | Request | Content of the email | Response
+Name | Email | Request | Content of the email | Response | When they wrote
 ```
 
 | Column | What lands in it |
@@ -37,9 +37,11 @@ Name | Email | Request | Content of the email | Response
 | `Request` | Claude's short summary of what they asked for |
 | `Content of the email` | their message, verbatim |
 | `Response` | the reply that was sent |
+| `When they wrote` | submission time, e.g. `Mon 17 Aug 2026, 3:02pm` |
 
 Headers are matched by name, so spelling and case must match exactly — a typo does not
-error, it silently appends a new column.
+error, it silently appends a new column. Because matching is by name and not position, you
+can reorder the columns in Sheets however you like without touching n8n.
 
 Then activate the workflow and grab the public form URL from the **New Lead Form** node.
 
@@ -73,7 +75,15 @@ tells you whether the reply reached the lead — only a Sheets failure happens a
 
 ## Timestamps
 
-The submission time is not a sheet column. It appears in the failure alert email, formatted
-readably (`Mon 17 Aug 2026, 3:02pm`) in the n8n instance's timezone — set `GENERIC_TIMEZONE`
-if that comes out wrong. `Normalize Lead` also emits the raw ISO value as `submitted_at` if
-you ever want to add it back as a column.
+`When they wrote` is written as readable text — `Mon 17 Aug 2026, 3:02pm` — rendered in the
+n8n instance's timezone. If times come out in UTC, set `GENERIC_TIMEZONE` on the instance.
+
+Being text, the column sorts alphabetically rather than chronologically. If you need to sort
+by date in Sheets, map the column to `submitted_at` instead (the raw ISO value, which does
+sort correctly as text) and format it in Sheets.
+
+## Sharing this sheet
+
+The sheet holds leads' names, email addresses and the full text of what they wrote — personal
+data they gave you privately. Before sharing it publicly, hide or remove `Email` and
+`Content of the email`, or point the workflow at a separate demo spreadsheet.
