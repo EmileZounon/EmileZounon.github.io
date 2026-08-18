@@ -23,11 +23,23 @@ Import `lead-intake-claude-reply.json` into n8n (**Workflows → ⋯ → Import 
 | 3 | Both Google Sheets nodes | Google Sheets credential, then replace `REPLACE_WITH_YOUR_GOOGLE_SHEET_ID` with your spreadsheet ID |
 | 4 | `Alert Me About The Failure` | Alert recipient — currently `emile.giovannie@gmail.com` |
 
-The spreadsheet needs a tab named **Leads** whose row 1 is exactly:
+Create the spreadsheet in Google Sheets first — the workflow appends to an existing file,
+it does not create one. It needs a tab named **Leads** whose row 1 is exactly:
 
 ```
-Name | Email | What they asked for | When they wrote | What we replied
+Name | Email | Request | Content of the email | Response
 ```
+
+| Column | What lands in it |
+|---|---|
+| `Name` | the lead's name |
+| `Email` | the lead's email address |
+| `Request` | Claude's short summary of what they asked for |
+| `Content of the email` | their message, verbatim |
+| `Response` | the reply that was sent |
+
+Headers are matched by name, so spelling and case must match exactly — a typo does not
+error, it silently appends a new column.
 
 Then activate the workflow and grab the public form URL from the **New Lead Form** node.
 
@@ -58,3 +70,10 @@ time slot that is not in those lists. Nothing else needs editing.
 Each fragile step retries 3 times (2s apart), then routes to its red error output, which
 stamps which step broke and feeds the alert email and the `NOT SENT` sheet row. The alert
 tells you whether the reply reached the lead — only a Sheets failure happens after the send.
+
+## Timestamps
+
+The submission time is not a sheet column. It appears in the failure alert email, formatted
+readably (`Mon 17 Aug 2026, 3:02pm`) in the n8n instance's timezone — set `GENERIC_TIMEZONE`
+if that comes out wrong. `Normalize Lead` also emits the raw ISO value as `submitted_at` if
+you ever want to add it back as a column.
