@@ -156,7 +156,7 @@
             "Request": "={{ $('Parse Claude Reply').item.json.asked_for }}",
             "Content of the email": "={{ $('Parse Claude Reply').item.json.message }}",
             "Response": "={{ $('Parse Claude Reply').item.json.reply }}",
-            "When they wrote": "={{ $('Parse Claude Reply').item.json.submitted_at_readable }}"
+            "Time and Date of Request": "={{ $('Parse Claude Reply').item.json.submitted_at_readable }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -206,8 +206,8 @@
               "canBeUsedToMatch": true
             },
             {
-              "id": "When they wrote",
-              "displayName": "When they wrote",
+              "id": "Time and Date of Request",
+              "displayName": "Time and Date of Request",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -416,7 +416,7 @@
             "Request": "={{ $json.sheet_request }}",
             "Content of the email": "={{ $json.lead_message }}",
             "Response": "={{ $json.sheet_reply_note }}",
-            "When they wrote": "={{ $json.submitted_at_readable }}"
+            "Time and Date of Request": "={{ $json.submitted_at_readable }}"
           },
           "matchingColumns": [],
           "schema": [
@@ -466,8 +466,8 @@
               "canBeUsedToMatch": true
             },
             {
-              "id": "When they wrote",
-              "displayName": "When they wrote",
+              "id": "Time and Date of Request",
+              "displayName": "Time and Date of Request",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -492,7 +492,7 @@
     },
     {
       "parameters": {
-        "content": "## Setup — 4 things before you switch this on\n\n**1. Anthropic credential** on *Claude Writes Reply* (HTTP Request node, uses the built-in Anthropic API credential type).\n\n**2. Gmail (OAuth2) credential** on *Send Gmail Reply* and *Alert Me About The Failure*.\n\n**3. Google Sheets credential** on both Sheets nodes, then replace `REPLACE_WITH_YOUR_GOOGLE_SHEET_ID` with your spreadsheet ID and confirm the tab is named **Leads**.\n\nRow 1 of that tab must contain exactly these headers:\n`Name` · `Email` · `Request` · `Content of the email` · `Response` · `When they wrote`\n\n**4. Alert recipient** — on *Alert Me About The Failure*, replace `REPLACE_WITH_YOUR_ALERT_EMAIL` with the address that should receive failure alerts.\n\nDo not skip step 4: if it is left as the placeholder the workflow still runs, but failure alerts silently go nowhere.",
+        "content": "## Setup — 4 things before you switch this on\n\n**1. Anthropic credential** on *Claude Writes Reply* (HTTP Request node, uses the built-in Anthropic API credential type).\n\n**2. Gmail (OAuth2) credential** on *Send Gmail Reply* and *Alert Me About The Failure*.\n\n**3. Google Sheets credential** on both Sheets nodes, then replace `REPLACE_WITH_YOUR_GOOGLE_SHEET_ID` with your spreadsheet ID and confirm the tab is named **Leads**.\n\nRow 1 of that tab must contain exactly these headers:\n`Name` · `Email` · `Request` · `Content of the email` · `Response` · `Time and Date of Request`\n\n**4. Alert recipient** — on *Alert Me About The Failure*, replace `REPLACE_WITH_YOUR_ALERT_EMAIL` with the address that should receive failure alerts.\n\nDo not skip step 4: if it is left as the placeholder the workflow still runs, but failure alerts silently go nowhere.",
         "width": 620,
         "height": 440,
         "color": 4

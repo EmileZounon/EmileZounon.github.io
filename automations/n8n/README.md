@@ -27,7 +27,7 @@ Create the spreadsheet in Google Sheets first — the workflow appends to an exi
 it does not create one. It needs a tab named **Leads** whose row 1 is exactly:
 
 ```
-Name | Email | Request | Content of the email | Response | When they wrote
+Name | Email | Request | Content of the email | Response | Time and Date of Request
 ```
 
 | Column | What lands in it |
@@ -37,7 +37,7 @@ Name | Email | Request | Content of the email | Response | When they wrote
 | `Request` | Claude's short summary of what they asked for |
 | `Content of the email` | their message, verbatim |
 | `Response` | the reply that was sent |
-| `When they wrote` | submission time, e.g. `Mon 17 Aug 2026, 3:02pm` |
+| `Time and Date of Request` | submission time, e.g. `Mon 17 Aug 2026, 3:02pm` |
 
 Headers are matched by name, so spelling and case must match exactly — a typo does not
 error, it silently appends a new column. Because matching is by name and not position, you
@@ -75,7 +75,7 @@ tells you whether the reply reached the lead — only a Sheets failure happens a
 
 ## Timestamps
 
-`When they wrote` is written as readable text — `Mon 17 Aug 2026, 3:02pm` — rendered in the
+`Time and Date of Request` is written as readable text — `Mon 17 Aug 2026, 3:02pm` — rendered in the
 n8n instance's timezone. If times come out in UTC, set `GENERIC_TIMEZONE` on the instance.
 
 Being text, the column sorts alphabetically rather than chronologically. If you need to sort
