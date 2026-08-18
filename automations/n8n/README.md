@@ -61,11 +61,24 @@ time slot that is not in those lists. Nothing else needs editing.
 
 - The system prompt lists the **only** facts Claude may use and bans guessing, estimating
   or extrapolating anything outside them.
-- Claude returns JSON (`asked_for`, `is_vague`, `subject`, `reply`) via an assistant prefill,
+- Claude returns JSON (`asked_for`, `is_vague`, `subject`, `reply`) via structured outputs
+  (`output_config.format` with a JSON schema),
   so the sheet's "what they asked for" column is Claude's own summary rather than a regex.
 - `Parse Claude Reply` guarantees the `— Jane` sign-off, rejects an empty or truncated
   response, and counts words.
-- Model is `claude-sonnet-5`; swap it in the same constants block if you want `claude-opus-5`.
+- Model is `claude-opus-5` at `effort: "medium"`. Swap either in the `claudeRequest` object
+  in `Normalize Lead`.
+
+Two parameters that older examples use are **rejected with a 400** on current models, so this
+workflow uses neither:
+
+- `temperature` (and `top_p` / `top_k`) — removed; drop it rather than lowering it.
+- Assistant prefill (a trailing `{"role": "assistant"}` turn) — removed; use
+  `output_config.format` to force JSON instead.
+
+Because thinking is on by default, its tokens count toward `max_tokens` (set to 8000 here) and
+the first content block may be a `thinking` block — `Parse Claude Reply` therefore picks the
+first block whose `type` is `text` rather than reading `content[0]`.
 
 ## Failure handling
 
