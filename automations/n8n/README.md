@@ -24,7 +24,10 @@ Import `lead-intake-claude-reply.json` into n8n (**Workflows → ⋯ → Import 
 | 4 | `Alert Me About The Failure` | Replace `REPLACE_WITH_YOUR_ALERT_EMAIL` with the address that should receive failure alerts |
 
 Create the spreadsheet in Google Sheets first — the workflow appends to an existing file,
-it does not create one. It needs a tab named **Leads** whose row 1 is exactly:
+it does not create one. It needs **two tabs**, `Leads` and `Errors`. Successful leads only
+ever go to `Leads`; failures only ever go to `Errors`.
+
+### Tab 1 — `Leads`
 
 ```
 Name | Email Address | Request | Original Message | Reply Sent | Time and Date of Request
@@ -38,6 +41,21 @@ Name | Email Address | Request | Original Message | Reply Sent | Time and Date o
 | `Original Message` | their message, verbatim |
 | `Reply Sent` | the reply that was sent |
 | `Time and Date of Request` | submission time, e.g. `Mon 17 Aug 2026, 3:02pm` |
+
+### Tab 2 — `Errors`
+
+```
+Time and Date of Request | Name | Email Address | Original Message | Failed Step | Error | Reply Drafted | Was Reply Sent
+```
+
+| Column | What lands in it |
+|---|---|
+| `Time and Date of Request` | when the lead wrote in |
+| `Name`, `Email Address`, `Original Message` | the lead, recovered as far as the failure allows |
+| `Failed Step` | which node broke, e.g. `Gmail send` |
+| `Error` | the error text n8n returned |
+| `Reply Drafted` | the reply Claude had written, if it got that far — copy it out and send by hand |
+| `Was Reply Sent` | `Yes` only when the send succeeded and just the logging failed |
 
 Headers are matched by name, so spelling and case must match exactly — a typo does not
 error, it silently appends a new column. Because matching is by name and not position, you
@@ -83,8 +101,13 @@ first block whose `type` is `text` rather than reading `content[0]`.
 ## Failure handling
 
 Each fragile step retries 3 times (2s apart), then routes to its red error output, which
-stamps which step broke and feeds the alert email and the `NOT SENT` sheet row. The alert
-tells you whether the reply reached the lead — only a Sheets failure happens after the send.
+stamps which step broke and feeds both the alert email and a row on the `Errors` tab. Both
+tell you whether the reply actually reached the lead — only a Sheets failure happens after
+the send, so everything else means the lead is still waiting to hear from you.
+
+If a failure produces no `Errors` row at all, open the execution and look at
+**Log Failure In Errors Tab** — that node retries three times and then fails visibly, so the
+cause (usually a missing `Errors` tab or a header typo) is shown there.
 
 ## Timestamps
 
