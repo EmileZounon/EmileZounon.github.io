@@ -27,16 +27,16 @@ Create the spreadsheet in Google Sheets first — the workflow appends to an exi
 it does not create one. It needs a tab named **Leads** whose row 1 is exactly:
 
 ```
-Name | Email | Request | Content of the email | Response | Time and Date of Request
+Name | Email Address | Request | Original Message | Reply Sent | Time and Date of Request
 ```
 
 | Column | What lands in it |
 |---|---|
 | `Name` | the lead's name |
-| `Email` | the lead's email address |
+| `Email Address` | the lead's email address |
 | `Request` | Claude's short summary of what they asked for |
-| `Content of the email` | their message, verbatim |
-| `Response` | the reply that was sent |
+| `Original Message` | their message, verbatim |
+| `Reply Sent` | the reply that was sent |
 | `Time and Date of Request` | submission time, e.g. `Mon 17 Aug 2026, 3:02pm` |
 
 Headers are matched by name, so spelling and case must match exactly — a typo does not
@@ -91,5 +91,5 @@ as-is. Fill the placeholders in inside n8n after importing, not in the file.
 ## Sharing the sheet
 
 The sheet holds leads' names, email addresses and the full text of what they wrote — personal
-data they gave you privately. Before sharing it publicly, hide or remove `Email` and
-`Content of the email`, or point the workflow at a separate demo spreadsheet.
+data they gave you privately. Before sharing it publicly, hide or remove `Email Address` and
+`Original Message`, or point the workflow at a separate demo spreadsheet.
